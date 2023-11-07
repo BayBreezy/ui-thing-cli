@@ -11,3 +11,23 @@ export type UIConfig = {
 };
 
 export type InitOptions = { force?: boolean };
+
+export interface Data {
+  name: string;
+  value: string;
+  deps: string[];
+  devDeps: string[];
+  nuxtModules: string[];
+  instructions?: string[];
+  files: Composable[];
+  utils: Composable[];
+  composables: Composable[];
+  components?: string[];
+  askValidator?: boolean;
+}
+
+export interface Composable {
+  fileName: string;
+  dirPath: string;
+  fileContent: string;
+}
