@@ -53,7 +53,7 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
-    "@types/figlet": "^1.5.7",
+    "@types/figlet": "^1.5.8",
     "@types/fs-extra": "^11.0.3",
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.8.10",
