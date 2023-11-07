@@ -1,6 +1,6 @@
 {
-  "name": "ui-thing-cli",
-  "version": "0.0.2",
+  "name": "ui-thing",
+  "version": "0.0.1",
   "description": "CLI used to add Nuxt 3 components to a project",
   "type": "module",
   "types": "./dist/index.d.ts",
