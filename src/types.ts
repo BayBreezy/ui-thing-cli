@@ -12,7 +12,7 @@ export type UIConfig = {
 
 export type InitOptions = { force?: boolean };
 
-export interface Data {
+export type Component = {
   name: string;
   value: string;
   deps: string[];
@@ -24,10 +24,10 @@ export interface Data {
   composables: Composable[];
   components?: string[];
   askValidator?: boolean;
-}
+};
 
-export interface Composable {
+export type Composable = {
   fileName: string;
   dirPath: string;
   fileContent: string;
-}
+};
