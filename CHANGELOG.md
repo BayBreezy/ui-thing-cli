@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.0.5
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.3...v0.0.5)
+
+### 🏡 Chore
+
+- Update release script ([c53b0d4](https://github.com/BayBreezy/ui-thing-cli/commit/c53b0d4))
+- Update readme ([1d95ccb](https://github.com/BayBreezy/ui-thing-cli/commit/1d95ccb))
+- Split cli from website repo ([66f2b3c](https://github.com/BayBreezy/ui-thing-cli/commit/66f2b3c))
+- Update deps ([3d90848](https://github.com/BayBreezy/ui-thing-cli/commit/3d90848))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.3
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.2...v0.0.3)
