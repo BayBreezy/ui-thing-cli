@@ -155,22 +155,22 @@ export const add = new Command()
         if (component.value === "datatable") {
           cfg.defaultExport.app ||= {};
           cfg.defaultExport.app.head ||= {};
-          cfg.defaultExport.app.head.scripts ||= [];
-          const scriptOneExists = cfg.defaultExport.app.head.scripts.find(
+          cfg.defaultExport.app.head.script ||= [];
+          const scriptOneExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
               i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"
           );
           if (!scriptOneExists) {
-            cfg.defaultExport.app.head.scripts.push({
+            cfg.defaultExport.app.head.script.push({
               src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js",
             });
           }
-          const scriptTwoExists = cfg.defaultExport.app.head.scripts.find(
+          const scriptTwoExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
               i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"
           );
           if (!scriptTwoExists) {
-            cfg.defaultExport.app.head.scripts.push({
+            cfg.defaultExport.app.head.script.push({
               src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js",
             });
           }
