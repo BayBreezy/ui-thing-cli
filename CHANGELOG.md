@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.0.7
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.6...v0.0.7)
+
+### 🏡 Chore
+
+- Update add command and components ([a294316](https://github.com/BayBreezy/ui-thing-cli/commit/a294316))
+- Update add command ([641e474](https://github.com/BayBreezy/ui-thing-cli/commit/641e474))
+- Update add command ([81d0d4e](https://github.com/BayBreezy/ui-thing-cli/commit/81d0d4e))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.6
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.5...v0.0.6)
