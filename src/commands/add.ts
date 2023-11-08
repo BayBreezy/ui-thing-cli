@@ -129,7 +129,7 @@ export const add = new Command()
         }
         await writeFile(filePath, file.fileContent);
 
-        // This is not scalable. We need to find a better way to do this
+        // @not-scalable
         if (component.value === "vue-sonner") {
           // Update the nuxt config
           cfg.defaultExport.imports ||= {};
@@ -149,6 +149,30 @@ export const add = new Command()
           const transpileExists = cfg.defaultExport.build.transpile.find((i: any) => "vue-sonner");
           if (!transpileExists) {
             cfg.defaultExport.build.transpile.push("vue-sonner");
+          }
+        }
+        // @not-scalable
+        if (component.value === "datatable") {
+          cfg.defaultExport.app ||= {};
+          cfg.defaultExport.app.head ||= {};
+          cfg.defaultExport.app.head.scripts ||= [];
+          const scriptOneExists = cfg.defaultExport.app.head.scripts.find(
+            (i: any) =>
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"
+          );
+          if (!scriptOneExists) {
+            cfg.defaultExport.app.head.scripts.push({
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js",
+            });
+          }
+          const scriptTwoExists = cfg.defaultExport.app.head.scripts.find(
+            (i: any) =>
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"
+          );
+          if (!scriptTwoExists) {
+            cfg.defaultExport.app.head.scripts.push({
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js",
+            });
           }
         }
 
@@ -199,6 +223,28 @@ export const add = new Command()
             }
           }
           await writeFile(filePath, composable.fileContent);
+        }
+        // add plugins attached to the component
+        loop5: for (let j = 0; j < component.plugins.length; j++) {
+          const plugin = component.plugins[j];
+          const filePath = path.join(currentDirectory, plugin.dirPath, plugin.fileName);
+          // Check if the file exists
+          const exists = await fileExists(filePath);
+          if (exists && !uiConfig.force) {
+            const res = await prompts({
+              type: "confirm",
+              name: "value",
+              message: `The plugins file that we are trying to add ${kleur.bold(
+                plugin.fileName
+              )} already exists. Overwrite?`,
+              initial: true,
+            });
+            if (!res.value) {
+              consola.info(`We will not overwrite the file for ${kleur.cyan(plugin.fileName)}`);
+              continue loop5;
+            }
+          }
+          await writeFile(filePath, plugin.fileContent);
         }
       }
     }

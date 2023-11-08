@@ -40,6 +40,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Alert",
@@ -69,6 +70,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Alert Dialog",
@@ -81,7 +83,7 @@ export default [
         fileName: "shared.styles.ts",
         dirPath: "utils",
         fileContent:
-          '// Add here because button styles are used in several components\r\nexport const buttonStyles = tv({\r\n  base: "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",\r\n  variants: {\r\n    variant: {\r\n      default: "bg-primary text-primary-foreground hover:bg-primary/90",\r\n      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",\r\n      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",\r\n      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",\r\n      ghost: "hover:bg-accent hover:text-accent-foreground",\r\n      link: "text-primary underline-offset-4 hover:underline",\r\n    },\r\n    size: {\r\n      default: "h-10 px-4 py-2",\r\n      sm: "h-9 rounded-md px-3",\r\n      lg: "h-11 rounded-md px-8",\r\n      "icon-sm": "h-9 w-9",\r\n      icon: "h-10 w-10",\r\n    },\r\n    disabled: {\r\n      true: "pointer-events-none opacity-50",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    variant: "default",\r\n    size: "default",\r\n  },\r\n});\r\n',
+          '// Add here because button styles are used in several components\nexport const buttonStyles = tv({\n  base: "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",\n  variants: {\n    variant: {\n      default: "bg-primary text-primary-foreground hover:bg-primary/90",\n      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",\n      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",\n      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",\n      ghost: "hover:bg-accent hover:text-accent-foreground",\n      link: "text-primary underline-offset-4 hover:underline",\n    },\n    size: {\n      default: "h-10 px-4 py-2",\n      sm: "h-9 rounded-md px-3",\n      lg: "h-11 rounded-md px-8",\n      "icon-sm": "h-9 w-9",\n      icon: "h-10 w-10",\n    },\n    disabled: {\n      true: "pointer-events-none opacity-50",\n    },\n  },\n  defaultVariants: {\n    variant: "default",\n    size: "default",\n  },\n});\n',
       },
     ],
     files: [
@@ -89,7 +91,7 @@ export default [
         fileName: "AlertDialog/Action.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AlertDialogAction\r\n    v-bind="forwarded"\r\n    :class="buttonStyles({ variant, size, disabled, class: props.class })"\r\n  >\r\n    <slot>{{ text }} </slot>\r\n  </AlertDialogAction>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AlertDialogAction, useForwardProps } from "radix-vue";\r\n  import type { AlertDialogActionProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      AlertDialogActionProps & {\r\n        onClick?: () => void;\r\n        text?: string;\r\n        class?: any;\r\n        disabled?: boolean;\r\n        variant?: VariantProps<typeof buttonStyles>["variant"];\r\n        size?: VariantProps<typeof buttonStyles>["size"];\r\n      }\r\n    >(),\r\n    {\r\n      text: "Continue",\r\n      variant: "default",\r\n    }\r\n  );\r\n\r\n  const forwarded = useForwardProps(useOmit(props, ["text", "class", "variant", "size"]));\r\n</script>\r\n',
+          '<template>\n  <AlertDialogAction\n    v-bind="forwarded"\n    :class="buttonStyles({ variant, size, disabled, class: props.class })"\n  >\n    <slot>{{ text }} </slot>\n  </AlertDialogAction>\n</template>\n\n<script lang="ts" setup>\n  import { AlertDialogAction, useForwardProps } from "radix-vue";\n  import type { AlertDialogActionProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      AlertDialogActionProps & {\n        onClick?: () => void;\n        text?: string;\n        class?: any;\n        disabled?: boolean;\n        variant?: VariantProps<typeof buttonStyles>["variant"];\n        size?: VariantProps<typeof buttonStyles>["size"];\n      }\n    >(),\n    {\n      text: "Continue",\n      variant: "default",\n    }\n  );\n\n  const forwarded = useForwardProps(useOmit(props, ["text", "class", "variant", "size"]));\n</script>\n',
       },
       {
         fileName: "AlertDialog/AlertDialog.vue",
@@ -101,7 +103,7 @@ export default [
         fileName: "AlertDialog/Cancel.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AlertDialogCancel\r\n    v-bind="forwarded"\r\n    :class="buttonStyles({ variant, size, disabled, class: props.class })"\r\n  >\r\n    <slot>{{ text }}</slot>\r\n  </AlertDialogCancel>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AlertDialogCancel, useForwardProps } from "radix-vue";\r\n  import type { AlertDialogCancelProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      AlertDialogCancelProps & {\r\n        onClick?: () => void;\r\n        text?: string;\r\n        class?: any;\r\n        disabled?: boolean;\r\n        variant?: VariantProps<typeof buttonStyles>["variant"];\r\n        size?: VariantProps<typeof buttonStyles>["size"];\r\n      }\r\n    >(),\r\n    {\r\n      text: "Cancel",\r\n      variant: "outline",\r\n    }\r\n  );\r\n  const forwarded = useForwardProps(useOmit(props, ["text", "class", "variant", "size"]));\r\n</script>\r\n',
+          '<template>\n  <AlertDialogCancel\n    v-bind="forwarded"\n    :class="buttonStyles({ variant, size, disabled, class: props.class })"\n  >\n    <slot>{{ text }}</slot>\n  </AlertDialogCancel>\n</template>\n\n<script lang="ts" setup>\n  import { AlertDialogCancel, useForwardProps } from "radix-vue";\n  import type { AlertDialogCancelProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      AlertDialogCancelProps & {\n        onClick?: () => void;\n        text?: string;\n        class?: any;\n        disabled?: boolean;\n        variant?: VariantProps<typeof buttonStyles>["variant"];\n        size?: VariantProps<typeof buttonStyles>["size"];\n      }\n    >(),\n    {\n      text: "Cancel",\n      variant: "outline",\n    }\n  );\n  const forwarded = useForwardProps(useOmit(props, ["text", "class", "variant", "size"]));\n</script>\n',
       },
       {
         fileName: "AlertDialog/Content.vue",
@@ -153,6 +155,7 @@ export default [
       },
     ],
     composables: [],
+    plugins: [],
   },
   {
     name: "Aspect Ratio",
@@ -165,11 +168,12 @@ export default [
         fileName: "AspectRatio.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AspectRatio v-bind="forwarded">\r\n    <slot />\r\n  </AspectRatio>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AspectRatio, useForwardProps } from "radix-vue";\r\n  import type { AspectRatioProps } from "radix-vue";\r\n\r\n  const props = defineProps<AspectRatioProps>();\r\n  const forwarded = useForwardProps(props);\r\n</script>\r\n',
+          '<template>\n  <AspectRatio v-bind="forwarded">\n    <slot />\n  </AspectRatio>\n</template>\n\n<script lang="ts" setup>\n  import { AspectRatio, useForwardProps } from "radix-vue";\n  import type { AspectRatioProps } from "radix-vue";\n\n  const props = defineProps<AspectRatioProps>();\n  const forwarded = useForwardProps(props);\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Autocomplete",
@@ -271,6 +275,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Avatar",
@@ -283,23 +288,24 @@ export default [
         fileName: "Avatar/Avatar.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AvatarRoot :as="as" :as-child="asChild" :class="styles({ class: props.class })">\r\n    <slot>\r\n      <slot name="image">\r\n        <UIAvatarImage\r\n          @loading-status-change="emits(\'loadingStatusChange\', $event)"\r\n          v-if="src"\r\n          :src="src"\r\n          :alt="alt"\r\n          :class="imageClass"\r\n        />\r\n      </slot>\r\n      <slot name="fallback">\r\n        <UIAvatarFallback :delay-ms="delayMs" :class="fallbackClass" :fallback="fallback" />\r\n      </slot>\r\n    </slot>\r\n  </AvatarRoot>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AvatarRoot } from "radix-vue";\r\n  import type { AvatarImageEmits, AvatarImageProps, AvatarRootProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      AvatarRootProps &\r\n        Partial<AvatarImageProps> & {\r\n          class?: any;\r\n          imageClass?: any;\r\n          fallbackClass?: any;\r\n          alt?: string;\r\n          fallback?: string;\r\n          delayMs?: number;\r\n        }\r\n    >(),\r\n    {}\r\n  );\r\n\r\n  const emits = defineEmits<AvatarImageEmits>();\r\n  const styles = tv({\r\n    base: "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <AvatarRoot :as="as" :as-child="asChild" :class="styles({ class: props.class })">\n    <slot>\n      <slot name="image">\n        <UIAvatarImage\n          @loading-status-change="emits(\'loadingStatusChange\', $event)"\n          v-if="src"\n          :src="src"\n          :alt="alt"\n          :class="imageClass"\n        />\n      </slot>\n      <slot name="fallback">\n        <UIAvatarFallback :delay-ms="delayMs" :class="fallbackClass" :fallback="fallback" />\n      </slot>\n    </slot>\n  </AvatarRoot>\n</template>\n\n<script lang="ts" setup>\n  import { AvatarRoot } from "radix-vue";\n  import type { AvatarImageEmits, AvatarImageProps, AvatarRootProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      AvatarRootProps &\n        Partial<AvatarImageProps> & {\n          class?: any;\n          imageClass?: any;\n          fallbackClass?: any;\n          alt?: string;\n          fallback?: string;\n          delayMs?: number;\n        }\n    >(),\n    {}\n  );\n\n  const emits = defineEmits<AvatarImageEmits>();\n  const styles = tv({\n    base: "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",\n  });\n</script>\n',
       },
       {
         fileName: "Avatar/Fallback.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AvatarFallback :class="styles({ class: props.class })" v-bind="forwarded">\r\n    <slot>\r\n      {{ fallback }}\r\n    </slot>\r\n  </AvatarFallback>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AvatarFallback, useForwardProps } from "radix-vue";\r\n  import type { AvatarFallbackProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    AvatarFallbackProps & {\r\n      fallback?: string;\r\n      class?: any;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(useOmit(props, ["fallback", "class"]));\r\n\r\n  const styles = tv({\r\n    base: "flex h-full w-full items-center justify-center rounded-full bg-muted font-medium",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <AvatarFallback :class="styles({ class: props.class })" v-bind="forwarded">\n    <slot>\n      {{ fallback }}\n    </slot>\n  </AvatarFallback>\n</template>\n\n<script lang="ts" setup>\n  import { AvatarFallback, useForwardProps } from "radix-vue";\n  import type { AvatarFallbackProps } from "radix-vue";\n\n  const props = defineProps<\n    AvatarFallbackProps & {\n      fallback?: string;\n      class?: any;\n    }\n  >();\n  const forwarded = useForwardProps(useOmit(props, ["fallback", "class"]));\n\n  const styles = tv({\n    base: "flex h-full w-full items-center justify-center rounded-full bg-muted font-medium",\n  });\n</script>\n',
       },
       {
         fileName: "Avatar/Image.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <AvatarImage v-bind="forwarded" :class="styles({ class: props.class })" :alt="alt" />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { AvatarImage, useForwardPropsEmits } from "radix-vue";\r\n  import type { AvatarImageEmits, AvatarImageProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    AvatarImageProps & {\r\n      alt?: string;\r\n      class?: any;\r\n    }\r\n  >();\r\n  const emits = defineEmits<AvatarImageEmits>();\r\n  const forwarded = useForwardPropsEmits(useOmit(props, ["alt", "class"]));\r\n\r\n  const styles = tv({\r\n    base: "aspect-square h-full w-full object-cover",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <AvatarImage v-bind="forwarded" :class="styles({ class: props.class })" :alt="alt" />\n</template>\n\n<script lang="ts" setup>\n  import { AvatarImage, useForwardPropsEmits } from "radix-vue";\n  import type { AvatarImageEmits, AvatarImageProps } from "radix-vue";\n\n  const props = defineProps<\n    AvatarImageProps & {\n      alt?: string;\n      class?: any;\n    }\n  >();\n  const emits = defineEmits<AvatarImageEmits>();\n  const forwarded = useForwardPropsEmits(useOmit(props, ["alt", "class"]));\n\n  const styles = tv({\n    base: "aspect-square h-full w-full object-cover",\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Badge",
@@ -317,6 +323,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Breadcrumbs",
@@ -334,6 +341,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Button",
@@ -346,7 +354,7 @@ export default [
         fileName: "shared.styles.ts",
         dirPath: "utils",
         fileContent:
-          '// Add here because button styles are used in several components\r\nexport const buttonStyles = tv({\r\n  base: "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",\r\n  variants: {\r\n    variant: {\r\n      default: "bg-primary text-primary-foreground hover:bg-primary/90",\r\n      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",\r\n      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",\r\n      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",\r\n      ghost: "hover:bg-accent hover:text-accent-foreground",\r\n      link: "text-primary underline-offset-4 hover:underline",\r\n    },\r\n    size: {\r\n      default: "h-10 px-4 py-2",\r\n      sm: "h-9 rounded-md px-3",\r\n      lg: "h-11 rounded-md px-8",\r\n      "icon-sm": "h-9 w-9",\r\n      icon: "h-10 w-10",\r\n    },\r\n    disabled: {\r\n      true: "pointer-events-none opacity-50",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    variant: "default",\r\n    size: "default",\r\n  },\r\n});\r\n',
+          '// Add here because button styles are used in several components\nexport const buttonStyles = tv({\n  base: "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",\n  variants: {\n    variant: {\n      default: "bg-primary text-primary-foreground hover:bg-primary/90",\n      destructive: "bg-destructive text-destructive-foreground hover:bg-destructive/90",\n      outline: "border border-input bg-background hover:bg-accent hover:text-accent-foreground",\n      secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",\n      ghost: "hover:bg-accent hover:text-accent-foreground",\n      link: "text-primary underline-offset-4 hover:underline",\n    },\n    size: {\n      default: "h-10 px-4 py-2",\n      sm: "h-9 rounded-md px-3",\n      lg: "h-11 rounded-md px-8",\n      "icon-sm": "h-9 w-9",\n      icon: "h-10 w-10",\n    },\n    disabled: {\n      true: "pointer-events-none opacity-50",\n    },\n  },\n  defaultVariants: {\n    variant: "default",\n    size: "default",\n  },\n});\n',
       },
     ],
     files: [
@@ -354,10 +362,11 @@ export default [
         fileName: "Button.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <component\r\n    :is="elementType"\r\n    :class="\r\n      buttonStyles({\r\n        disabled: disabled || loading,\r\n        variant: variant,\r\n        size: size,\r\n        class: props.class,\r\n      })\r\n    "\r\n    :disabled="disabled || loading"\r\n    :to="to"\r\n    :href="href"\r\n    :type="type"\r\n    @click="onClick"\r\n  >\r\n    <slot></slot>\r\n  </component>\r\n</template>\r\n\r\n<script setup lang="ts">\r\n  import type { RouteLocationRaw } from "vue-router";\r\n\r\n  type ButtonProps = VariantProps<typeof buttonStyles>;\r\n  const props = withDefaults(\r\n    defineProps<{\r\n      type?: "button" | "submit" | "reset";\r\n      disabled?: boolean;\r\n      loading?: boolean;\r\n      onClick?: () => void;\r\n      to?: string | RouteLocationRaw;\r\n      href?: string;\r\n      as?: string;\r\n      class?: any;\r\n      variant?: ButtonProps["variant"];\r\n      size?: ButtonProps["size"];\r\n    }>(),\r\n    {\r\n      type: "button",\r\n    }\r\n  );\r\n\r\n  const elementType = computed(() => {\r\n    if (props.as) return props.as;\r\n    if (props.href || props.to) return resolveComponent("NuxtLink");\r\n    return "button";\r\n  });\r\n</script>\r\n',
+          '<template>\n  <component\n    :is="elementType"\n    :class="\n      buttonStyles({\n        disabled: disabled || loading,\n        variant: variant,\n        size: size,\n        class: props.class,\n      })\n    "\n    :disabled="disabled || loading"\n    :to="to"\n    :href="href"\n    :type="type"\n    @click="onClick"\n  >\n    <slot></slot>\n  </component>\n</template>\n\n<script setup lang="ts">\n  import type { RouteLocationRaw } from "vue-router";\n\n  type ButtonProps = VariantProps<typeof buttonStyles>;\n  const props = withDefaults(\n    defineProps<{\n      type?: "button" | "submit" | "reset";\n      disabled?: boolean;\n      loading?: boolean;\n      onClick?: () => void;\n      to?: string | RouteLocationRaw;\n      href?: string;\n      as?: string;\n      class?: any;\n      variant?: ButtonProps["variant"];\n      size?: ButtonProps["size"];\n    }>(),\n    {\n      type: "button",\n    }\n  );\n\n  const elementType = computed(() => {\n    if (props.as) return props.as;\n    if (props.href || props.to) return resolveComponent("NuxtLink");\n    return "button";\n  });\n</script>\n',
       },
     ],
     composables: [],
+    plugins: [],
   },
   {
     name: "Calendar",
@@ -371,11 +380,12 @@ export default [
         fileName: "Calendar.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ClientOnly>\r\n    <VCalendar\r\n      :trimWeeks="props.trimWeeks || true"\r\n      :is-dark="$colorMode.value == \'dark\'"\r\n      v-bind="$attrs"\r\n    >\r\n      <template v-for="(_, slot) in $slots" v-slot:[slot]="scope">\r\n        <slot :name="slot" v-bind="scope"></slot>\r\n      </template>\r\n    </VCalendar>\r\n  </ClientOnly>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Calendar } from "v-calendar";\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  interface Props extends /* @vue-ignore */ Partial<InstanceType<typeof Calendar>["$props"]> {}\r\n\r\n  const props = defineProps<Props & { trimWeeks?: boolean }>();\r\n</script>\r\n\r\n<style>\r\n  :root {\r\n    --vc-font-family: var(--font-sans);\r\n    --vc-rounded-full: var(--radius);\r\n    --vc-font-bold: 500;\r\n    --vc-font-semibold: 600;\r\n    --vc-text-lg: 16px;\r\n  }\r\n\r\n  .vc-light,\r\n  .vc-dark {\r\n    --vc-bg: theme("colors.background");\r\n    --vc-border: theme("colors.border");\r\n    --vc-focus-ring: 0 0 0 3px hsl(var(--primary) / 30%);\r\n    --vc-weekday-color: theme("colors.muted.foreground");\r\n    --vc-popover-content-color: theme("colors.popover.foreground");\r\n    --vc-hover-bg: theme("colors.accent.DEFAULT");\r\n    --vc-popover-content-bg: theme("colors.popover.DEFAULT");\r\n    --vc-popover-content-border: theme("colors.border");\r\n    --vc-header-arrow-hover-bg: theme("colors.accent.DEFAULT");\r\n    --vc-weeknumber-color: theme("colors.muted.foreground");\r\n    --vc-nav-hover-bg: theme("colors.accent.DEFAULT");\r\n\r\n    --vc-nav-item-active-color: theme("colors.primary.foreground");\r\n    --vc-nav-item-active-bg: theme("colors.primary.DEFAULT");\r\n\r\n    &.vc-attr,\r\n    & .vc-attr {\r\n      --vc-content-color: theme("colors.primary.DEFAULT");\r\n      --vc-highlight-outline-bg: theme("colors.primary.DEFAULT");\r\n      --vc-highlight-outline-border: theme("colors.primary.DEFAULT");\r\n      --vc-highlight-outline-content-color: theme("colors.primary.foreground");\r\n      --vc-highlight-light-bg: var(--vc-accent-200); /* Highlighted color between two dates */\r\n      --vc-highlight-light-content-color: theme("colors.secondary.foreground");\r\n      --vc-highlight-solid-bg: theme("colors.primary.DEFAULT");\r\n      --vc-highlight-solid-content-color: theme("colors.primary.foreground");\r\n    }\r\n  }\r\n\r\n  .vc-blue {\r\n    --vc-accent-200: theme("colors.primary.DEFAULT / 20%");\r\n    --vc-accent-400: theme("colors.primary.DEFAULT");\r\n    --vc-accent-500: theme("colors.primary.DEFAULT");\r\n    --vc-accent-600: theme("colors.primary.DEFAULT / 70%");\r\n  }\r\n\r\n  .dark {\r\n    .vc-blue {\r\n      --vc-accent-200: theme("colors.primary.DEFAULT / 20%");\r\n      --vc-accent-400: theme("colors.primary.DEFAULT");\r\n      --vc-accent-500: theme("colors.primary.DEFAULT / 70%");\r\n    }\r\n  }\r\n  .vc-header .vc-title {\r\n    @apply font-medium;\r\n  }\r\n  .vc-weekdays {\r\n    @apply my-2 font-normal;\r\n  }\r\n  .vc-day-content,\r\n  .vc-day,\r\n  .vc-highlight {\r\n    @apply h-9 w-9 rounded-md;\r\n  }\r\n  .vc-focus {\r\n    @apply focus-within:shadow-none;\r\n  }\r\n  .vc-day {\r\n    @apply mb-1.5;\r\n  }\r\n\r\n  .vc-base-icon {\r\n    @apply h-4 w-4 stroke-1;\r\n  }\r\n  .vc-header .vc-arrow,\r\n  .vc-nav-arrow {\r\n    @apply h-7 w-7 rounded-md;\r\n    border: 1px solid hsl(var(--border));\r\n  }\r\n  .vc-header .vc-prev,\r\n  .vc-header .vc-next {\r\n    @apply border;\r\n  }\r\n  .weekday-position-1 .vc-highlights {\r\n    @apply rounded-l-md;\r\n  }\r\n  .weekday-position-7 .vc-highlights {\r\n    @apply rounded-r-md;\r\n  }\r\n  .vc-highlight-bg-light {\r\n    @apply bg-accent;\r\n  }\r\n  .vc-nav-item {\r\n    @apply font-medium;\r\n  }\r\n  .vc-header .vc-title-wrapper {\r\n    @apply decoration-accent-foreground/60 underline-offset-2 hover:underline;\r\n  }\r\n  .vc-highlights + .vc-day-content {\r\n    @apply hover:bg-accent/5;\r\n  }\r\n</style>\r\n',
+          '<template>\n  <ClientOnly>\n    <VCalendar\n      :trimWeeks="props.trimWeeks || true"\n      :is-dark="$colorMode.value == \'dark\'"\n      v-bind="$attrs"\n    >\n      <template v-for="(_, slot) in $slots" v-slot:[slot]="scope">\n        <slot :name="slot" v-bind="scope"></slot>\n      </template>\n    </VCalendar>\n  </ClientOnly>\n</template>\n\n<script lang="ts" setup>\n  import { Calendar } from "v-calendar";\n\n  defineOptions({ inheritAttrs: false });\n\n  interface Props extends /* @vue-ignore */ Partial<InstanceType<typeof Calendar>["$props"]> {}\n\n  const props = defineProps<Props & { trimWeeks?: boolean }>();\n</script>\n\n<style>\n  :root {\n    --vc-font-family: var(--font-sans);\n    --vc-rounded-full: var(--radius);\n    --vc-font-bold: 500;\n    --vc-font-semibold: 600;\n    --vc-text-lg: 16px;\n  }\n\n  .vc-light,\n  .vc-dark {\n    --vc-bg: theme("colors.background");\n    --vc-border: theme("colors.border");\n    --vc-focus-ring: 0 0 0 3px hsl(var(--primary) / 30%);\n    --vc-weekday-color: theme("colors.muted.foreground");\n    --vc-popover-content-color: theme("colors.popover.foreground");\n    --vc-hover-bg: theme("colors.accent.DEFAULT");\n    --vc-popover-content-bg: theme("colors.popover.DEFAULT");\n    --vc-popover-content-border: theme("colors.border");\n    --vc-header-arrow-hover-bg: theme("colors.accent.DEFAULT");\n    --vc-weeknumber-color: theme("colors.muted.foreground");\n    --vc-nav-hover-bg: theme("colors.accent.DEFAULT");\n\n    --vc-nav-item-active-color: theme("colors.primary.foreground");\n    --vc-nav-item-active-bg: theme("colors.primary.DEFAULT");\n\n    &.vc-attr,\n    & .vc-attr {\n      --vc-content-color: theme("colors.primary.DEFAULT");\n      --vc-highlight-outline-bg: theme("colors.primary.DEFAULT");\n      --vc-highlight-outline-border: theme("colors.primary.DEFAULT");\n      --vc-highlight-outline-content-color: theme("colors.primary.foreground");\n      --vc-highlight-light-bg: var(--vc-accent-200); /* Highlighted color between two dates */\n      --vc-highlight-light-content-color: theme("colors.secondary.foreground");\n      --vc-highlight-solid-bg: theme("colors.primary.DEFAULT");\n      --vc-highlight-solid-content-color: theme("colors.primary.foreground");\n    }\n  }\n\n  .vc-blue {\n    --vc-accent-200: theme("colors.primary.DEFAULT / 20%");\n    --vc-accent-400: theme("colors.primary.DEFAULT");\n    --vc-accent-500: theme("colors.primary.DEFAULT");\n    --vc-accent-600: theme("colors.primary.DEFAULT / 70%");\n  }\n\n  .dark {\n    .vc-blue {\n      --vc-accent-200: theme("colors.primary.DEFAULT / 20%");\n      --vc-accent-400: theme("colors.primary.DEFAULT");\n      --vc-accent-500: theme("colors.primary.DEFAULT / 70%");\n    }\n  }\n  .vc-header .vc-title {\n    @apply font-medium;\n  }\n  .vc-weekdays {\n    @apply my-2 font-normal;\n  }\n  .vc-day-content,\n  .vc-day,\n  .vc-highlight {\n    @apply h-9 w-9 rounded-md;\n  }\n  .vc-focus {\n    @apply focus-within:shadow-none;\n  }\n  .vc-day {\n    @apply mb-1.5;\n  }\n\n  .vc-base-icon {\n    @apply h-4 w-4 stroke-1;\n  }\n  .vc-header .vc-arrow,\n  .vc-nav-arrow {\n    @apply h-7 w-7 rounded-md;\n    border: 1px solid hsl(var(--border));\n  }\n  .vc-header .vc-prev,\n  .vc-header .vc-next {\n    @apply border;\n  }\n  .weekday-position-1 .vc-highlights {\n    @apply rounded-l-md;\n  }\n  .weekday-position-7 .vc-highlights {\n    @apply rounded-r-md;\n  }\n  .vc-highlight-bg-light {\n    @apply bg-accent;\n  }\n  .vc-nav-item {\n    @apply font-medium;\n  }\n  .vc-header .vc-title-wrapper {\n    @apply decoration-accent-foreground/60 underline-offset-2 hover:underline;\n  }\n  .vc-highlights + .vc-day-content {\n    @apply hover:bg-accent/5;\n  }\n</style>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Card",
@@ -388,41 +398,42 @@ export default [
         fileName: "Card/Card.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :as="as" :as-child="asChild" :class="styles({ class: props.class })">\r\n    <slot>\r\n      <slot name="header">\r\n        <UICardHeader>\r\n          <slot name="title">\r\n            <UICardTitle v-if="title || $slots.title" :title="title" />\r\n          </slot>\r\n          <slot name="description">\r\n            <UICardDescription\r\n              v-if="description || $slots.description"\r\n              :description="description"\r\n            />\r\n          </slot>\r\n        </UICardHeader>\r\n      </slot>\r\n      <slot name="content" v-if="content || $slots.content">\r\n        <UICardContent>\r\n          <div v-html="content"></div>\r\n        </UICardContent>\r\n      </slot>\r\n      <slot name="footer"></slot>\r\n    </slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        title?: string;\r\n        description?: string;\r\n        content?: string;\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      as: "div",\r\n    }\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "rounded-lg border bg-card text-card-foreground shadow-sm",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :as="as" :as-child="asChild" :class="styles({ class: props.class })">\n    <slot>\n      <slot name="header">\n        <UICardHeader>\n          <slot name="title">\n            <UICardTitle v-if="title || $slots.title" :title="title" />\n          </slot>\n          <slot name="description">\n            <UICardDescription\n              v-if="description || $slots.description"\n              :description="description"\n            />\n          </slot>\n        </UICardHeader>\n      </slot>\n      <slot name="content" v-if="content || $slots.content">\n        <UICardContent>\n          <div v-html="content"></div>\n        </UICardContent>\n      </slot>\n      <slot name="footer"></slot>\n    </slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        title?: string;\n        description?: string;\n        content?: string;\n        class?: any;\n      }\n    >(),\n    {\n      as: "div",\n    }\n  );\n\n  const styles = tv({\n    base: "rounded-lg border bg-card text-card-foreground shadow-sm",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Content.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :as="as" :as-child="asChild" :class="styles({ class: props.class })">\r\n    <slot>\r\n      {{ content }}\r\n    </slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        content?: string;\r\n        class?: any;\r\n      }\r\n    >(),\r\n    { as: "div" }\r\n  );\r\n  const styles = tv({\r\n    base: "p-6 pt-0",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :as="as" :as-child="asChild" :class="styles({ class: props.class })">\n    <slot>\n      {{ content }}\n    </slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        content?: string;\n        class?: any;\n      }\n    >(),\n    { as: "div" }\n  );\n  const styles = tv({\n    base: "p-6 pt-0",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Description.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\r\n    <slot>\r\n      {{ description }}\r\n    </slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        description?: string;\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      as: "div",\r\n    }\r\n  );\r\n  const styles = tv({\r\n    base: "text-sm text-muted-foreground",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot>\n      {{ description }}\n    </slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        description?: string;\n        class?: any;\n      }\n    >(),\n    {\n      as: "div",\n    }\n  );\n  const styles = tv({\n    base: "text-sm text-muted-foreground",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Footer.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\r\n    <slot> </slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    { as: "div" }\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "flex items-center p-6 pt-0",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot> </slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n      }\n    >(),\n    { as: "div" }\n  );\n\n  const styles = tv({\n    base: "flex items-center p-6 pt-0",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Header.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\r\n    <slot></slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    { as: "div" }\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "flex flex-col space-y-1.5 p-6",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot></slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n      }\n    >(),\n    { as: "div" }\n  );\n\n  const styles = tv({\n    base: "flex flex-col space-y-1.5 p-6",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Title.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\r\n    <slot>\r\n      {{ title }}\r\n    </slot>\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        title?: string;\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      as: "h3",\r\n    }\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "text-xl font-semibold leading-none tracking-tight",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot>\n      {{ title }}\n    </slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        title?: string;\n        class?: any;\n      }\n    >(),\n    {\n      as: "h3",\n    }\n  );\n\n  const styles = tv({\n    base: "text-xl font-semibold leading-none tracking-tight",\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Checkbox",
@@ -435,17 +446,18 @@ export default [
         fileName: "Checkbox/Checkbox.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <CheckboxRoot v-bind="forwarded" :class="styles({ class: props.class })">\r\n    <slot>\r\n      <Transition enter-active-class="transition" enter-from-class="opacity-0 scale-0">\r\n        <UICheckboxIndicator :icon="icon" />\r\n      </Transition>\r\n    </slot>\r\n  </CheckboxRoot>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { CheckboxRoot, useForwardPropsEmits } from "radix-vue";\r\n  import type { CheckboxRootEmits, CheckboxRootProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    CheckboxRootProps & {\r\n      class?: any;\r\n      id?: string;\r\n      icon?: string;\r\n    }\r\n  >();\r\n\r\n  const emit = defineEmits<CheckboxRootEmits>();\r\n  const forwarded = useForwardPropsEmits(props, emit);\r\n\r\n  const styles = tv({\r\n    base: "peer h-[18px] w-[18px] shrink-0 rounded-sm border border-primary ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground md:h-4 md:w-4",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <CheckboxRoot v-bind="forwarded" :class="styles({ class: props.class })">\n    <slot>\n      <Transition enter-active-class="transition" enter-from-class="opacity-0 scale-0">\n        <UICheckboxIndicator :icon="icon" />\n      </Transition>\n    </slot>\n  </CheckboxRoot>\n</template>\n\n<script lang="ts" setup>\n  import { CheckboxRoot, useForwardPropsEmits } from "radix-vue";\n  import type { CheckboxRootEmits, CheckboxRootProps } from "radix-vue";\n\n  const props = defineProps<\n    CheckboxRootProps & {\n      class?: any;\n      id?: string;\n      icon?: string;\n    }\n  >();\n\n  const emit = defineEmits<CheckboxRootEmits>();\n  const forwarded = useForwardPropsEmits(props, emit);\n\n  const styles = tv({\n    base: "peer h-[18px] w-[18px] shrink-0 rounded-sm border border-primary ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground md:h-4 md:w-4",\n  });\n</script>\n',
       },
       {
         fileName: "Checkbox/Indicator.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <CheckboxIndicator :class="styles({ class: props.class })" v-bind="forwarded">\r\n    <slot>\r\n      <Icon :name="icon" class="h-4 w-4" />\r\n    </slot>\r\n  </CheckboxIndicator>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { CheckboxIndicator, useForwardProps } from "radix-vue";\r\n  import type { CheckboxIndicatorProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      CheckboxIndicatorProps & {\r\n        class?: any;\r\n        icon?: string;\r\n      }\r\n    >(),\r\n    {\r\n      icon: "lucide:check",\r\n    }\r\n  );\r\n  const forwarded = useForwardProps(useOmit(props, ["icon", "class"]));\r\n\r\n  const styles = tv({\r\n    base: "flex items-center justify-center text-current",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <CheckboxIndicator :class="styles({ class: props.class })" v-bind="forwarded">\n    <slot>\n      <Icon :name="icon" class="h-4 w-4" />\n    </slot>\n  </CheckboxIndicator>\n</template>\n\n<script lang="ts" setup>\n  import { CheckboxIndicator, useForwardProps } from "radix-vue";\n  import type { CheckboxIndicatorProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      CheckboxIndicatorProps & {\n        class?: any;\n        icon?: string;\n      }\n    >(),\n    {\n      icon: "lucide:check",\n    }\n  );\n  const forwarded = useForwardProps(useOmit(props, ["icon", "class"]));\n\n  const styles = tv({\n    base: "flex items-center justify-center text-current",\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Collapsible",
@@ -476,6 +488,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Command",
@@ -553,6 +566,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Context Menu",
@@ -666,6 +680,39 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
+  },
+  {
+    name: "DataTables.net",
+    value: "datatable",
+    deps: [
+      "datatables.net-buttons-dt",
+      "datatables.net-responsive-dt",
+      "datatables.net-searchbuilder-dt",
+      "datatables.net-select-dt",
+      "datatables.net-vue3",
+      "jszip",
+    ],
+    devDeps: [],
+    nuxtModules: [],
+    plugins: [
+      {
+        fileName: "datatables.client.ts",
+        dirPath: "plugins",
+        fileContent:
+          'import DataTablesCore from "datatables.net";\nimport DataTable from "datatables.net-vue3";\nimport JSZip from "jszip";\n\nimport "datatables.net-buttons-dt";\nimport "datatables.net-buttons/js/buttons.colVis.mjs";\nimport "datatables.net-buttons/js/buttons.html5.mjs";\nimport "datatables.net-buttons/js/buttons.print.mjs";\nimport "datatables.net-responsive-dt";\nimport "datatables.net-searchbuilder-dt";\nimport "datatables.net-select-dt";\n\n// @ts-ignore\nwindow.JSZip = JSZip;\n\nDataTable.use(DataTablesCore);\n\nexport default defineNuxtPlugin((nuxtApp) => {\n  nuxtApp.vueApp.component("DataTable", DataTable);\n});\n',
+      },
+    ],
+    files: [
+      {
+        fileName: "Datatable.client.vue",
+        dirPath: "components/UI",
+        fileContent:
+          "<template>\n  <DataTable ref=\"table\" :data=\"data\" :class=\"props.class\" :options=\"options\">\n    <slot></slot>\n  </DataTable>\n</template>\n\n<script lang=\"ts\" setup generic=\"T\">\n  import type DataTableRef from \"datatables.net\";\n  import type { Config } from \"datatables.net/types/types\";\n\n  const table = shallowRef<{ dt: InstanceType<typeof DataTableRef<T[]>> } | null>(null);\n\n  const props = withDefaults(\n    defineProps<{\n      data?: Config[\"data\"];\n      class?: any;\n      options?: Config;\n    }>(),\n    {\n      data: () => [],\n      class: \"nowrap hover order-column row-border stripe display\",\n      options: () => ({}),\n    }\n  );\n\n  const emits = defineEmits<{\n    ready: [any];\n  }>();\n\n  onMounted(() => {\n    nextTick(() => {\n      emits(\"ready\", table.value?.dt);\n    });\n  });\n</script>\n\n<style>\n  :root {\n    --dt-row-selected: 262.1, 83.3%, 57.8%;\n    --dt-row-selected-text: 210, 20%, 98%;\n    --dt-row-selected-link: 262.1, 83.3%, 57.8%;\n    --dt-row-stripe: 0, 0%, 100%;\n    --dt-row-hover: 0, 0%, 100%;\n    --dt-column-ordering: 0, 0%, 100%;\n    --dt-border: 220, 13%, 91%;\n    --dt-foreground: 224, 71.4%, 4.1%;\n  }\n\n  .dark {\n    --dt-row-selected: 263.4, 70%, 50.4%;\n    --dt-row-selected-text: 210, 20%, 98%;\n    --dt-row-selected-link: 263.4, 70%, 50.4%;\n    --dt-row-stripe: 224, 71.4%, 4.1%;\n    --dt-row-hover: 224, 71.4%, 4.1%;\n    --dt-column-ordering: 224, 71.4%, 4.1%;\n    --dt-border: 215, 27.9%, 16.9%;\n    --dt-foreground: 224, 71.4%, 4.1%;\n  }\n\n  table.dataTable td.dt-control {\n    text-align: center;\n    cursor: pointer;\n  }\n  table.dataTable td.dt-control:before {\n    display: inline-block;\n    color: hsla(var(--dt-foreground), 0.5);\n    content: \"►\";\n  }\n  table.dataTable tr.dt-hasChild td.dt-control:before {\n    content: \"▼\";\n  }\n\n  table.dataTable thead > tr > th.sorting,\n  table.dataTable thead > tr > th.sorting_asc,\n  table.dataTable thead > tr > th.sorting_desc,\n  table.dataTable thead > tr > th.sorting_asc_disabled,\n  table.dataTable thead > tr > th.sorting_desc_disabled,\n  table.dataTable thead > tr > td.sorting,\n  table.dataTable thead > tr > td.sorting_asc,\n  table.dataTable thead > tr > td.sorting_desc,\n  table.dataTable thead > tr > td.sorting_asc_disabled,\n  table.dataTable thead > tr > td.sorting_desc_disabled {\n    @apply relative cursor-pointer pr-7;\n  }\n  table.dataTable thead > tr > th.sorting:before,\n  table.dataTable thead > tr > th.sorting:after,\n  table.dataTable thead > tr > th.sorting_asc:before,\n  table.dataTable thead > tr > th.sorting_asc:after,\n  table.dataTable thead > tr > th.sorting_desc:before,\n  table.dataTable thead > tr > th.sorting_desc:after,\n  table.dataTable thead > tr > th.sorting_asc_disabled:before,\n  table.dataTable thead > tr > th.sorting_asc_disabled:after,\n  table.dataTable thead > tr > th.sorting_desc_disabled:before,\n  table.dataTable thead > tr > th.sorting_desc_disabled:after,\n  table.dataTable thead > tr > td.sorting:before,\n  table.dataTable thead > tr > td.sorting:after,\n  table.dataTable thead > tr > td.sorting_asc:before,\n  table.dataTable thead > tr > td.sorting_asc:after,\n  table.dataTable thead > tr > td.sorting_desc:before,\n  table.dataTable thead > tr > td.sorting_desc:after,\n  table.dataTable thead > tr > td.sorting_asc_disabled:before,\n  table.dataTable thead > tr > td.sorting_asc_disabled:after,\n  table.dataTable thead > tr > td.sorting_desc_disabled:before,\n  table.dataTable thead > tr > td.sorting_desc_disabled:after {\n    @apply absolute right-2.5 block text-xs leading-3 opacity-25;\n  }\n  table.dataTable thead > tr > th.sorting:before,\n  table.dataTable thead > tr > th.sorting_asc:before,\n  table.dataTable thead > tr > th.sorting_desc:before,\n  table.dataTable thead > tr > th.sorting_asc_disabled:before,\n  table.dataTable thead > tr > th.sorting_desc_disabled:before,\n  table.dataTable thead > tr > td.sorting:before,\n  table.dataTable thead > tr > td.sorting_asc:before,\n  table.dataTable thead > tr > td.sorting_desc:before,\n  table.dataTable thead > tr > td.sorting_asc_disabled:before,\n  table.dataTable thead > tr > td.sorting_desc_disabled:before {\n    @apply bottom-[43%] h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-up.svg')] bg-contain bg-center bg-no-repeat content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-up.svg?color=white')];\n  }\n  table.dataTable thead > tr > th.sorting:after,\n  table.dataTable thead > tr > th.sorting_asc:after,\n  table.dataTable thead > tr > th.sorting_desc:after,\n  table.dataTable thead > tr > th.sorting_asc_disabled:after,\n  table.dataTable thead > tr > th.sorting_desc_disabled:after,\n  table.dataTable thead > tr > td.sorting:after,\n  table.dataTable thead > tr > td.sorting_asc:after,\n  table.dataTable thead > tr > td.sorting_desc:after,\n  table.dataTable thead > tr > td.sorting_asc_disabled:after,\n  table.dataTable thead > tr > td.sorting_desc_disabled:after {\n    @apply top-[43%] h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-down.svg')] bg-contain bg-center bg-no-repeat content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-down.svg?color=white')];\n  }\n  table.dataTable thead > tr > th.sorting_asc:before,\n  table.dataTable thead > tr > th.sorting_desc:after,\n  table.dataTable thead > tr > td.sorting_asc:before,\n  table.dataTable thead > tr > td.sorting_desc:after {\n    @apply opacity-80;\n  }\n  table.dataTable thead > tr > th.sorting_desc_disabled:after,\n  table.dataTable thead > tr > th.sorting_asc_disabled:before,\n  table.dataTable thead > tr > td.sorting_desc_disabled:after,\n  table.dataTable thead > tr > td.sorting_asc_disabled:before {\n    @apply hidden;\n  }\n  table.dataTable thead > tr > th:active,\n  table.dataTable thead > tr > td:active {\n    @apply outline-none;\n  }\n\n  div.dataTables_scrollBody > table.dataTable > thead > tr > th:before,\n  div.dataTables_scrollBody > table.dataTable > thead > tr > th:after,\n  div.dataTables_scrollBody > table.dataTable > thead > tr > td:before,\n  div.dataTables_scrollBody > table.dataTable > thead > tr > td:after {\n    @apply hidden;\n  }\n\n  div.dataTables_processing {\n    @apply absolute left-[50%] top-[50%] ml-[-100px] mt-[-26px] w-[200px] p-0.5 text-center;\n  }\n  div.dataTables_processing > div:last-child {\n    @apply relative mx-auto my-4 h-4 w-20;\n  }\n  div.dataTables_processing > div:last-child > div {\n    @apply absolute top-0 h-3.5 w-3.5 rounded-full;\n    background: hsl(var(--dt-row-selected));\n    animation-timing-function: cubic-bezier(0, 1, 1, 0);\n  }\n  div.dataTables_processing > div:last-child > div:nth-child(1) {\n    left: 8px;\n    animation: datatables-loader-1 0.6s infinite;\n  }\n  div.dataTables_processing > div:last-child > div:nth-child(2) {\n    left: 8px;\n    animation: datatables-loader-2 0.6s infinite;\n  }\n  div.dataTables_processing > div:last-child > div:nth-child(3) {\n    left: 32px;\n    animation: datatables-loader-2 0.6s infinite;\n  }\n  div.dataTables_processing > div:last-child > div:nth-child(4) {\n    left: 56px;\n    animation: datatables-loader-3 0.6s infinite;\n  }\n\n  @keyframes datatables-loader-1 {\n    0% {\n      transform: scale(0);\n    }\n    100% {\n      transform: scale(1);\n    }\n  }\n  @keyframes datatables-loader-3 {\n    0% {\n      transform: scale(1);\n    }\n    100% {\n      transform: scale(0);\n    }\n  }\n  @keyframes datatables-loader-2 {\n    0% {\n      transform: translate(0, 0);\n    }\n    100% {\n      transform: translate(24px, 0);\n    }\n  }\n  table.dataTable.nowrap th,\n  table.dataTable.nowrap td {\n    white-space: nowrap;\n  }\n  table.dataTable th.dt-left,\n  table.dataTable td.dt-left {\n    text-align: left;\n  }\n  table.dataTable th.dt-center,\n  table.dataTable td.dt-center,\n  table.dataTable td.dataTables_empty {\n    text-align: center;\n  }\n  table.dataTable th.dt-right,\n  table.dataTable td.dt-right {\n    text-align: right;\n  }\n  table.dataTable th.dt-justify,\n  table.dataTable td.dt-justify {\n    text-align: justify;\n  }\n  table.dataTable th.dt-nowrap,\n  table.dataTable td.dt-nowrap {\n    white-space: nowrap;\n  }\n  table.dataTable thead th,\n  table.dataTable thead td,\n  table.dataTable tfoot th,\n  table.dataTable tfoot td {\n    text-align: left;\n  }\n  table.dataTable thead th.dt-head-left,\n  table.dataTable thead td.dt-head-left,\n  table.dataTable tfoot th.dt-head-left,\n  table.dataTable tfoot td.dt-head-left {\n    text-align: left;\n  }\n  table.dataTable thead th.dt-head-center,\n  table.dataTable thead td.dt-head-center,\n  table.dataTable tfoot th.dt-head-center,\n  table.dataTable tfoot td.dt-head-center {\n    text-align: center;\n  }\n  table.dataTable thead th.dt-head-right,\n  table.dataTable thead td.dt-head-right,\n  table.dataTable tfoot th.dt-head-right,\n  table.dataTable tfoot td.dt-head-right {\n    text-align: right;\n  }\n  table.dataTable thead th.dt-head-justify,\n  table.dataTable thead td.dt-head-justify,\n  table.dataTable tfoot th.dt-head-justify,\n  table.dataTable tfoot td.dt-head-justify {\n    text-align: justify;\n  }\n  table.dataTable thead th.dt-head-nowrap,\n  table.dataTable thead td.dt-head-nowrap,\n  table.dataTable tfoot th.dt-head-nowrap,\n  table.dataTable tfoot td.dt-head-nowrap {\n    white-space: nowrap;\n  }\n  table.dataTable tbody th.dt-body-left,\n  table.dataTable tbody td.dt-body-left {\n    text-align: left;\n  }\n  table.dataTable tbody th.dt-body-center,\n  table.dataTable tbody td.dt-body-center {\n    text-align: center;\n  }\n  table.dataTable tbody th.dt-body-right,\n  table.dataTable tbody td.dt-body-right {\n    text-align: right;\n  }\n  table.dataTable tbody th.dt-body-justify,\n  table.dataTable tbody td.dt-body-justify {\n    text-align: justify;\n  }\n  table.dataTable tbody th.dt-body-nowrap,\n  table.dataTable tbody td.dt-body-nowrap {\n    white-space: nowrap;\n  }\n\n  /* Table Styles */\n\n  table.dataTable {\n    @apply w-full table-auto border-collapse;\n  }\n\n  /* Table header styles */\n  table.dataTable thead th,\n  table.dataTable tfoot th {\n    @apply text-left text-xs font-normal text-muted-foreground;\n  }\n\n  table.dataTable > thead > tr > th {\n    @apply border-b border-t-0 px-6 py-3;\n  }\n  table.dataTable > thead > tr > td {\n    @apply border-b px-6 py-3 text-sm;\n  }\n  table.dataTable > thead > tr > th:active,\n  table.dataTable > thead > tr > td:active {\n    @apply outline-none;\n  }\n  table.dataTable > tfoot > tr > th,\n  table.dataTable > tfoot > tr > td {\n    @apply border-t px-6 py-3;\n  }\n  table.dataTable tbody tr {\n    @apply bg-transparent;\n  }\n  table.dataTable tbody tr.selected > * {\n    @apply bg-primary/10;\n  }\n  table.dataTable tbody tr.selected a {\n    @apply text-primary;\n  }\n  table.dataTable tbody th,\n  table.dataTable tbody td {\n    @apply px-6 py-3 text-sm;\n  }\n  table.dataTable.row-border > tbody > tr > th,\n  table.dataTable.row-border > tbody > tr > td,\n  table.dataTable.display > tbody > tr > th,\n  table.dataTable.display > tbody > tr > td {\n    @apply border-t;\n  }\n  table.dataTable.row-border > tbody > tr:first-child > th,\n  table.dataTable.row-border > tbody > tr:first-child > td,\n  table.dataTable.display > tbody > tr:first-child > th,\n  table.dataTable.display > tbody > tr:first-child > td {\n    @apply border-t-0;\n  }\n  table.dataTable.row-border > tbody > tr.selected + tr.selected > td,\n  table.dataTable.display > tbody > tr.selected + tr.selected > td {\n    @apply border-t-primary/30;\n  }\n  table.dataTable.cell-border > tbody > tr > th,\n  table.dataTable.cell-border > tbody > tr > td {\n    @apply border-r border-t;\n  }\n  table.dataTable.cell-border > tbody > tr > th:first-child,\n  table.dataTable.cell-border > tbody > tr > td:first-child {\n    @apply border-l;\n  }\n  table.dataTable.cell-border > tbody > tr:first-child > th,\n  table.dataTable.cell-border > tbody > tr:first-child > td {\n    @apply border-t-0;\n  }\n  table.dataTable.stripe > tbody > tr.odd > *,\n  table.dataTable.display > tbody > tr.odd > * {\n    @apply bg-muted/50;\n  }\n  table.dataTable.stripe > tbody > tr.odd.selected > *,\n  table.dataTable.display > tbody > tr.odd.selected > * {\n    @apply bg-primary/10;\n  }\n  table.dataTable.hover > tbody > tr:hover > *,\n  table.dataTable.display > tbody > tr:hover > * {\n    @apply bg-muted;\n  }\n  table.dataTable.hover > tbody > tr.selected:hover > *,\n  table.dataTable.display > tbody > tr.selected:hover > * {\n    @apply !bg-primary/10;\n  }\n  table.dataTable.order-column > tbody tr > .sorting_1,\n  table.dataTable.order-column > tbody tr > .sorting_2,\n  table.dataTable.order-column > tbody tr > .sorting_3,\n  table.dataTable.display > tbody tr > .sorting_1,\n  table.dataTable.display > tbody tr > .sorting_2,\n  table.dataTable.display > tbody tr > .sorting_3 {\n    @apply bg-muted;\n  }\n  table.dataTable.order-column > tbody tr.selected > .sorting_1,\n  table.dataTable.order-column > tbody tr.selected > .sorting_2,\n  table.dataTable.order-column > tbody tr.selected > .sorting_3,\n  table.dataTable.display > tbody tr.selected > .sorting_1,\n  table.dataTable.display > tbody tr.selected > .sorting_2,\n  table.dataTable.display > tbody tr.selected > .sorting_3 {\n    @apply !bg-primary/10;\n  }\n  table.dataTable.display > tbody > tr.odd > .sorting_1,\n  table.dataTable.order-column.stripe > tbody > tr.odd > .sorting_1 {\n    @apply bg-muted/50;\n  }\n  table.dataTable.display > tbody > tr.odd > .sorting_2,\n  table.dataTable.order-column.stripe > tbody > tr.odd > .sorting_2 {\n    @apply bg-muted/30;\n  }\n  table.dataTable.display > tbody > tr.odd > .sorting_3,\n  table.dataTable.order-column.stripe > tbody > tr.odd > .sorting_3 {\n    @apply bg-muted/10;\n  }\n  table.dataTable.display > tbody > tr.odd.selected > .sorting_1,\n  table.dataTable.order-column.stripe > tbody > tr.odd.selected > .sorting_1 {\n    @apply bg-muted/50;\n  }\n  table.dataTable.display > tbody > tr.odd.selected > .sorting_2,\n  table.dataTable.order-column.stripe > tbody > tr.odd.selected > .sorting_2 {\n    @apply bg-muted/30;\n  }\n  table.dataTable.display > tbody > tr.odd.selected > .sorting_3,\n  table.dataTable.order-column.stripe > tbody > tr.odd.selected > .sorting_3 {\n    @apply bg-muted/10;\n  }\n  table.dataTable.display > tbody > tr.even > .sorting_1,\n  table.dataTable.order-column.stripe > tbody > tr.even > .sorting_1 {\n    @apply bg-muted/50;\n  }\n  table.dataTable.display > tbody > tr.even > .sorting_2,\n  table.dataTable.order-column.stripe > tbody > tr.even > .sorting_2 {\n    @apply bg-muted/30;\n  }\n  table.dataTable.display > tbody > tr.even > .sorting_3,\n  table.dataTable.order-column.stripe > tbody > tr.even > .sorting_3 {\n    @apply bg-muted/10;\n  }\n  table.dataTable.display > tbody > tr.even.selected > .sorting_1,\n  table.dataTable.order-column.stripe > tbody > tr.even.selected > .sorting_1 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.display > tbody > tr.even.selected > .sorting_2,\n  table.dataTable.order-column.stripe > tbody > tr.even.selected > .sorting_2 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.display > tbody > tr.even.selected > .sorting_3,\n  table.dataTable.order-column.stripe > tbody > tr.even.selected > .sorting_3 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.display tbody tr:hover > .sorting_1,\n  table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {\n    @apply bg-muted;\n  }\n  table.dataTable.display tbody tr:hover > .sorting_2,\n  table.dataTable.order-column.hover tbody tr:hover > .sorting_2 {\n    @apply bg-muted;\n  }\n  table.dataTable.display tbody tr:hover > .sorting_3,\n  table.dataTable.order-column.hover tbody tr:hover > .sorting_3 {\n    @apply bg-muted;\n  }\n  table.dataTable.display tbody tr:hover.selected > .sorting_1,\n  table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.display tbody tr:hover.selected > .sorting_2,\n  table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.display tbody tr:hover.selected > .sorting_3,\n  table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {\n    @apply bg-primary/10;\n  }\n  table.dataTable.no-footer {\n    @apply border-b;\n  }\n  table.dataTable.compact thead th,\n  table.dataTable.compact thead td,\n  table.dataTable.compact tfoot th,\n  table.dataTable.compact tfoot td,\n  table.dataTable.compact tbody th,\n  table.dataTable.compact tbody td {\n    @apply px-4 py-2;\n  }\n\n  table.dataTable th,\n  table.dataTable td {\n    @apply box-content border-y;\n  }\n\n  /* Control feature layout */\n  .dataTables_wrapper {\n    @apply w-full overflow-x-auto;\n  }\n\n  /* Export button styles */\n  .dataTables_wrapper .dt-buttons {\n    @apply inline-flex items-center gap-2;\n    button {\n      @apply inline-flex h-8 items-center gap-2 rounded-md border bg-background px-2 text-sm text-muted-foreground hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;\n    }\n  }\n\n  /*  Copy modal */\n  .dt-button-info {\n    @apply fixed inset-0 z-50 flex flex-col items-center justify-center bg-background/50 backdrop-blur;\n  }\n\n  .dataTables_wrapper .dataTables_length {\n    label {\n      @apply inline-flex items-center gap-2 text-sm font-normal text-muted-foreground;\n      select {\n        @apply h-8 w-[70px] cursor-pointer rounded-md border border-border bg-background px-2 py-1 transition focus:border-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:text-sm;\n      }\n    }\n  }\n  .dataTables_wrapper .dataTables_filter {\n    label {\n      @apply inline-flex w-full cursor-pointer items-center gap-2 text-sm font-normal text-muted-foreground;\n      input {\n        @apply h-8 w-full rounded-md border border-border bg-background px-2 py-1 transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background sm:text-sm;\n      }\n    }\n  }\n  .dataTables_wrapper .dataTables_info {\n    @apply flex items-center gap-3 text-sm !text-muted-foreground;\n  }\n  .dataTables_wrapper .dataTables_paginate {\n    .paginate_button {\n      @apply ml-1 box-border inline-flex h-8 min-w-[32px] cursor-pointer items-center justify-center rounded bg-transparent px-3 py-2 text-center text-sm;\n    }\n  }\n  .dataTables_wrapper .dataTables_paginate .paginate_button.current,\n  .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {\n    @apply bg-muted;\n  }\n  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,\n  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover,\n  .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {\n    @apply pointer-events-none opacity-50;\n  }\n  .dataTables_wrapper .dataTables_paginate .paginate_button:hover {\n    @apply bg-muted;\n  }\n  .dataTables_wrapper .dataTables_paginate .paginate_button:active {\n    @apply bg-muted;\n  }\n  .dataTables_wrapper .dataTables_paginate .ellipsis {\n    @apply inline-flex h-8 min-w-[32px] items-start justify-center text-sm;\n  }\n  .dataTables_wrapper .dataTables_scroll {\n    clear: both;\n  }\n  .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {\n    -webkit-overflow-scrolling: touch;\n  }\n  .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th,\n  .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td,\n  .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th,\n  .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td {\n    vertical-align: middle;\n  }\n  .dataTables_wrapper\n    .dataTables_scroll\n    div.dataTables_scrollBody\n    > table\n    > thead\n    > tr\n    > th\n    > div.dataTables_sizing,\n  .dataTables_wrapper\n    .dataTables_scroll\n    div.dataTables_scrollBody\n    > table\n    > thead\n    > tr\n    > td\n    > div.dataTables_sizing,\n  .dataTables_wrapper\n    .dataTables_scroll\n    div.dataTables_scrollBody\n    > table\n    > tbody\n    > tr\n    > th\n    > div.dataTables_sizing,\n  .dataTables_wrapper\n    .dataTables_scroll\n    div.dataTables_scrollBody\n    > table\n    > tbody\n    > tr\n    > td\n    > div.dataTables_sizing {\n    height: 0;\n    overflow: hidden;\n    margin: 0 !important;\n    padding: 0 !important;\n  }\n  .dataTables_wrapper.no-footer .dataTables_scrollBody {\n    @apply border-b;\n  }\n  .dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable,\n  .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {\n    border-bottom: none;\n  }\n  .dataTables_wrapper:after {\n    visibility: hidden;\n    display: block;\n    content: \"\";\n    clear: both;\n    height: 0;\n  }\n\n  /* \n  responsive styles\n   */\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.child,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > th.child,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty {\n    cursor: default !important;\n  }\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.child:before,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > th.child:before,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.dataTables_empty:before {\n    display: none !important;\n  }\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control {\n    cursor: pointer;\n  }\n\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {\n    @apply mr-2 inline-flex h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-right.svg')] bg-contain bg-center bg-no-repeat pb-[3px] content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-right.svg?color=white')];\n  }\n  table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control.arrow-right::before,\n  table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control.arrow-right::before {\n    content: \"◄\";\n  }\n  table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before,\n  table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {\n    @apply mr-2 inline-block h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-down.svg')] bg-contain bg-center bg-no-repeat content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-down.svg?color=white')];\n  }\n  table.dataTable.dtr-inline.collapsed.compact > tbody > tr > td.dtr-control,\n  table.dataTable.dtr-inline.collapsed.compact > tbody > tr > th.dtr-control {\n    padding-left: 0.333em;\n  }\n  table.dataTable.dtr-column > tbody > tr > td.dtr-control,\n  table.dataTable.dtr-column > tbody > tr > th.dtr-control,\n  table.dataTable.dtr-column > tbody > tr > td.control,\n  table.dataTable.dtr-column > tbody > tr > th.control {\n    cursor: pointer;\n  }\n  table.dataTable.dtr-column > tbody > tr > td.dtr-control:before,\n  table.dataTable.dtr-column > tbody > tr > th.dtr-control:before,\n  table.dataTable.dtr-column > tbody > tr > td.control:before,\n  table.dataTable.dtr-column > tbody > tr > th.control:before {\n    @apply mr-2 inline-flex h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-right.svg')] bg-contain bg-center bg-no-repeat pb-[3px] content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-right.svg?color=white')];\n  }\n  table.dataTable.dtr-column > tbody > tr > td.dtr-control.arrow-right::before,\n  table.dataTable.dtr-column > tbody > tr > th.dtr-control.arrow-right::before,\n  table.dataTable.dtr-column > tbody > tr > td.control.arrow-right::before,\n  table.dataTable.dtr-column > tbody > tr > th.control.arrow-right::before {\n    content: \"◄\";\n  }\n  table.dataTable.dtr-column > tbody > tr.parent td.dtr-control:before,\n  table.dataTable.dtr-column > tbody > tr.parent th.dtr-control:before,\n  table.dataTable.dtr-column > tbody > tr.parent td.control:before,\n  table.dataTable.dtr-column > tbody > tr.parent th.control:before {\n    @apply mr-2 inline-block h-4 w-4 bg-[url('https://api.iconify.design/lucide:chevron-down.svg')] bg-contain bg-center bg-no-repeat content-[''] dark:bg-[url('https://api.iconify.design/lucide:chevron-down.svg?color=white')];\n  }\n\n  table.dataTable > tbody td.child {\n    @apply p-0;\n  }\n  table.dataTable > tbody > tr.child:hover,\n  table.dataTable > tbody > tr.child:hover > td.child {\n    background: transparent !important;\n  }\n  table.dataTable > tbody > tr.child ul.dtr-details {\n    @apply m-0 block w-full list-none p-0;\n  }\n  table.dataTable > tbody > tr.child ul.dtr-details > li {\n    @apply border-b p-3 px-7 hover:bg-muted;\n  }\n\n  table.dataTable > tbody > tr.child ul.dtr-details > li:last-child {\n    @apply border-b-0;\n  }\n  table.dataTable > tbody > tr.child span.dtr-title {\n    @apply inline-block min-w-[80px] font-bold;\n  }\n  div.dtr-modal {\n    position: fixed;\n    box-sizing: border-box;\n    top: 0;\n    left: 0;\n    height: 100%;\n    width: 100%;\n    z-index: 100;\n    padding: 10em 1em;\n  }\n  div.dtr-modal div.dtr-modal-display {\n    position: absolute;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    right: 0;\n    width: 50%;\n    height: fit-content;\n    max-height: 75%;\n    overflow: auto;\n    margin: auto;\n    z-index: 102;\n    overflow: auto;\n    background-color: #f5f5f7;\n    border: 1px solid black;\n    border-radius: 0.5em;\n    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);\n  }\n  div.dtr-modal div.dtr-modal-content {\n    position: relative;\n    padding: 2.5em;\n  }\n  div.dtr-modal div.dtr-modal-content h2 {\n    margin-top: 0;\n  }\n  div.dtr-modal div.dtr-modal-close {\n    position: absolute;\n    top: 6px;\n    right: 6px;\n    width: 22px;\n    height: 22px;\n    text-align: center;\n    border-radius: 3px;\n    cursor: pointer;\n    z-index: 12;\n  }\n  div.dtr-modal div.dtr-modal-background {\n    position: fixed;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    z-index: 101;\n    background: rgba(0, 0, 0, 0.6);\n  }\n\n  /* Search Builder Styles */\n  div.dt-button-collection {\n    overflow: visible !important;\n    z-index: 2002 !important;\n  }\n  div.dt-button-collection div.dtsb-searchBuilder {\n    padding-left: 1em !important;\n    padding-right: 1em !important;\n  }\n  div.dt-button-collection.dtb-collection-closeable div.dtsb-titleRow {\n    padding-right: 40px;\n  }\n  .dtsb-greyscale {\n    @apply !border;\n  }\n  div.dtsb-logicContainer .dtsb-greyscale {\n    border: none !important;\n  }\n  div.dtsb-searchBuilder {\n    @apply mb-4 cursor-default justify-evenly text-left;\n  }\n  div.dtsb-searchBuilder button.dtsb-button,\n  div.dtsb-searchBuilder select {\n    @apply text-sm;\n  }\n  div.dtsb-searchBuilder div.dtsb-titleRow {\n    @apply mb-3 flex items-center justify-between;\n  }\n  div.dtsb-searchBuilder div.dtsb-titleRow div.dtsb-title {\n    @apply inline-block text-sm font-normal;\n  }\n  div.dtsb-searchBuilder div.dtsb-titleRow div.dtsb-title:empty {\n    display: inline;\n  }\n  div.dtsb-searchBuilder div.dtsb-vertical .dtsb-value,\n  div.dtsb-searchBuilder div.dtsb-vertical .dtsb-data,\n  div.dtsb-searchBuilder div.dtsb-vertical .dtsb-condition {\n    display: block;\n  }\n  div.dtsb-searchBuilder div.dtsb-group {\n    @apply relative clear-both mb-4;\n  }\n  div.dtsb-searchBuilder div.dtsb-group button.dtsb-search {\n    float: right;\n  }\n  div.dtsb-searchBuilder div.dtsb-group button.dtsb-clearGroup {\n    margin: 2px;\n    text-align: center;\n    padding: 0;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer {\n    -webkit-transform: rotate(90deg);\n    -moz-transform: rotate(90deg);\n    -o-transform: rotate(90deg);\n    -ms-transform: rotate(90deg);\n    transform: rotate(90deg);\n    position: absolute;\n    margin-top: 0.8em;\n    margin-right: 0.8em;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria {\n    margin-bottom: 0.8em;\n    display: flex;\n    justify-content: flex-start;\n    flex-flow: row wrap;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input {\n    padding: 0.4em;\n    margin-right: 0.8em;\n    min-width: 5em;\n    max-width: 20em;\n    color: inherit;\n  }\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    select.dtsb-dropDown\n    option.dtsb-notItalic,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input option.dtsb-notItalic {\n    font-style: normal;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-italic {\n    font-style: italic;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont {\n    flex: 1;\n    white-space: nowrap;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont span.dtsp-joiner {\n    margin-right: 0.8em;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont input.dtsb-value {\n    width: 33%;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont select,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont input {\n    height: 100%;\n    box-sizing: border-box;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer {\n    margin-left: auto;\n    display: inline-block;\n  }\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-delete,\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-right,\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-left {\n    margin-right: 0.8em;\n  }\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-delete:last-child,\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-right:last-child,\n  div.dtsb-searchBuilder\n    div.dtsb-group\n    div.dtsb-criteria\n    div.dtsb-buttonContainer\n    button.dtsb-left:last-child {\n    margin-right: 0;\n  }\n  @media screen and (max-width: 550px) {\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria {\n      display: flex;\n      flex-flow: none;\n      flex-direction: column;\n      justify-content: flex-start;\n      padding-right: calc(35px + 0.8em);\n      margin-bottom: 0px;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:first-child),\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:nth-child(2)),\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:not(:last-child) {\n      padding-top: 0.8em;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:first-child,\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:nth-child(2),\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria:last-child {\n      padding-top: 0em;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown,\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input {\n      max-width: none;\n      width: 100%;\n      margin-bottom: 0.8em;\n      margin-right: 0.8em;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-inputCont {\n      margin-right: 0.8em;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer {\n      position: absolute;\n      width: 35px;\n      display: flex;\n      flex-wrap: wrap-reverse;\n      right: 0;\n    }\n    div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria div.dtsb-buttonContainer button {\n      margin-right: 0px !important;\n    }\n  }\n  div.dtsb-searchBuilder button,\n  div.dtsb-searchBuilder select.dtsb-dropDown,\n  div.dtsb-searchBuilder input {\n    @apply bg-background;\n  }\n  div.dtsb-searchBuilder button.dtsb-button {\n    @apply relative box-border inline-flex cursor-pointer select-none items-center justify-center overflow-hidden text-ellipsis whitespace-nowrap rounded-md border bg-background px-3 py-2 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;\n  }\n  div.dtsb-searchBuilder button.dtsb-button:hover {\n    @apply cursor-pointer bg-muted;\n  }\n  div.dtsb-searchBuilder div.dtsb-logicContainer {\n    @apply overflow-hidden rounded-none border;\n  }\n  div.dtsb-searchBuilder div.dtsb-logicContainer button {\n    @apply rounded-md border-transparent bg-transparent;\n  }\n  div.dtsb-searchBuilder button.dtsb-clearGroup {\n    min-width: 2em;\n    padding: 0;\n  }\n  div.dtsb-searchBuilder button.dtsb-iptbtn {\n    min-width: 100px;\n    text-align: left;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer {\n    @apply flex flex-row content-start items-start justify-start rounded-md;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-logic {\n    @apply m-0 shrink-0 grow rounded-none border-0;\n    flex-basis: 3em;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-clearGroup {\n    border: none;\n    border-radius: 0px;\n    width: 2em;\n    margin: 0px;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input {\n    @apply rounded-md border;\n  }\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-condition,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-data,\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-value {\n    @apply rounded-md border border-input bg-background text-xs transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;\n  }\n\n  div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-value {\n    @apply rounded-md border border-input bg-background text-xs transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background;\n  }\n</style>\n",
+      },
+    ],
+    utils: [],
+    composables: [],
   },
   {
     name: "Datepicker",
@@ -686,6 +733,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Dialog",
@@ -757,6 +805,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Dropdown Menu",
@@ -769,107 +818,108 @@ export default [
         fileName: "DropdownMenu/Arrow.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuArrow v-bind="forwarded" :class="styles({ class: props.class })" />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuArrow, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuArrowProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      DropdownMenuArrowProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      asChild: false,\r\n      width: 10,\r\n      height: 5,\r\n    }\r\n  );\r\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\r\n\r\n  const styles = tv({\r\n    base: "rotate-45 border bg-muted",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuArrow v-bind="forwarded" :class="styles({ class: props.class })" />\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuArrow, useForwardProps } from "radix-vue";\n  import type { DropdownMenuArrowProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      DropdownMenuArrowProps & {\n        class?: any;\n      }\n    >(),\n    {\n      asChild: false,\n      width: 10,\n      height: 5,\n    }\n  );\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\n\n  const styles = tv({\n    base: "rotate-45 border bg-muted",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/CheckboxItem.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuCheckboxItem v-bind="forwarded" :class="styles({ class: props.class })">\r\n    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-primary">\r\n      <UIDropdownMenuItemIndicator icon="lucide:check" />\r\n    </span>\r\n    <slot>\r\n      <span v-if="title">{{ title }}</span>\r\n    </slot>\r\n    <slot name="shortcut">\r\n      <UIDropdownMenuShortcut v-if="shortcut">{{ shortcut }}</UIDropdownMenuShortcut>\r\n    </slot>\r\n  </DropdownMenuCheckboxItem>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuCheckboxItem, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuCheckboxItemEmits, DropdownMenuCheckboxItemProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuCheckboxItemProps & {\r\n      class?: any;\r\n      shortcut?: string;\r\n      title?: string;\r\n    }\r\n  >();\r\n  const emits = defineEmits<DropdownMenuCheckboxItemEmits>();\r\n  const forwarded = useForwardPropsEmits(props, emits);\r\n\r\n  const styles = tv({\r\n    base: "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuCheckboxItem v-bind="forwarded" :class="styles({ class: props.class })">\n    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-primary">\n      <UIDropdownMenuItemIndicator icon="lucide:check" />\n    </span>\n    <slot>\n      <span v-if="title">{{ title }}</span>\n    </slot>\n    <slot name="shortcut">\n      <UIDropdownMenuShortcut v-if="shortcut">{{ shortcut }}</UIDropdownMenuShortcut>\n    </slot>\n  </DropdownMenuCheckboxItem>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuCheckboxItem, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuCheckboxItemEmits, DropdownMenuCheckboxItemProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuCheckboxItemProps & {\n      class?: any;\n      shortcut?: string;\n      title?: string;\n    }\n  >();\n  const emits = defineEmits<DropdownMenuCheckboxItemEmits>();\n  const forwarded = useForwardPropsEmits(props, emits);\n\n  const styles = tv({\n    base: "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Content.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <UIDropdownMenuPortal>\r\n    <DropdownMenuContent\r\n      v-bind="{ ...forwarded, ...$attrs }"\r\n      :class="styles({ class: props.class })"\r\n    >\r\n      <slot></slot>\r\n    </DropdownMenuContent>\r\n  </UIDropdownMenuPortal>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuContent, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuContentEmits, DropdownMenuContentProps } from "radix-vue";\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      DropdownMenuContentProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      loop: true,\r\n      align: "center",\r\n      sideOffset: 5,\r\n      side: "bottom",\r\n      avoidCollisions: true,\r\n      sticky: "partial",\r\n    }\r\n  );\r\n\r\n  const emits = defineEmits<DropdownMenuContentEmits>();\r\n\r\n  const styles = tv({\r\n    base: "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-accent-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",\r\n  });\r\n\r\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\r\n</script>\r\n',
+          '<template>\n  <UIDropdownMenuPortal>\n    <DropdownMenuContent\n      v-bind="{ ...forwarded, ...$attrs }"\n      :class="styles({ class: props.class })"\n    >\n      <slot></slot>\n    </DropdownMenuContent>\n  </UIDropdownMenuPortal>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuContent, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuContentEmits, DropdownMenuContentProps } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n\n  const props = withDefaults(\n    defineProps<\n      DropdownMenuContentProps & {\n        class?: any;\n      }\n    >(),\n    {\n      loop: true,\n      align: "center",\n      sideOffset: 5,\n      side: "bottom",\n      avoidCollisions: true,\n      sticky: "partial",\n    }\n  );\n\n  const emits = defineEmits<DropdownMenuContentEmits>();\n\n  const styles = tv({\n    base: "z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-accent-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",\n  });\n\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/DropdownMenu.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuRoot v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuRoot>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuRoot, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuRootEmits, DropdownMenuRootProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuRootProps>();\r\n\r\n  const emit = defineEmits<DropdownMenuRootEmits>();\r\n  const forwarded = useForwardPropsEmits(props, emit);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuRoot v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuRoot>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuRoot, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuRootEmits, DropdownMenuRootProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuRootProps>();\n\n  const emit = defineEmits<DropdownMenuRootEmits>();\n  const forwarded = useForwardPropsEmits(props, emit);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Group.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuGroup v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuGroup>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuGroup, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuGroupProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuGroupProps>();\r\n  const forwarded = useForwardProps(props);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuGroup v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuGroup>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuGroup, useForwardProps } from "radix-vue";\n  import type { DropdownMenuGroupProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuGroupProps>();\n  const forwarded = useForwardProps(props);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Item.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuItem v-bind="forwarded" :class="styles({ inset, class: props.class })">\r\n    <slot>\r\n      <slot name="icon">\r\n        <Icon v-if="icon" :name="icon" class="h-4 w-4" />\r\n      </slot>\r\n      <slot name="title">\r\n        <span v-if="title">{{ title }}</span>\r\n      </slot>\r\n    </slot>\r\n    <slot name="shortcut">\r\n      <UIDropdownMenuShortcut v-if="shortcut">{{ shortcut }}</UIDropdownMenuShortcut>\r\n    </slot>\r\n  </DropdownMenuItem>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuItem, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuItemEmits, DropdownMenuItemProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuItemProps & {\r\n      class?: any;\r\n      inset?: boolean;\r\n      shortcut?: string;\r\n      title?: string;\r\n      icon?: string;\r\n    }\r\n  >();\r\n\r\n  const emits = defineEmits<DropdownMenuItemEmits>();\r\n  const forwarded = useForwardPropsEmits(\r\n    useOmit(props, ["class", "inset", "shortcut", "icon"]),\r\n    emits\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "relative flex cursor-default select-none items-center gap-3 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\r\n    variants: {\r\n      inset: {\r\n        true: "pl-8",\r\n      },\r\n    },\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuItem v-bind="forwarded" :class="styles({ inset, class: props.class })">\n    <slot>\n      <slot name="icon">\n        <Icon v-if="icon" :name="icon" class="h-4 w-4" />\n      </slot>\n      <slot name="title">\n        <span v-if="title">{{ title }}</span>\n      </slot>\n    </slot>\n    <slot name="shortcut">\n      <UIDropdownMenuShortcut v-if="shortcut">{{ shortcut }}</UIDropdownMenuShortcut>\n    </slot>\n  </DropdownMenuItem>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuItem, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuItemEmits, DropdownMenuItemProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuItemProps & {\n      class?: any;\n      inset?: boolean;\n      shortcut?: string;\n      title?: string;\n      icon?: string;\n    }\n  >();\n\n  const emits = defineEmits<DropdownMenuItemEmits>();\n  const forwarded = useForwardPropsEmits(\n    useOmit(props, ["class", "inset", "shortcut", "icon"]),\n    emits\n  );\n\n  const styles = tv({\n    base: "relative flex cursor-default select-none items-center gap-3 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\n    variants: {\n      inset: {\n        true: "pl-8",\n      },\n    },\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/ItemIndicator.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuItemIndicator v-bind="forwarded">\r\n    <slot>\r\n      <Icon v-if="icon" :name="icon" class="h-4 w-4" />\r\n    </slot>\r\n  </DropdownMenuItemIndicator>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuItemIndicator, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuItemIndicatorProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuItemIndicatorProps & {\r\n      icon?: string;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(useOmit(props, ["icon"]));\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuItemIndicator v-bind="forwarded">\n    <slot>\n      <Icon v-if="icon" :name="icon" class="h-4 w-4" />\n    </slot>\n  </DropdownMenuItemIndicator>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuItemIndicator, useForwardProps } from "radix-vue";\n  import type { DropdownMenuItemIndicatorProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuItemIndicatorProps & {\n      icon?: string;\n    }\n  >();\n  const forwarded = useForwardProps(useOmit(props, ["icon"]));\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Label.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuLabel :class="styles({ inset, class: props.class })" v-bind="forwarded">\r\n    <slot>{{ label }}</slot>\r\n  </DropdownMenuLabel>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuLabel, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuLabelProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuLabelProps & {\r\n      class?: any;\r\n      inset?: boolean;\r\n      label?: string;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(useOmit(props, ["class", "inset", "label"]));\r\n\r\n  const styles = tv({\r\n    base: "inline-block w-full px-2 py-1.5 text-sm font-semibold text-foreground",\r\n    variants: {\r\n      inset: { true: "pl-8" },\r\n    },\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuLabel :class="styles({ inset, class: props.class })" v-bind="forwarded">\n    <slot>{{ label }}</slot>\n  </DropdownMenuLabel>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuLabel, useForwardProps } from "radix-vue";\n  import type { DropdownMenuLabelProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuLabelProps & {\n      class?: any;\n      inset?: boolean;\n      label?: string;\n    }\n  >();\n  const forwarded = useForwardProps(useOmit(props, ["class", "inset", "label"]));\n\n  const styles = tv({\n    base: "inline-block w-full px-2 py-1.5 text-sm font-semibold text-foreground",\n    variants: {\n      inset: { true: "pl-8" },\n    },\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Portal.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuPortal v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuPortal>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuPortal, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuPortalProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuPortalProps>();\r\n  const forwarded = useForwardProps(props);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuPortal v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuPortal>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuPortal, useForwardProps } from "radix-vue";\n  import type { DropdownMenuPortalProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuPortalProps>();\n  const forwarded = useForwardProps(props);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/RadioGroup.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuRadioGroup v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuRadioGroup>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuRadioGroup, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuRadioGroupEmits, DropdownMenuRadioGroupProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuRadioGroupProps>();\r\n\r\n  const emits = defineEmits<DropdownMenuRadioGroupEmits>();\r\n\r\n  const forwarded = useForwardPropsEmits(props, emits);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuRadioGroup v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuRadioGroup>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuRadioGroup, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuRadioGroupEmits, DropdownMenuRadioGroupProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuRadioGroupProps>();\n\n  const emits = defineEmits<DropdownMenuRadioGroupEmits>();\n\n  const forwarded = useForwardPropsEmits(props, emits);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/RadioItem.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuRadioItem v-bind="forwarded" :class="styles({ class: props.class })">\r\n    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-primary">\r\n      <UIDropdownMenuItemIndicator>\r\n        <Icon v-if="icon" :name="icon" class="h-4 w-4" />\r\n        <Icon v-else name="ph:circle-fill" class="h-2 w-2" />\r\n      </UIDropdownMenuItemIndicator>\r\n    </span>\r\n    <slot>{{ title }}</slot>\r\n  </DropdownMenuRadioItem>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuRadioItem, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuRadioItemProps & {\r\n      class?: any;\r\n      icon?: string;\r\n      title?: string;\r\n    }\r\n  >();\r\n\r\n  const emits = defineEmits<DropdownMenuRadioItemEmits>();\r\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class", "icon"]), emits);\r\n\r\n  const styles = tv({\r\n    base: "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuRadioItem v-bind="forwarded" :class="styles({ class: props.class })">\n    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center text-primary">\n      <UIDropdownMenuItemIndicator>\n        <Icon v-if="icon" :name="icon" class="h-4 w-4" />\n        <Icon v-else name="ph:circle-fill" class="h-2 w-2" />\n      </UIDropdownMenuItemIndicator>\n    </span>\n    <slot>{{ title }}</slot>\n  </DropdownMenuRadioItem>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuRadioItem, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuRadioItemProps & {\n      class?: any;\n      icon?: string;\n      title?: string;\n    }\n  >();\n\n  const emits = defineEmits<DropdownMenuRadioItemEmits>();\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class", "icon"]), emits);\n\n  const styles = tv({\n    base: "relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Separator.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuSeparator :class="styles({ class: props.class })" v-bind="forwarded" />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuSeparator, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuSeparatorProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuSeparatorProps & {\r\n      class?: any;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\r\n\r\n  const styles = tv({\r\n    base: "-mx-1 my-1 h-px bg-border",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuSeparator :class="styles({ class: props.class })" v-bind="forwarded" />\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuSeparator, useForwardProps } from "radix-vue";\n  import type { DropdownMenuSeparatorProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuSeparatorProps & {\n      class?: any;\n    }\n  >();\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\n\n  const styles = tv({\n    base: "-mx-1 my-1 h-px bg-border",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Shortcut.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Primitive :class="styles({ class: props.class })" v-bind="forwarded">\r\n    <slot />\r\n  </Primitive>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Primitive, useForwardProps } from "radix-vue";\r\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      PrimitiveProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      as: "span",\r\n    }\r\n  );\r\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\r\n\r\n  const styles = tv({\r\n    base: "ml-auto text-xs tracking-widest opacity-60",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" v-bind="forwarded">\n    <slot />\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive, useForwardProps } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n      }\n    >(),\n    {\n      as: "span",\n    }\n  );\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\n\n  const styles = tv({\n    base: "ml-auto text-xs tracking-widest opacity-60",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Sub.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuSub v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuSub>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuSub, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuSubEmits, DropdownMenuSubProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuSubProps>();\r\n  const emits = defineEmits<DropdownMenuSubEmits>();\r\n  const forwarded = useForwardPropsEmits(props, emits);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuSub v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuSub>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuSub, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuSubEmits, DropdownMenuSubProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuSubProps>();\n  const emits = defineEmits<DropdownMenuSubEmits>();\n  const forwarded = useForwardPropsEmits(props, emits);\n</script>\n',
       },
       {
         fileName: "DropdownMenu/SubContent.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuPortal>\r\n    <DropdownMenuSubContent\r\n      v-bind="{ ...forwarded, ...$attrs }"\r\n      :class="styles({ class: props.class })"\r\n    >\r\n      <slot></slot>\r\n    </DropdownMenuSubContent>\r\n  </DropdownMenuPortal>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuSubContent, useForwardPropsEmits } from "radix-vue";\r\n  import type { DropdownMenuSubContentEmits, DropdownMenuSubContentProps } from "radix-vue";\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n  const props = withDefaults(\r\n    defineProps<\r\n      DropdownMenuSubContentProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      loop: true,\r\n      sideOffset: 8,\r\n      avoidCollisions: true,\r\n      collisionPadding: 5,\r\n      sticky: "partial",\r\n    }\r\n  );\r\n\r\n  const emits = defineEmits<DropdownMenuSubContentEmits>();\r\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\r\n\r\n  const styles = tv({\r\n    base: "z-50 min-w-[180px] overflow-hidden rounded-md border bg-popover p-1 text-accent-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuPortal>\n    <DropdownMenuSubContent\n      v-bind="{ ...forwarded, ...$attrs }"\n      :class="styles({ class: props.class })"\n    >\n      <slot></slot>\n    </DropdownMenuSubContent>\n  </DropdownMenuPortal>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuSubContent, useForwardPropsEmits } from "radix-vue";\n  import type { DropdownMenuSubContentEmits, DropdownMenuSubContentProps } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n  const props = withDefaults(\n    defineProps<\n      DropdownMenuSubContentProps & {\n        class?: any;\n      }\n    >(),\n    {\n      loop: true,\n      sideOffset: 8,\n      avoidCollisions: true,\n      collisionPadding: 5,\n      sticky: "partial",\n    }\n  );\n\n  const emits = defineEmits<DropdownMenuSubContentEmits>();\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\n\n  const styles = tv({\n    base: "z-50 min-w-[180px] overflow-hidden rounded-md border bg-popover p-1 text-accent-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/SubTrigger.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuSubTrigger v-bind="forwarded" :class="styles({ inset, class: props.class })">\r\n    <slot>\r\n      <Icon v-if="icon" :name="icon" class="h-4 w-4" />\r\n      <span v-if="title">{{ title }}</span>\r\n    </slot>\r\n    <Icon\r\n      class="ml-auto h-4 w-4 text-muted-foreground"\r\n      :name="trailingIcon || \'lucide:chevron-right\'"\r\n    />\r\n  </DropdownMenuSubTrigger>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuSubTrigger, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuSubTriggerProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    DropdownMenuSubTriggerProps & {\r\n      class?: any;\r\n      inset?: boolean;\r\n      asChild?: boolean;\r\n      icon?: string;\r\n      title?: string;\r\n      trailingIcon?: string;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(\r\n    useOmit(props, ["class", "inset", "asChild", "icon", "trailingIcon"])\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "flex cursor-default select-none items-center gap-3 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",\r\n    variants: {\r\n      inset: {\r\n        true: "pl-8",\r\n      },\r\n    },\r\n  });\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuSubTrigger v-bind="forwarded" :class="styles({ inset, class: props.class })">\n    <slot>\n      <Icon v-if="icon" :name="icon" class="h-4 w-4" />\n      <span v-if="title">{{ title }}</span>\n    </slot>\n    <Icon\n      class="ml-auto h-4 w-4 text-muted-foreground"\n      :name="trailingIcon || \'lucide:chevron-right\'"\n    />\n  </DropdownMenuSubTrigger>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuSubTrigger, useForwardProps } from "radix-vue";\n  import type { DropdownMenuSubTriggerProps } from "radix-vue";\n\n  const props = defineProps<\n    DropdownMenuSubTriggerProps & {\n      class?: any;\n      inset?: boolean;\n      asChild?: boolean;\n      icon?: string;\n      title?: string;\n      trailingIcon?: string;\n    }\n  >();\n  const forwarded = useForwardProps(\n    useOmit(props, ["class", "inset", "asChild", "icon", "trailingIcon"])\n  );\n\n  const styles = tv({\n    base: "flex cursor-default select-none items-center gap-3 rounded-sm px-2 py-1.5 text-sm outline-none focus:bg-accent data-[state=open]:bg-accent",\n    variants: {\n      inset: {\n        true: "pl-8",\n      },\n    },\n  });\n</script>\n',
       },
       {
         fileName: "DropdownMenu/Trigger.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <DropdownMenuTrigger v-bind="forwarded">\r\n    <slot></slot>\r\n  </DropdownMenuTrigger>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { DropdownMenuTrigger, useForwardProps } from "radix-vue";\r\n  import type { DropdownMenuTriggerProps } from "radix-vue";\r\n\r\n  const props = defineProps<DropdownMenuTriggerProps>();\r\n  const forwarded = useForwardProps(props);\r\n</script>\r\n',
+          '<template>\n  <DropdownMenuTrigger v-bind="forwarded">\n    <slot></slot>\n  </DropdownMenuTrigger>\n</template>\n\n<script lang="ts" setup>\n  import { DropdownMenuTrigger, useForwardProps } from "radix-vue";\n  import type { DropdownMenuTriggerProps } from "radix-vue";\n\n  const props = defineProps<DropdownMenuTriggerProps>();\n  const forwarded = useForwardProps(props);\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Dropfile",
@@ -887,6 +937,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Form",
@@ -899,7 +950,7 @@ export default [
         fileName: "useFormField.ts",
         dirPath: "composables",
         fileContent:
-          'import { FORM_ITEM_INJECTION_KEY } from "@/components/UI/Form/Item.vue";\r\nimport {\r\n  FieldContextKey,\r\n  useFieldError,\r\n  useIsFieldDirty,\r\n  useIsFieldTouched,\r\n  useIsFieldValid,\r\n} from "vee-validate";\r\nimport { inject } from "vue";\r\n\r\nexport function useFormField() {\r\n  const fieldContext = inject(FieldContextKey);\r\n  const fieldItemContext = inject(FORM_ITEM_INJECTION_KEY);\r\n\r\n  const fieldState = {\r\n    valid: useIsFieldValid(),\r\n    isDirty: useIsFieldDirty(),\r\n    isTouched: useIsFieldTouched(),\r\n    error: useFieldError(),\r\n  };\r\n\r\n  if (!fieldContext) throw new Error("useFormField should be used within <FormField>");\r\n\r\n  const { name } = fieldContext;\r\n  const id = fieldItemContext;\r\n\r\n  return {\r\n    id,\r\n    name,\r\n    formItemId: `${id}-form-item`,\r\n    formDescriptionId: `${id}-form-item-description`,\r\n    formMessageId: `${id}-form-item-message`,\r\n    ...fieldState,\r\n  };\r\n}\r\n',
+          'import { FORM_ITEM_INJECTION_KEY } from "@/components/UI/Form/Item.vue";\nimport {\n  FieldContextKey,\n  useFieldError,\n  useIsFieldDirty,\n  useIsFieldTouched,\n  useIsFieldValid,\n} from "vee-validate";\nimport { inject } from "vue";\n\nexport function useFormField() {\n  const fieldContext = inject(FieldContextKey);\n  const fieldItemContext = inject(FORM_ITEM_INJECTION_KEY);\n\n  const fieldState = {\n    valid: useIsFieldValid(),\n    isDirty: useIsFieldDirty(),\n    isTouched: useIsFieldTouched(),\n    error: useFieldError(),\n  };\n\n  if (!fieldContext) throw new Error("useFormField should be used within <FormField>");\n\n  const { name } = fieldContext;\n  const id = fieldItemContext;\n\n  return {\n    id,\n    name,\n    formItemId: `${id}-form-item`,\n    formDescriptionId: `${id}-form-item-description`,\n    formMessageId: `${id}-form-item-message`,\n    ...fieldState,\n  };\n}\n',
       },
     ],
     files: [
@@ -907,34 +958,35 @@ export default [
         fileName: "Form/Control.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Slot\r\n    :id="formItemId"\r\n    :aria-describedby="!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`"\r\n    :aria-invalid="!!error"\r\n  >\r\n    <slot />\r\n  </Slot>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Slot } from "radix-vue";\r\n\r\n  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();\r\n</script>\r\n',
+          '<template>\n  <Slot\n    :id="formItemId"\n    :aria-describedby="!error ? `${formDescriptionId}` : `${formDescriptionId} ${formMessageId}`"\n    :aria-invalid="!!error"\n  >\n    <slot />\n  </Slot>\n</template>\n\n<script lang="ts" setup>\n  import { Slot } from "radix-vue";\n\n  const { error, formItemId, formDescriptionId, formMessageId } = useFormField();\n</script>\n',
       },
       {
         fileName: "Form/Description.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <p :id="formDescriptionId" :class="styles({ class: props.class })" v-bind="$attrs">\r\n    <slot>\r\n      <ClientOnly>\r\n        <p v-html="description"></p>\r\n      </ClientOnly>\r\n    </slot>\r\n  </p>\r\n</template>\r\n<script lang="ts" setup>\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const { formDescriptionId } = useFormField();\r\n  const props = defineProps<{ class?: any; description?: string }>();\r\n  const styles = tv({ base: "text-sm text-muted-foreground" });\r\n</script>\r\n',
+          '<template>\n  <p :id="formDescriptionId" :class="styles({ class: props.class })" v-bind="$attrs">\n    <slot>\n      <ClientOnly>\n        <p v-html="description"></p>\n      </ClientOnly>\n    </slot>\n  </p>\n</template>\n<script lang="ts" setup>\n  defineOptions({ inheritAttrs: false });\n\n  const { formDescriptionId } = useFormField();\n  const props = defineProps<{ class?: any; description?: string }>();\n  const styles = tv({ base: "text-sm text-muted-foreground" });\n</script>\n',
       },
       {
         fileName: "Form/Item.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <div :class="styles({ class: props.class })" v-bind="$attrs">\r\n    <slot name="label">\r\n      <UIFormLabel v-if="label || hint" :label="label" :hint="hint" />\r\n    </slot>\r\n    <UIFormControl>\r\n      <slot />\r\n    </UIFormControl>\r\n    <slot name="description">\r\n      <UIFormDescription v-if="description" :description="description" />\r\n    </slot>\r\n    <slot name="errorMessage">\r\n      <TransitionSlide tag="p">\r\n        <UIFormMessage v-if="!hideMessage" />\r\n      </TransitionSlide>\r\n    </slot>\r\n  </div>\r\n</template>\r\n\r\n<script lang="ts">\r\n  import { type InjectionKey } from "vue";\r\n\r\n  export const FORM_ITEM_INJECTION_KEY = Symbol() as InjectionKey<string>;\r\n</script>\r\n\r\n<script lang="ts" setup>\r\n  import { useId } from "radix-vue";\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const id = useId();\r\n  provide(FORM_ITEM_INJECTION_KEY, id);\r\n\r\n  const props = defineProps<{\r\n    class?: any;\r\n    label?: string;\r\n    description?: string;\r\n    hint?: string;\r\n    hideMessage?: boolean;\r\n  }>();\r\n\r\n  const styles = tv({ base: "space-y-1.5" });\r\n</script>\r\n',
+          '<template>\n  <div :class="styles({ class: props.class })" v-bind="$attrs">\n    <slot name="label">\n      <UIFormLabel v-if="label || hint" :label="label" :hint="hint" />\n    </slot>\n    <UIFormControl>\n      <slot />\n    </UIFormControl>\n    <slot name="description">\n      <UIFormDescription v-if="description" :description="description" />\n    </slot>\n    <slot name="errorMessage">\n      <TransitionSlide tag="p">\n        <UIFormMessage v-if="!hideMessage" />\n      </TransitionSlide>\n    </slot>\n  </div>\n</template>\n\n<script lang="ts">\n  import { type InjectionKey } from "vue";\n\n  export const FORM_ITEM_INJECTION_KEY = Symbol() as InjectionKey<string>;\n</script>\n\n<script lang="ts" setup>\n  import { useId } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n\n  const id = useId();\n  provide(FORM_ITEM_INJECTION_KEY, id);\n\n  const props = defineProps<{\n    class?: any;\n    label?: string;\n    description?: string;\n    hint?: string;\n    hideMessage?: boolean;\n  }>();\n\n  const styles = tv({ base: "space-y-1.5" });\n</script>\n',
       },
       {
         fileName: "Form/Label.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Label\r\n    :class="styles({ error: Boolean(error), class: props.class })"\r\n    :for="formItemId"\r\n    v-bind="$attrs"\r\n  >\r\n    <slot\r\n      >{{ label }}\r\n      <span class="ml-auto font-normal text-muted-foreground/80">{{ hint }}</span></slot\r\n    >\r\n  </Label>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Label } from "radix-vue";\r\n  import type { LabelProps } from "radix-vue";\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n  const props = defineProps<LabelProps & { class?: any; label?: string; hint?: string }>();\r\n\r\n  const { error, formItemId } = useFormField();\r\n\r\n  const styles = tv({\r\n    base: "flex w-full items-center justify-between text-left text-sm font-medium tracking-tight text-foreground hover:cursor-pointer",\r\n    variants: {\r\n      error: {\r\n        true: "text-destructive",\r\n      },\r\n    },\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Label\n    :class="styles({ error: Boolean(error), class: props.class })"\n    :for="formItemId"\n    v-bind="$attrs"\n  >\n    <slot\n      >{{ label }}\n      <span class="ml-auto font-normal text-muted-foreground/80">{{ hint }}</span></slot\n    >\n  </Label>\n</template>\n\n<script lang="ts" setup>\n  import { Label } from "radix-vue";\n  import type { LabelProps } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n  const props = defineProps<LabelProps & { class?: any; label?: string; hint?: string }>();\n\n  const { error, formItemId } = useFormField();\n\n  const styles = tv({\n    base: "flex w-full items-center justify-between text-left text-sm font-medium tracking-tight text-foreground hover:cursor-pointer",\n    variants: {\n      error: {\n        true: "text-destructive",\n      },\n    },\n  });\n</script>\n',
       },
       {
         fileName: "Form/Message.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ErrorMessage\r\n    :id="formMessageId"\r\n    as="p"\r\n    :name="toValue(name)"\r\n    class="text-sm font-medium text-destructive"\r\n  />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  const { name, formMessageId } = useFormField();\r\n</script>\r\n',
+          '<template>\n  <ErrorMessage\n    :id="formMessageId"\n    as="p"\n    :name="toValue(name)"\n    class="text-sm font-medium text-destructive"\n  />\n</template>\n\n<script lang="ts" setup>\n  const { name, formMessageId } = useFormField();\n</script>\n',
       },
     ],
     utils: [],
+    plugins: [],
   },
   {
     name: "Hover Card",
@@ -976,6 +1028,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Input",
@@ -988,11 +1041,12 @@ export default [
         fileName: "Input.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <input :class="styles({ class: props.class })" v-bind="forwarded" v-model="localModel" />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { useForwardPropsEmits } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<{\r\n      class?: any;\r\n      id?: string;\r\n      name?: string;\r\n      placeholder?: string;\r\n      disabled?: boolean;\r\n      required?: boolean;\r\n      type?: string;\r\n      modelValue?: any;\r\n    }>(),\r\n    { type: "text" }\r\n  );\r\n  const emits = defineEmits<{\r\n    "update:modelValue": [value: any];\r\n  }>();\r\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\r\n\r\n  const localModel = useVModel(props, "modelValue", emits);\r\n\r\n  const styles = tv({\r\n    base: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[16px] ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground file:hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <input :class="styles({ class: props.class })" v-bind="forwarded" v-model="localModel" />\n</template>\n\n<script lang="ts" setup>\n  import { useForwardPropsEmits } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<{\n      class?: any;\n      id?: string;\n      name?: string;\n      placeholder?: string;\n      disabled?: boolean;\n      required?: boolean;\n      type?: string;\n      modelValue?: any;\n    }>(),\n    { type: "text" }\n  );\n  const emits = defineEmits<{\n    "update:modelValue": [value: any];\n  }>();\n  const forwarded = useForwardPropsEmits(useOmit(props, ["class"]), emits);\n\n  const localModel = useVModel(props, "modelValue", emits);\n\n  const styles = tv({\n    base: "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-[16px] ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground file:hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm",\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Keyboard Key",
@@ -1010,6 +1064,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Label",
@@ -1022,11 +1077,54 @@ export default [
         fileName: "Label.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Label :class="styles({ class: props.class })" v-bind="forwarded">\r\n    <slot />\r\n  </Label>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Label, useForwardProps } from "radix-vue";\r\n  import type { LabelProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    LabelProps & {\r\n      class?: any;\r\n    }\r\n  >();\r\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\r\n\r\n  const styles = tv({\r\n    base: "inline-block text-base font-medium leading-none hover:cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sm:text-sm",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <Label :class="styles({ class: props.class })" v-bind="forwarded">\n    <slot />\n  </Label>\n</template>\n\n<script lang="ts" setup>\n  import { Label, useForwardProps } from "radix-vue";\n  import type { LabelProps } from "radix-vue";\n\n  const props = defineProps<\n    LabelProps & {\n      class?: any;\n    }\n  >();\n  const forwarded = useForwardProps(useOmit(props, ["class"]));\n\n  const styles = tv({\n    base: "inline-block text-base font-medium leading-none hover:cursor-pointer peer-disabled:cursor-not-allowed peer-disabled:opacity-70 sm:text-sm",\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
+  },
+  {
+    name: "List",
+    value: "list",
+    deps: ["radix-vue", "tailwind-variants"],
+    devDeps: [],
+    nuxtModules: [],
+    files: [
+      {
+        fileName: "List/Content.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <Primitive :class="styles({ class: props.class })" v-bind="props">\n    <slot></slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n      }\n    >(),\n    {\n      as: "div",\n    }\n  );\n\n  const styles = tv({\n    base: "flex flex-col gap-1 leading-none",\n  });\n</script>\n',
+      },
+      {
+        fileName: "List/Item.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <component\n    :is="eltype"\n    :href="href"\n    :to="to"\n    @click="onClick"\n    :class="\n      styles({\n        hover: Boolean(onClick) || Boolean(to) || Boolean(href),\n        class: props.class,\n      })\n    "\n  >\n    <slot></slot>\n  </component>\n</template>\n\n<script lang="ts" setup>\n  const props = defineProps<{\n    class?: any;\n    onClick?: () => void;\n    to?: string;\n    href?: string;\n  }>();\n\n  const styles = tv({\n    base: "flex w-full items-center gap-5 px-4 py-2",\n    variants: {\n      hover: {\n        true: "cursor-pointer outline-none hover:bg-muted focus-visible:ring-4 focus-visible:ring-primary/10",\n      },\n    },\n  });\n\n  const eltype = computed(() => {\n    if (props.to || props.href) return resolveComponent("NuxtLink");\n    if (props.onClick) return "button";\n    return "li";\n  });\n</script>\n',
+      },
+      {
+        fileName: "List/List.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <Primitive :class="styles({ class: props.class })" v-bind="props">\n    <slot></slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n      }\n    >(),\n    {\n      as: "ul",\n    }\n  );\n\n  const styles = tv({\n    base: "w-full py-2",\n  });\n</script>\n',
+      },
+      {
+        fileName: "List/Subtitle.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <Primitive :class="styles({ class: props.class })" v-bind="props">\n    <slot>{{ subtitle }}</slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n        subtitle?: string;\n      }\n    >(),\n    {\n      as: "p",\n    }\n  );\n\n  const styles = tv({\n    base: "text-sm text-muted-foreground",\n  });\n</script>\n',
+      },
+      {
+        fileName: "List/Title.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <Primitive :class="styles({ class: props.class })" v-bind="props">\n    <slot>{{ title }}</slot>\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue/dist/Primitive/Primitive";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        class?: any;\n        title?: string;\n      }\n    >(),\n    {\n      as: "p",\n    }\n  );\n\n  const styles = tv({\n    base: "font-semibold",\n  });\n</script>\n',
+      },
+    ],
+    utils: [],
+    composables: [],
+    plugins: [],
   },
   {
     name: "Menubar",
@@ -1146,6 +1244,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Native Select",
@@ -1163,6 +1262,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Navigation Menu",
@@ -1228,6 +1328,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "One-Time Password",
@@ -1245,6 +1346,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Pagination",
@@ -1304,6 +1406,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Popover",
@@ -1363,6 +1466,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Progress",
@@ -1386,6 +1490,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Radio Group",
@@ -1415,6 +1520,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Scroll Area",
@@ -1456,6 +1562,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Select",
@@ -1563,6 +1670,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Separator",
@@ -1580,6 +1688,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Sheet",
@@ -1657,6 +1766,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Skeleton",
@@ -1674,6 +1784,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Slider",
@@ -1709,6 +1820,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Switch",
@@ -1732,6 +1844,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Table",
@@ -1797,6 +1910,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Tabs",
@@ -1832,6 +1946,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Tanstack Table",
@@ -1850,6 +1965,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Textarea",
@@ -1867,6 +1983,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Toast",
@@ -1888,37 +2005,37 @@ export default [
         fileName: "Toast/Action.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastAction :class="styles({ class: props.class })" v-bind="props">\r\n    <slot></slot>\r\n  </ToastAction>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastAction } from "radix-vue";\r\n  import type { ToastActionProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      ToastActionProps & {\r\n        class?: any;\r\n      }\r\n    >(),\r\n    {\r\n      altText: "Action button",\r\n    }\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3  text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastAction :class="styles({ class: props.class })" v-bind="props">\n    <slot></slot>\n  </ToastAction>\n</template>\n\n<script lang="ts" setup>\n  import { ToastAction } from "radix-vue";\n  import type { ToastActionProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      ToastActionProps & {\n        class?: any;\n      }\n    >(),\n    {\n      altText: "Action button",\n    }\n  );\n\n  const styles = tv({\n    base: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3  text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Close.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastClose :class="styles({ class: props.class })" v-bind="props">\r\n    <slot>\r\n      <Icon :name="icon || \'lucide:x\'" class="h-4 w-4" />\r\n    </slot>\r\n  </ToastClose>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastClose } from "radix-vue";\r\n  import type { ToastCloseProps } from "radix-vue";\r\n\r\n  const props = withDefaults(\r\n    defineProps<\r\n      ToastCloseProps & {\r\n        class?: any;\r\n        icon?: string;\r\n      }\r\n    >(),\r\n    {}\r\n  );\r\n\r\n  const styles = tv({\r\n    base: "absolute right-2 top-2 inline-flex items-center justify-center rounded-md p-1 text-foreground/50 opacity-50 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 focus-visible:ring-ring  group-hover:opacity-100",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastClose :class="styles({ class: props.class })" v-bind="props">\n    <slot>\n      <Icon :name="icon || \'lucide:x\'" class="h-4 w-4" />\n    </slot>\n  </ToastClose>\n</template>\n\n<script lang="ts" setup>\n  import { ToastClose } from "radix-vue";\n  import type { ToastCloseProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      ToastCloseProps & {\n        class?: any;\n        icon?: string;\n      }\n    >(),\n    {}\n  );\n\n  const styles = tv({\n    base: "absolute right-2 top-2 inline-flex items-center justify-center rounded-md p-1 text-foreground/50 opacity-50 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 focus-visible:ring-ring  group-hover:opacity-100",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Description.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastDescription :class="styles({ class: props.class })" v-bind="props">\r\n    <slot>{{ description }}</slot>\r\n  </ToastDescription>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastDescription } from "radix-vue";\r\n  import type { ToastDescriptionProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    ToastDescriptionProps & {\r\n      description?: string;\r\n      class?: any;\r\n    }\r\n  >();\r\n\r\n  const styles = tv({\r\n    base: "text-sm opacity-90",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastDescription :class="styles({ class: props.class })" v-bind="props">\n    <slot>{{ description }}</slot>\n  </ToastDescription>\n</template>\n\n<script lang="ts" setup>\n  import { ToastDescription } from "radix-vue";\n  import type { ToastDescriptionProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastDescriptionProps & {\n      description?: string;\n      class?: any;\n    }\n  >();\n\n  const styles = tv({\n    base: "text-sm opacity-90",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Provider.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastProvider v-bind="props">\r\n    <slot></slot>\r\n  </ToastProvider>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastProvider } from "radix-vue";\r\n  import type { ToastProviderProps } from "radix-vue";\r\n\r\n  const props = withDefaults(defineProps<ToastProviderProps>(), {\r\n    label: "Notification",\r\n    swipeDirection: "right",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastProvider v-bind="props">\n    <slot></slot>\n  </ToastProvider>\n</template>\n\n<script lang="ts" setup>\n  import { ToastProvider } from "radix-vue";\n  import type { ToastProviderProps } from "radix-vue";\n\n  const props = withDefaults(defineProps<ToastProviderProps>(), {\n    label: "Notification",\n    swipeDirection: "right",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Title.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastTitle :class="styles({ class: props.class })" v-bind="props">\r\n    <slot>{{ title }}</slot>\r\n  </ToastTitle>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastTitle } from "radix-vue";\r\n  import type { ToastTitleProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    ToastTitleProps & {\r\n      title?: string;\r\n      class?: any;\r\n    }\r\n  >();\r\n\r\n  const styles = tv({\r\n    base: "text-sm font-semibold",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastTitle :class="styles({ class: props.class })" v-bind="props">\n    <slot>{{ title }}</slot>\n  </ToastTitle>\n</template>\n\n<script lang="ts" setup>\n  import { ToastTitle } from "radix-vue";\n  import type { ToastTitleProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastTitleProps & {\n      title?: string;\n      class?: any;\n    }\n  >();\n\n  const styles = tv({\n    base: "text-sm font-semibold",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Toast.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastRoot\r\n    v-bind="forwarded"\r\n    :class="styles({ variant, class: props.class })"\r\n    @update:open="onOpenChange"\r\n  >\r\n    <slot></slot>\r\n  </ToastRoot>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastRoot, useForwardPropsEmits } from "radix-vue";\r\n  import type { ToastRootEmits, ToastRootProps } from "radix-vue";\r\n\r\n  export interface ToastProps extends ToastRootProps {\r\n    class?: any;\r\n    variant?: VariantProps<typeof styles>["variant"];\r\n    onOpenChange?: ((value: boolean) => void) | undefined;\r\n  }\r\n\r\n  const props = withDefaults(defineProps<ToastProps>(), {});\r\n\r\n  const emits = defineEmits<ToastRootEmits>();\r\n  const forwarded = useForwardPropsEmits(props, emits);\r\n\r\n  const styles = tv({\r\n    base: "group pointer-events-auto relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-lg border p-4 pr-9 shadow-sm transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",\r\n    variants: {\r\n      variant: {\r\n        default: "border bg-background text-foreground",\r\n        success:\r\n          "success group border-[var(--success-border)] bg-[--success-bg] text-[--success-text]",\r\n        info: "info group border-[var(--info-border)] bg-[--info-bg] text-[--info-text]",\r\n        warning:\r\n          "warning group border-[var(--warning-border)] bg-[--warning-bg] text-[--warning-text]",\r\n        destructive:\r\n          "destructive group border-[var(--error-border)] bg-[--error-bg] text-[--error-text]",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: "default",\r\n    },\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastRoot\n    v-bind="forwarded"\n    :class="styles({ variant, class: props.class })"\n    @update:open="onOpenChange"\n  >\n    <slot></slot>\n  </ToastRoot>\n</template>\n\n<script lang="ts" setup>\n  import { ToastRoot, useForwardPropsEmits } from "radix-vue";\n  import type { ToastRootEmits, ToastRootProps } from "radix-vue";\n\n  export interface ToastProps extends ToastRootProps {\n    class?: any;\n    variant?: VariantProps<typeof styles>["variant"];\n    onOpenChange?: ((value: boolean) => void) | undefined;\n  }\n\n  const props = withDefaults(defineProps<ToastProps>(), {});\n\n  const emits = defineEmits<ToastRootEmits>();\n  const forwarded = useForwardPropsEmits(props, emits);\n\n  const styles = tv({\n    base: "group pointer-events-auto relative flex w-full items-center justify-between gap-4 overflow-hidden rounded-lg border p-4 pr-9 shadow-sm transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full",\n    variants: {\n      variant: {\n        default: "border bg-background text-foreground",\n        success:\n          "success group border-[var(--success-border)] bg-[--success-bg] text-[--success-text]",\n        info: "info group border-[var(--info-border)] bg-[--info-bg] text-[--info-text]",\n        warning:\n          "warning group border-[var(--warning-border)] bg-[--warning-bg] text-[--warning-text]",\n        destructive:\n          "destructive group border-[var(--error-border)] bg-[--error-bg] text-[--error-text]",\n      },\n    },\n    defaultVariants: {\n      variant: "default",\n    },\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Toaster.vue",
@@ -1930,10 +2047,11 @@ export default [
         fileName: "Toast/Viewport.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <ToastViewport :class="styles({ class: props.class })" v-bind="props">\r\n    <slot></slot>\r\n  </ToastViewport>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { ToastViewport } from "radix-vue";\r\n  import type { ToastViewportProps } from "radix-vue";\r\n\r\n  const props = defineProps<\r\n    ToastViewportProps & {\r\n      class?: any;\r\n    }\r\n  >();\r\n\r\n  const styles = tv({\r\n    base: "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-4 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-0 sm:right-0 sm:top-0 sm:flex-col md:max-w-[420px]",\r\n  });\r\n</script>\r\n',
+          '<template>\n  <ToastViewport :class="styles({ class: props.class })" v-bind="props">\n    <slot></slot>\n  </ToastViewport>\n</template>\n\n<script lang="ts" setup>\n  import { ToastViewport } from "radix-vue";\n  import type { ToastViewportProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastViewportProps & {\n      class?: any;\n    }\n  >();\n\n  const styles = tv({\n    base: "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-4 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-0 sm:right-0 sm:top-0 sm:flex-col md:max-w-[420px]",\n  });\n</script>\n',
       },
     ],
     utils: [],
+    plugins: [],
   },
   {
     name: "Toggle",
@@ -1951,6 +2069,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Tooltip",
@@ -1998,6 +2117,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeCheckbox",
@@ -2017,6 +2137,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeFileInput",
@@ -2031,11 +2152,12 @@ export default [
         fileName: "Vee/FileInput.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <div class="w-full">\r\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\r\n      label\r\n    }}</UILabel>\r\n    <div class="relative">\r\n      <slot name="icon">\r\n        <span v-if="hasIcon" class="absolute inset-y-0 left-3 flex items-center justify-center">\r\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\r\n        </span>\r\n      </slot>\r\n      <UIInput\r\n        type="file"\r\n        @change="\r\n          handleChange($event);\r\n          emits(\'change\', $event.target.files);\r\n        "\r\n        @blur="\r\n          handleBlur($event);\r\n          emits(\'blur\', $event);\r\n        "\r\n        :id="inputId"\r\n        :name="name"\r\n        v-bind="$attrs"\r\n        :multiple="multiple"\r\n        :class="[hasIcon && \'pl-9\']"\r\n        :accept="accept"\r\n      />\r\n    </div>\r\n    <TransitionSlide group tag="div">\r\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\r\n        {{ hint }}\r\n      </p>\r\n\r\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\r\n        {{ errorMessage }}\r\n      </p>\r\n    </TransitionSlide>\r\n  </div>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { useId } from "radix-vue";\r\n\r\n  const props = defineProps<{\r\n    label?: string;\r\n    icon?: string;\r\n    hint?: string;\r\n    name: string;\r\n    id?: string;\r\n    rules?: any;\r\n    validateOnMount?: boolean;\r\n    multiple?: boolean;\r\n    accept?: string;\r\n  }>();\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const emits = defineEmits<{\r\n    change: [files?: FileList | File | File[] | null];\r\n    blur: [event?: FocusEvent];\r\n  }>();\r\n\r\n  const inputId = useId(props.id);\r\n\r\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\r\n\r\n  const { errorMessage, handleChange, handleBlur } = useField(() => props.name, props.rules, {\r\n    label: props.label,\r\n    validateOnMount: props.validateOnMount,\r\n  });\r\n</script>\r\n',
+          '<template>\n  <div class="w-full">\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\n      label\n    }}</UILabel>\n    <div class="relative">\n      <slot name="icon">\n        <span v-if="hasIcon" class="absolute inset-y-0 left-3 flex items-center justify-center">\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\n        </span>\n      </slot>\n      <UIInput\n        type="file"\n        @change="\n          handleChange($event);\n          emits(\'change\', $event.target.files);\n        "\n        @blur="\n          handleBlur($event);\n          emits(\'blur\', $event);\n        "\n        :id="inputId"\n        :name="name"\n        v-bind="$attrs"\n        :multiple="multiple"\n        :class="[hasIcon && \'pl-9\']"\n        :accept="accept"\n      />\n    </div>\n    <TransitionSlide group tag="div">\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\n        {{ hint }}\n      </p>\n\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\n        {{ errorMessage }}\n      </p>\n    </TransitionSlide>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  import { useId } from "radix-vue";\n\n  const props = defineProps<{\n    label?: string;\n    icon?: string;\n    hint?: string;\n    name: string;\n    id?: string;\n    rules?: any;\n    validateOnMount?: boolean;\n    multiple?: boolean;\n    accept?: string;\n  }>();\n\n  defineOptions({ inheritAttrs: false });\n\n  const emits = defineEmits<{\n    change: [files?: FileList | File | File[] | null];\n    blur: [event?: FocusEvent];\n  }>();\n\n  const inputId = useId(props.id);\n\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\n\n  const { errorMessage, handleChange, handleBlur } = useField(() => props.name, props.rules, {\n    label: props.label,\n    validateOnMount: props.validateOnMount,\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeInput",
@@ -2050,11 +2172,12 @@ export default [
         fileName: "Vee/Input.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <div class="w-full">\r\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\r\n      label\r\n    }}</UILabel>\r\n    <div class="relative">\r\n      <slot name="icon">\r\n        <span v-if="hasIcon" class="absolute inset-y-0 left-3 flex items-center justify-center">\r\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\r\n        </span>\r\n      </slot>\r\n      <UIInput\r\n        :type="type"\r\n        v-model="value"\r\n        @blur="handleBlur"\r\n        :id="inputId"\r\n        :name="name"\r\n        v-bind="$attrs"\r\n        :class="[hasIcon && \'pl-9\']"\r\n        :placeholder="placeholder"\r\n      />\r\n    </div>\r\n    <TransitionSlide group tag="div">\r\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\r\n        {{ hint }}\r\n      </p>\r\n\r\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\r\n        {{ errorMessage }}\r\n      </p>\r\n    </TransitionSlide>\r\n  </div>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { useId } from "radix-vue";\r\n\r\n  const props = defineProps<{\r\n    label?: string;\r\n    icon?: string;\r\n    hint?: string;\r\n    modelValue?: string;\r\n    name?: string;\r\n    id?: string;\r\n    rules?: any;\r\n    validateOnMount?: boolean;\r\n    type?: string;\r\n    placeholder?: string;\r\n  }>();\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const inputId = useId(props.id);\r\n\r\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\r\n\r\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\r\n    initialValue: props.modelValue,\r\n    label: props.label,\r\n    validateOnMount: props.validateOnMount,\r\n    syncVModel: true,\r\n  });\r\n</script>\r\n',
+          '<template>\n  <div class="w-full">\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\n      label\n    }}</UILabel>\n    <div class="relative">\n      <slot name="icon">\n        <span v-if="hasIcon" class="absolute inset-y-0 left-3 flex items-center justify-center">\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\n        </span>\n      </slot>\n      <UIInput\n        :type="type"\n        v-model="value"\n        @blur="handleBlur"\n        :id="inputId"\n        :name="name"\n        v-bind="$attrs"\n        :class="[hasIcon && \'pl-9\']"\n        :placeholder="placeholder"\n      />\n    </div>\n    <TransitionSlide group tag="div">\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\n        {{ hint }}\n      </p>\n\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\n        {{ errorMessage }}\n      </p>\n    </TransitionSlide>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  import { useId } from "radix-vue";\n\n  const props = defineProps<{\n    label?: string;\n    icon?: string;\n    hint?: string;\n    modelValue?: string;\n    name?: string;\n    id?: string;\n    rules?: any;\n    validateOnMount?: boolean;\n    type?: string;\n    placeholder?: string;\n  }>();\n\n  defineOptions({ inheritAttrs: false });\n\n  const inputId = useId(props.id);\n\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\n\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\n    initialValue: props.modelValue,\n    label: props.label,\n    validateOnMount: props.validateOnMount,\n    syncVModel: true,\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeRadioGroup",
@@ -2074,6 +2197,7 @@ export default [
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeSelect",
@@ -2088,11 +2212,12 @@ export default [
         fileName: "Vee/Select.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <div class="w-full">\r\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\r\n      label\r\n    }}</UILabel>\r\n    <div class="relative">\r\n      <slot name="icon">\r\n        <span v-if="hasIcon" lass="absolute inset-y-0 left-3 flex items-center justify-center">\r\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground" />\r\n        </span>\r\n      </slot>\r\n      <UINativeSelect\r\n        :trailingIcon="trailingIcon"\r\n        v-model="value"\r\n        @blur="handleBlur"\r\n        :id="inputId"\r\n        :name="name"\r\n        v-bind="$attrs"\r\n        :class="[hasIcon && \'pl-9\']"\r\n      >\r\n        <slot></slot>\r\n      </UINativeSelect>\r\n    </div>\r\n    <TransitionSlide group tag="div">\r\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\r\n        {{ hint }}\r\n      </p>\r\n\r\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\r\n        {{ errorMessage }}\r\n      </p>\r\n    </TransitionSlide>\r\n  </div>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { useId } from "radix-vue";\r\n\r\n  const props = defineProps<{\r\n    label?: string;\r\n    icon?: string;\r\n    hint?: string;\r\n    modelValue?: string;\r\n    name?: string;\r\n    id?: string;\r\n    rules?: any;\r\n    validateOnMount?: boolean;\r\n    type?: string;\r\n    trailingIcon?: string;\r\n  }>();\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const inputId = useId(props.id);\r\n\r\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\r\n\r\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\r\n    initialValue: props.modelValue,\r\n    label: props.label,\r\n    validateOnMount: props.validateOnMount,\r\n    syncVModel: true,\r\n  });\r\n</script>\r\n',
+          '<template>\n  <div class="w-full">\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\n      label\n    }}</UILabel>\n    <div class="relative">\n      <slot name="icon">\n        <span v-if="hasIcon" lass="absolute inset-y-0 left-3 flex items-center justify-center">\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground" />\n        </span>\n      </slot>\n      <UINativeSelect\n        :trailingIcon="trailingIcon"\n        v-model="value"\n        @blur="handleBlur"\n        :id="inputId"\n        :name="name"\n        v-bind="$attrs"\n        :class="[hasIcon && \'pl-9\']"\n      >\n        <slot></slot>\n      </UINativeSelect>\n    </div>\n    <TransitionSlide group tag="div">\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\n        {{ hint }}\n      </p>\n\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\n        {{ errorMessage }}\n      </p>\n    </TransitionSlide>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  import { useId } from "radix-vue";\n\n  const props = defineProps<{\n    label?: string;\n    icon?: string;\n    hint?: string;\n    modelValue?: string;\n    name?: string;\n    id?: string;\n    rules?: any;\n    validateOnMount?: boolean;\n    type?: string;\n    trailingIcon?: string;\n  }>();\n\n  defineOptions({ inheritAttrs: false });\n\n  const inputId = useId(props.id);\n\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\n\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\n    initialValue: props.modelValue,\n    label: props.label,\n    validateOnMount: props.validateOnMount,\n    syncVModel: true,\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "Vue Sonner",
@@ -2106,11 +2231,12 @@ export default [
         fileName: "VueSonner.client.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <Toaster\r\n    position="top-right"\r\n    :visible-toasts="5"\r\n    rich-colors\r\n    :duration="7000"\r\n    close-button\r\n    :theme="$colorMode.value == \'dark\' ? \'dark\' : \'light\'"\r\n  />\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { Toaster } from "vue-sonner";\r\n</script>\r\n<style scoped>\r\n  :deep([data-sonner-toaster][data-theme="dark"]),\r\n  :deep([data-sonner-toaster][data-theme="light"]) {\r\n    --normal-bg: theme("colors.popover.DEFAULT");\r\n    --normal-border: theme("colors.border");\r\n    --normal-text: theme("colors.popover.foreground");\r\n    --border-radius: theme("borderRadius.md");\r\n  }\r\n  :deep([data-sonner-toaster]) {\r\n    @apply font-sans;\r\n  }\r\n  :deep([data-sonner-toast][data-styled="true"]) {\r\n    @apply items-start;\r\n  }\r\n  :deep([data-sonner-toast] [data-icon]) {\r\n    @apply mt-0.5;\r\n  }\r\n  :deep([data-sonner-toast] [data-title]) {\r\n    @apply text-sm font-semibold;\r\n  }\r\n  :deep([data-sonner-toast] [data-description]) {\r\n    @apply text-sm;\r\n  }\r\n  :deep([data-sonner-toast] [data-close-button]) {\r\n    @apply border border-border bg-background text-foreground hover:border-inherit hover:bg-inherit hover:text-accent-foreground;\r\n  }\r\n  :deep([data-sonner-toast] [data-button]) {\r\n    @apply bg-primary text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;\r\n  }\r\n  :deep(.sonner-loading-bar) {\r\n    @apply bg-muted-foreground;\r\n  }\r\n</style>\r\n',
+          '<template>\n  <Toaster\n    position="top-right"\n    :visible-toasts="5"\n    rich-colors\n    :duration="7000"\n    close-button\n    :theme="$colorMode.value == \'dark\' ? \'dark\' : \'light\'"\n  />\n</template>\n\n<script lang="ts" setup>\n  import { Toaster } from "vue-sonner";\n</script>\n<style scoped>\n  :deep([data-sonner-toaster][data-theme="dark"]),\n  :deep([data-sonner-toaster][data-theme="light"]) {\n    --normal-bg: theme("colors.popover.DEFAULT");\n    --normal-border: theme("colors.border");\n    --normal-text: theme("colors.popover.foreground");\n    --border-radius: theme("borderRadius.md");\n  }\n  :deep([data-sonner-toaster]) {\n    @apply font-sans;\n  }\n  :deep([data-sonner-toast][data-styled="true"]) {\n    @apply items-start;\n  }\n  :deep([data-sonner-toast] [data-icon]) {\n    @apply mt-0.5;\n  }\n  :deep([data-sonner-toast] [data-title]) {\n    @apply text-sm font-semibold;\n  }\n  :deep([data-sonner-toast] [data-description]) {\n    @apply text-sm;\n  }\n  :deep([data-sonner-toast] [data-close-button]) {\n    @apply border border-border bg-background text-foreground hover:border-inherit hover:bg-inherit hover:text-accent-foreground;\n  }\n  :deep([data-sonner-toast] [data-button]) {\n    @apply bg-primary text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background;\n  }\n  :deep(.sonner-loading-bar) {\n    @apply bg-muted-foreground;\n  }\n</style>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
   {
     name: "VeeTextarea",
@@ -2125,10 +2251,11 @@ export default [
         fileName: "Vee/Textarea.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\r\n  <div class="w-full">\r\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\r\n      label\r\n    }}</UILabel>\r\n    <div class="relative">\r\n      <slot name="icon">\r\n        <span v-if="hasIcon" class="absolute left-3 top-3 flex items-center justify-center">\r\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\r\n        </span>\r\n      </slot>\r\n      <UITextarea\r\n        :rows="rows"\r\n        v-model="value"\r\n        @blur="handleBlur"\r\n        :id="inputId"\r\n        :name="name"\r\n        v-bind="$attrs"\r\n        :class="[hasIcon && \'pl-9\']"\r\n        :placeholder="placeholder"\r\n      />\r\n    </div>\r\n    <TransitionSlide group tag="div">\r\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\r\n        {{ hint }}\r\n      </p>\r\n\r\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\r\n        {{ errorMessage }}\r\n      </p>\r\n    </TransitionSlide>\r\n  </div>\r\n</template>\r\n\r\n<script lang="ts" setup>\r\n  import { useId } from "radix-vue";\r\n\r\n  const props = defineProps<{\r\n    label?: string;\r\n    icon?: string;\r\n    hint?: string;\r\n    modelValue?: string;\r\n    name?: string;\r\n    id?: string;\r\n    rules?: any;\r\n    validateOnMount?: boolean;\r\n    placeholder?: string;\r\n    rows?: number;\r\n  }>();\r\n\r\n  defineOptions({ inheritAttrs: false });\r\n\r\n  const inputId = useId(props.id);\r\n\r\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\r\n\r\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\r\n    initialValue: props.modelValue,\r\n    label: props.label,\r\n    validateOnMount: props.validateOnMount,\r\n    syncVModel: true,\r\n  });\r\n</script>\r\n',
+          '<template>\n  <div class="w-full">\n    <UILabel :for="inputId" v-if="label" :class="[errorMessage && \'text-destructive\', \'mb-2\']">{{\n      label\n    }}</UILabel>\n    <div class="relative">\n      <slot name="icon">\n        <span v-if="hasIcon" class="absolute left-3 top-3 flex items-center justify-center">\n          <Icon :name="icon" v-if="icon" class="h-4 w-4 text-muted-foreground/70" />\n        </span>\n      </slot>\n      <UITextarea\n        :rows="rows"\n        v-model="value"\n        @blur="handleBlur"\n        :id="inputId"\n        :name="name"\n        v-bind="$attrs"\n        :class="[hasIcon && \'pl-9\']"\n        :placeholder="placeholder"\n      />\n    </div>\n    <TransitionSlide group tag="div">\n      <p key="hint" class="mt-1.5 text-sm text-muted-foreground" v-if="hint && !errorMessage">\n        {{ hint }}\n      </p>\n\n      <p key="errorMessage" class="mt-1.5 text-sm text-destructive" v-if="errorMessage">\n        {{ errorMessage }}\n      </p>\n    </TransitionSlide>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  import { useId } from "radix-vue";\n\n  const props = defineProps<{\n    label?: string;\n    icon?: string;\n    hint?: string;\n    modelValue?: string;\n    name?: string;\n    id?: string;\n    rules?: any;\n    validateOnMount?: boolean;\n    placeholder?: string;\n    rows?: number;\n  }>();\n\n  defineOptions({ inheritAttrs: false });\n\n  const inputId = useId(props.id);\n\n  const hasIcon = computed(() => Boolean(props.icon) || Boolean(useSlots().icon));\n\n  const { errorMessage, value, handleBlur } = useField(() => props.name || inputId, props.rules, {\n    initialValue: props.modelValue,\n    label: props.label,\n    validateOnMount: props.validateOnMount,\n    syncVModel: true,\n  });\n</script>\n',
       },
     ],
     utils: [],
     composables: [],
+    plugins: [],
   },
 ];
