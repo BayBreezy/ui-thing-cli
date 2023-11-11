@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.9
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.8...v0.0.9)
+
+### 🩹 Fixes
+
+- Add multiselect dep to the list of deps ([369bfef](https://github.com/BayBreezy/ui-thing-cli/commit/369bfef))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.8
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.7...v0.0.8)
