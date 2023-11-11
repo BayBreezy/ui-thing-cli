@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.0.8
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.7...v0.0.8)
+
+### 🚀 Enhancements
+
+- Add multiselect component to the list ([e40f13a](https://github.com/BayBreezy/ui-thing-cli/commit/e40f13a))
+
+### ✅ Tests
+
+- **utils:** Add test for compareUIConfig ([8d89db8](https://github.com/BayBreezy/ui-thing-cli/commit/8d89db8))
+- **templates:** Add test for css file ([da9736c](https://github.com/BayBreezy/ui-thing-cli/commit/da9736c))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.7
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.6...v0.0.7)
