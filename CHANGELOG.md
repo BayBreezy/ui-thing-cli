@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.0.10
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.9...v0.0.10)
+
+### 🚀 Enhancements
+
+- Add shortcut composables ([bd104e3](https://github.com/BayBreezy/ui-thing-cli/commit/bd104e3))
+
+### 📖 Documentation
+
+- Update readme ([991c842](https://github.com/BayBreezy/ui-thing-cli/commit/991c842))
+
+### 📦 Build
+
+- Run `npm pkg fix` to update package.json file ([5fb7e54](https://github.com/BayBreezy/ui-thing-cli/commit/5fb7e54))
+
+### 🏡 Chore
+
+- Update components ([5ae91c3](https://github.com/BayBreezy/ui-thing-cli/commit/5ae91c3))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.9
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.8...v0.0.9)
