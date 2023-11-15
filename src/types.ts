@@ -22,6 +22,7 @@ export type Component = {
   files: Composable[];
   utils: Composable[];
   composables: Composable[];
+  plugins: Composable[];
   components?: string[];
   askValidator?: boolean;
 };
