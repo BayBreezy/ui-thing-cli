@@ -3,7 +3,6 @@ export const INIT_DEV_DEPS = [
   "typescript",
   "tailwindcss-animate",
   "nuxt-icon",
-  "nuxt-lodash",
   "prettier-plugin-tailwindcss",
   "prettier",
   "@nuxtjs/tailwindcss",
@@ -16,7 +15,6 @@ export const INIT_MODULES = [
   "@nuxtjs/tailwindcss",
   "@nuxtjs/color-mode",
   "@vueuse/nuxt",
-  "nuxt-lodash",
   "nuxt-icon",
 ];
 

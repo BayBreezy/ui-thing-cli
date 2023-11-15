@@ -57,7 +57,7 @@ export const init = new Command()
         type: true,
       });
     }
-    // Wriet changes to nuxt config
+    // Write changes to nuxt config
     await updateConfig(cfg.nuxtConfig, "nuxt.config.ts");
     // instal deps
     await installPackages(uiConfig.packageManager, INIT_DEPS, INIT_DEV_DEPS);

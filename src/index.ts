@@ -4,6 +4,7 @@ import { Command } from "commander";
 import { add } from "./commands/add";
 import { init } from "./commands/init";
 import { addPrettier } from "./commands/prettier";
+import { addShortcuts } from "./commands/shortcuts";
 import { theme } from "./commands/theme";
 import { printFancyBoxMessage } from "./utils/printFancyBoxMessage";
 
@@ -25,6 +26,7 @@ program
   .addCommand(init)
   .addCommand(add)
   .addCommand(theme)
+  .addCommand(addShortcuts)
   .addCommand(addPrettier);
 
 program.parse(process.argv);
