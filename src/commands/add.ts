@@ -5,15 +5,17 @@ import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
 
-import allComponents from "../comp";
+import { Component } from "../types";
 import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getNuxtConfig, getUIConfig, updateConfig } from "../utils/config";
+import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 import { promptUserForComponents } from "../utils/promptForComponents";
 import { writeFile } from "../utils/writeFile";
 
+let allComponents: Component[] = [];
 const currentDirectory = process.cwd();
 
 const findComponent = (name: string) => {
@@ -41,6 +43,8 @@ export const add = new Command()
       consola.info("Config file not set. Exiting...");
       process.exit(0);
     }
+    // get components from API
+    allComponents = await fetchComponents();
 
     let componentNames = components;
     // if no components are passed, prompt the user to select components
@@ -65,7 +69,7 @@ export const add = new Command()
     }
 
     // store the components that are found
-    let found: typeof allComponents = [];
+    let found: Component[] = [];
     componentNames.forEach((c) => {
       if (findComponent(c)) {
         found.push(findComponent(c)!);
