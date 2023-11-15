@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.0.11
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.10...v0.0.11)
+
+### 🚀 Enhancements
+
+- **add:** Update add command to get components from API ([6c41848](https://github.com/BayBreezy/ui-thing-cli/commit/6c41848))
+
+### 💅 Refactors
+
+- **types:** Update types ([75917fb](https://github.com/BayBreezy/ui-thing-cli/commit/75917fb))
+
+### 🏡 Chore
+
+- **dependencies:** Update deps ([7ce3c2a](https://github.com/BayBreezy/ui-thing-cli/commit/7ce3c2a))
+- **components:** Remove hard coded components ([2802d49](https://github.com/BayBreezy/ui-thing-cli/commit/2802d49))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.10
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.9...v0.0.10)
