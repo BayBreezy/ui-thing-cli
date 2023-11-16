@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.12
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.11...v0.0.12)
+
+### 🏡 Chore
+
+- **add:** Revert to adding local components file. API call was too slow ([f77db79](https://github.com/BayBreezy/ui-thing-cli/commit/f77db79))
+- Remove unused import ([be11d5d](https://github.com/BayBreezy/ui-thing-cli/commit/be11d5d))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.11
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.10...v0.0.11)
