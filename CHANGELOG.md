@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.13
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.12...v0.0.13)
+
+### 🏡 Chore
+
+- Make call to api for compoinents again ([fbd4a78](https://github.com/BayBreezy/ui-thing-cli/commit/fbd4a78))
+- Use local component file again ([eebf8cd](https://github.com/BayBreezy/ui-thing-cli/commit/eebf8cd))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.12
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.11...v0.0.12)
