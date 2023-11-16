@@ -9,7 +9,6 @@ import allComponents from "../comps";
 import { Component } from "../types";
 import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getNuxtConfig, getUIConfig, updateConfig } from "../utils/config";
-import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
