@@ -5,10 +5,10 @@ import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
 
-import allComponents from "../comps";
 import { Component } from "../types";
 import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getNuxtConfig, getUIConfig, updateConfig } from "../utils/config";
+import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
@@ -16,6 +16,8 @@ import { promptUserForComponents } from "../utils/promptForComponents";
 import { writeFile } from "../utils/writeFile";
 
 const currentDirectory = process.cwd();
+
+let allComponents: Component[] = [];
 
 const findComponent = (name: string) => {
   return allComponents.find((c) => c.value.toLowerCase() === name.toLowerCase());
@@ -53,6 +55,9 @@ export const add = new Command()
       }
       componentNames = response;
     }
+
+    // get comps from API
+    allComponents = await fetchComponents();
 
     // store the components that are not found
     let notFound: string[] = [];
