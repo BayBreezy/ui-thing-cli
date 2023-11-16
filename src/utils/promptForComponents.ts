@@ -1,14 +1,10 @@
 import ora from "ora";
 import prompts from "prompts";
 
+import allComponents from "../comps";
 import { Component } from "../types";
-import { fetchComponents } from "./fetchComponents";
 
 export const promptUserForComponents = async (): Promise<string[]> => {
-  // get comps from API
-  const compsSpinner = ora("Fetching components...").start();
-  const allComponents = await fetchComponents();
-  compsSpinner.succeed("Fetched components");
   const { components } = await prompts({
     type: "autocompleteMultiselect",
     name: "components",
