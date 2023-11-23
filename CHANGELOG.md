@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.14
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.13...v0.0.14)
+
+### 🏡 Chore
+
+- Add vee-otp component to the updated list ([34f6791](https://github.com/BayBreezy/ui-thing-cli/commit/34f6791))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.13
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.12...v0.0.13)
