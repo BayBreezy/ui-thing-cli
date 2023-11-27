@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.0.15
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.14...v0.0.15)
+
+### 🚀 Enhancements
+
+- **components:** Add new components ([deed365](https://github.com/BayBreezy/ui-thing-cli/commit/deed365))
+
+### 🏡 Chore
+
+- **dependencies:** Update deps ([1ea8fb6](https://github.com/BayBreezy/ui-thing-cli/commit/1ea8fb6))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.14
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.13...v0.0.14)
