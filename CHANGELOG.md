@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.16
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.15...v0.0.16)
+
+### 🚀 Enhancements
+
+- **pin-input:** Replace OTP with pin input ([7287b6f](https://github.com/BayBreezy/ui-thing-cli/commit/7287b6f))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.15
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.14...v0.0.15)
