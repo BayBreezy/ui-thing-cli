@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.17
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.16...v0.0.17)
+
+### 🏡 Chore
+
+- **prefix:** Update component prefix. Moved from UI to Ui ([e515ef7](https://github.com/BayBreezy/ui-thing-cli/commit/e515ef7))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.16
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.15...v0.0.16)
