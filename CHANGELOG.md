@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.18
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.17...v0.0.18)
+
+### 🏡 Chore
+
+- Update default component folder location ([1268f24](https://github.com/BayBreezy/ui-thing-cli/commit/1268f24))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.17
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.16...v0.0.17)
