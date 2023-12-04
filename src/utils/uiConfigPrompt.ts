@@ -27,7 +27,7 @@ export const initPrompts = async () => {
       name: "componentsLocation",
       type: "text",
       message: "Where should your components be stored?",
-      initial: "components/UI",
+      initial: "components/Ui",
     },
     {
       name: "composablesLocation",
