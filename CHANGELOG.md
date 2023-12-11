@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.19
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.18...v0.0.19)
+
+### 🏡 Chore
+
+- **components:** Update comp style for toast ([d78d6a0](https://github.com/BayBreezy/ui-thing-cli/commit/d78d6a0))
+- Update deps ([62fa5ff](https://github.com/BayBreezy/ui-thing-cli/commit/62fa5ff))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.18
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.17...v0.0.18)
