@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.20
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.19...v0.0.20)
+
+### 🏡 Chore
+
+- **components:** Add new components - navbar, container & divider ([fb970d5](https://github.com/BayBreezy/ui-thing-cli/commit/fb970d5))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.19
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.18...v0.0.19)
