@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.21
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.20...v0.0.21)
+
+### 🏡 Chore
+
+- Update deps & components ([ce7977d](https://github.com/BayBreezy/ui-thing-cli/commit/ce7977d))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.20
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.19...v0.0.20)
