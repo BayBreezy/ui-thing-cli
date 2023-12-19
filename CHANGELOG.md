@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.22
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.21...v0.0.22)
+
+### 🏡 Chore
+
+- Add colvis styles to datatable.net ([82995b3](https://github.com/BayBreezy/ui-thing-cli/commit/82995b3))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.21
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.20...v0.0.21)
