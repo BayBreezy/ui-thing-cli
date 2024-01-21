@@ -252,11 +252,11 @@ export const add = new Command()
       }
     }
     // Add modules to nuxt config
-    addModuleToConfig(cfg.nuxtConfig, _.uniq(found.map((c) => c.nuxtModules).flat()));
+    addModuleToConfig(cfg.nuxtConfig, _.uniq(found.map((c) => c.nuxtModules || []).flat()));
     // Write the changes to the nuxt config
     await updateConfig(cfg.nuxtConfig, "nuxt.config.ts");
-    const foundDeps = _.uniq(found.map((c) => c.deps).flat());
-    const foundDevDeps = _.uniq(found.map((c) => c.devDeps).flat());
+    const foundDeps = _.uniq(found.map((c) => c.deps || []).flat());
+    const foundDevDeps = _.uniq(found.map((c) => c.devDeps || []).flat());
     const { confirmInstall } = await prompts({
       type: "confirm",
       name: "confirmInstall",

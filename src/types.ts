@@ -15,9 +15,9 @@ export type InitOptions = { force?: boolean };
 export type Component = {
   name: string;
   value: string;
-  deps: string[];
-  devDeps: string[];
-  nuxtModules: string[];
+  deps?: string[];
+  devDeps?: string[];
+  nuxtModules?: string[];
   instructions?: string[];
   files: Composable[];
   utils: Composable[];
