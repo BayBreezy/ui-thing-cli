@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.23
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.22...v0.0.23)
+
+### 🏡 Chore
+
+- Update deps ([113aee9](https://github.com/BayBreezy/ui-thing-cli/commit/113aee9))
+- **add-command:** Update command to accomodate components with no deps or dev deps ([c856921](https://github.com/BayBreezy/ui-thing-cli/commit/c856921))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.22
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.21...v0.0.22)
