@@ -258,8 +258,8 @@ export const add = new Command()
     const foundDeps = _.uniq(found.map((c) => c.deps || []).flat());
     const foundDevDeps = _.uniq(found.map((c) => c.devDeps || []).flat());
 
-    // check if the foundDeps & foundDevDeps is empty. If they both are, then do not install anything
-    if (foundDeps.length !== 0 && foundDevDeps.length !== 0) {
+    // check if the foundDeps & foundDevDeps lists are not empty, ask the user to install them
+    if (foundDeps.length > 0 || foundDevDeps.length > 0) {
       const { confirmInstall } = await prompts({
         type: "confirm",
         name: "confirmInstall",
