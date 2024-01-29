@@ -40,7 +40,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "axios": "^1.6.5",
+    "axios": "^1.6.7",
     "boxen": "^7.1.1",
     "build": "^0.1.4",
     "c12": "^1.6.1",
@@ -51,7 +51,7 @@
     "fs-extra": "^11.2.0",
     "kleur": "^4.1.5",
     "lodash": "^4.17.21",
-    "nypm": "^0.3.4",
+    "nypm": "^0.3.6",
     "ora": "^8.0.1",
     "prompts": "^2.4.2"
   },
@@ -61,12 +61,12 @@
     "@types/figlet": "^1.5.8",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.14.202",
-    "@types/node": "^20.11.5",
+    "@types/node": "^20.11.10",
     "@types/prompts": "^2.4.9",
-    "@vitest/coverage-v8": "^1.2.1",
+    "@vitest/coverage-v8": "^1.2.2",
     "magicast": "^0.3.3",
     "tsup": "^8.0.1",
     "typescript": "^5.3.3",
-    "vitest": "^1.2.1"
+    "vitest": "^1.2.2"
   }
 }
