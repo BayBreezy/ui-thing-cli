@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.25
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.24...v0.0.25)
+
+### 🩹 Fixes
+
+- Update logic that determines if the deps should be installed ([ada954a](https://github.com/BayBreezy/ui-thing-cli/commit/ada954a))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.24
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.23...v0.0.24)
