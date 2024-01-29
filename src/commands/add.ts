@@ -257,16 +257,20 @@ export const add = new Command()
     await updateConfig(cfg.nuxtConfig, "nuxt.config.ts");
     const foundDeps = _.uniq(found.map((c) => c.deps || []).flat());
     const foundDevDeps = _.uniq(found.map((c) => c.devDeps || []).flat());
-    const { confirmInstall } = await prompts({
-      type: "confirm",
-      name: "confirmInstall",
-      message: `Do you want to install the following packages: ${kleur.cyan(
-        foundDeps.join(", ")
-      )} ${kleur.cyan(foundDevDeps.join(", "))}`,
-      initial: true,
-    });
-    if (confirmInstall) {
-      await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
+
+    // check if the foundDeps & foundDevDeps is empty. If they both are, then do not install anything
+    if (foundDeps.length !== 0 && foundDevDeps.length !== 0) {
+      const { confirmInstall } = await prompts({
+        type: "confirm",
+        name: "confirmInstall",
+        message: `Do you want to install the following packages: ${kleur.cyan(
+          foundDeps.join(", ")
+        )} ${kleur.cyan(foundDevDeps.join(", "))}`,
+        initial: true,
+      });
+      if (confirmInstall) {
+        await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
+      }
     }
 
     printFancyBoxMessage(
@@ -277,7 +281,10 @@ export const add = new Command()
     const combinedInstructions = found.map((c) => c.instructions).flat();
     // remove undefined from the array
     _.remove(combinedInstructions, (i) => !i);
+
+    // print the instructions if there are any
     if (combinedInstructions.length > 0) {
+      console.log("");
       console.log(kleur.bgCyan(" Instructions "));
       combinedInstructions.forEach((i) => {
         console.log(`${kleur.cyan("-")} ${i}`);
