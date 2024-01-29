@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.0.24
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.23...v0.0.24)
+
+### 🩹 Fixes
+
+- Check for postinstall script before running it ([c9c5115](https://github.com/BayBreezy/ui-thing-cli/commit/c9c5115))
+
+### 🏡 Chore
+
+- Update deps ([5bf3eb2](https://github.com/BayBreezy/ui-thing-cli/commit/5bf3eb2))
+- Update add command ([388bcb9](https://github.com/BayBreezy/ui-thing-cli/commit/388bcb9))
+
+### 🎨 Styles
+
+- Format codebase ([b95de27](https://github.com/BayBreezy/ui-thing-cli/commit/b95de27))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.23
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.22...v0.0.23)
