@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.0.26
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.25...v0.0.26)
+
+### 🩹 Fixes
+
+- **multiselect:** Change the way css is imported ([c9c37a4](https://github.com/BayBreezy/ui-thing-cli/commit/c9c37a4))
+
+### 🏡 Chore
+
+- Update deps ([e1d6110](https://github.com/BayBreezy/ui-thing-cli/commit/e1d6110))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.25
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.24...v0.0.25)
