@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.28
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.27...v0.0.28)
+
+### 🩹 Fixes
+
+- Update import ([ef37e4d](https://github.com/BayBreezy/ui-thing-cli/commit/ef37e4d))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.27
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.26...v0.0.27)
