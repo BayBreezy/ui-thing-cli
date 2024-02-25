@@ -25,6 +25,7 @@ export type Component = {
   plugins: Composable[];
   components?: string[];
   askValidator?: boolean;
+  overrides?: Record<string, any>;
 };
 
 export type Composable = {

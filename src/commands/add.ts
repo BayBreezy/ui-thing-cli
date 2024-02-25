@@ -1,6 +1,8 @@
 import path from "node:path";
 import { Command } from "commander";
 import { consola } from "consola";
+import { defu } from "defu";
+import { readFileSync } from "fs-extra";
 import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
@@ -159,23 +161,38 @@ export const add = new Command()
           cfg.defaultExport.app.head.script ||= [];
           const scriptOneExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js"
           );
           if (!scriptOneExists) {
             cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js",
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js",
               defer: true,
             });
           }
           const scriptTwoExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js"
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js"
           );
           if (!scriptTwoExists) {
             cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.min.js",
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js",
               defer: true,
             });
+          }
+          // Get package.json and add the overrides
+          const packageJson = readFileSync(path.join(currentDirectory, "package.json"), "utf-8");
+          // if no package.json file, do nothing
+          if (packageJson) {
+            const parsedPackageJson = JSON.parse(packageJson);
+            parsedPackageJson.overrides = defu(
+              {},
+              parsedPackageJson.overrides,
+              component.overrides
+            );
+            await writeFile(
+              path.join(currentDirectory, "package.json"),
+              JSON.stringify(parsedPackageJson, null, 2)
+            );
           }
         }
 
