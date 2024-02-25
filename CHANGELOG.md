@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.27
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.26...v0.0.27)
+
+### 🩹 Fixes
+
+- **dattables:** Pin dt versions and add overrides to package.json file ([ccc295b](https://github.com/BayBreezy/ui-thing-cli/commit/ccc295b))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.26
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.25...v0.0.26)
