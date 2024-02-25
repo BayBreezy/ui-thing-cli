@@ -1,8 +1,8 @@
+import { readFileSync } from "fs";
 import path from "node:path";
 import { Command } from "commander";
 import { consola } from "consola";
 import { defu } from "defu";
-import { readFileSync } from "fs-extra";
 import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
