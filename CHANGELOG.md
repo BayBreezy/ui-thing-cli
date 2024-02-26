@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.0.30
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.29...v0.0.30)
+
+### 🚀 Enhancements
+
+- **init-command:** Add --yes option to skip questions and just use defaults values ([a030aa0](https://github.com/BayBreezy/ui-thing-cli/commit/a030aa0))
+- **add-command:** Add -a `all` option to the add command. This will add all components to the project and install the deps ([83868ab](https://github.com/BayBreezy/ui-thing-cli/commit/83868ab))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.29
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.28...v0.0.29)
