@@ -30,8 +30,9 @@ export const add = new Command()
   .name("add")
   .command("add")
   .description("Add a list of components to your project.")
+  .option("-a --all", "Add all components to your project.", false)
   .argument("[componentNames...]", "Components that you want to add.")
-  .action(async (components: Array<string>) => {
+  .action(async (components: Array<string>, options: { all?: boolean }) => {
     // Get nuxt config
     const cfg = await getNuxtConfig();
     // Get ui config
@@ -48,7 +49,7 @@ export const add = new Command()
     let componentNames = components;
     // if no components are passed, prompt the user to select components
     if (componentNames.length === 0) {
-      const response = await promptUserForComponents();
+      const response = await promptUserForComponents(options.all);
       if ((response && response.length === 0) || !response) {
         consola.info("No components selected. Exiting...");
         process.exit(0);
@@ -277,16 +278,22 @@ export const add = new Command()
 
     // check if the foundDeps & foundDevDeps lists are not empty, ask the user to install them
     if (foundDeps.length > 0 || foundDevDeps.length > 0) {
-      const { confirmInstall } = await prompts({
-        type: "confirm",
-        name: "confirmInstall",
-        message: `Do you want to install the following packages: ${kleur.cyan(
-          foundDeps.join(", ")
-        )} ${kleur.cyan(foundDevDeps.join(", "))}`,
-        initial: true,
-      });
-      if (confirmInstall) {
+      // if the all option was passed, install the packages without asking
+      if (options.all) {
         await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
+      } else {
+        // Ask the user to install the packages
+        const { confirmInstall } = await prompts({
+          type: "confirm",
+          name: "confirmInstall",
+          message: `Do you want to install the following packages: ${kleur.cyan(
+            foundDeps.join(", ")
+          )} ${kleur.cyan(foundDevDeps.join(", "))}`,
+          initial: true,
+        });
+        if (confirmInstall) {
+          await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
+        }
       }
     }
 
