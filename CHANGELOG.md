@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.0.29
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.28...v0.0.29)
+
+### 🚀 Enhancements
+
+- Add drawer component ([1c07ebd](https://github.com/BayBreezy/ui-thing-cli/commit/1c07ebd))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.0.28
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.27...v0.0.28)
