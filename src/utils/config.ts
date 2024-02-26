@@ -12,6 +12,17 @@ import { initPrompts } from "./uiConfigPrompt";
 
 const currentDir = process.cwd();
 const uiConfigFilename = "ui-thing.config.ts";
+const defaultConfig = {
+  theme: "zinc",
+  tailwindCSSLocation: "assets/css/tailwind.css",
+  tailwindConfigLocation: "tailwind.config.js",
+  componentsLocation: "components/Ui",
+  composablesLocation: "composables",
+  utilsLocation: "utils",
+  force: true,
+  useDefaultFilename: true,
+  packageManager: "npm",
+};
 
 export const getNuxtConfig = async () => {
   if (!fse.existsSync("nuxt.config.ts")) {
@@ -28,7 +39,12 @@ export const getUIConfig = async (options?: InitOptions) => {
   let uiConfig: UIConfig = {} as UIConfig;
 
   if (!configFileExists || options?.force) {
-    uiConfig = await initPrompts();
+    // if option yes is passed, use default values
+    if (options?.yes) {
+      uiConfig = defaultConfig;
+    } else {
+      uiConfig = await initPrompts();
+    }
     await fse.writeFile(uiConfigFilename, `export default ${JSON.stringify(uiConfig, null, 2)}`);
     // Check if user chose pnpm as package manager
     if (uiConfig.packageManager === "pnpm") {

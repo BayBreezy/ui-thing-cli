@@ -19,6 +19,7 @@ export const init = new Command()
     "Initialize UI Thing in your Nuxt3 project. This will: 1. Create a tailwind.config.js file 2. Update your nuxt.config.ts file 3. Add the necessary dependencies 4. Create a ui-thing.config.ts file with the default configuration"
   )
   .option("-f --force", "Overwrite config file if it exists.", false)
+  .option("-y --yes", "Skip prompts and use default values.", false)
   .action(async (options: InitOptions) => {
     // Get nuxt config
     const cfg = await getNuxtConfig();

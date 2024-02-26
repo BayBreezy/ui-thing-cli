@@ -10,7 +10,7 @@ export type UIConfig = {
   packageManager: string;
 };
 
-export type InitOptions = { force?: boolean };
+export type InitOptions = { force?: boolean; yes?: boolean };
 
 export type Component = {
   name: string;
