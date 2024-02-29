@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.1
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.30...v0.1.1)
+
+### 🚀 Enhancements
+
+- Add splitpanes ([417ac8c](https://github.com/BayBreezy/ui-thing-cli/commit/417ac8c))
+
+### 🏡 Chore
+
+- Update deps ([f5a735e](https://github.com/BayBreezy/ui-thing-cli/commit/f5a735e))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.0.30
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.29...v0.0.30)
