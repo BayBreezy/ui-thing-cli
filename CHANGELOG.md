@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.2
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.1...v0.1.2)
+
+### 🏡 Chore
+
+- Update drawer component ([90e2518](https://github.com/BayBreezy/ui-thing-cli/commit/90e2518))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.1
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.0.30...v0.1.1)
