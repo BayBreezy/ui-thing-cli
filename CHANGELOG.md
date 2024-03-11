@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.3
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Add Date Field and Splitter components ([7985f19](https://github.com/BayBreezy/ui-thing-cli/commit/7985f19))
+
+### 🏡 Chore
+
+- Update deps ([1306af9](https://github.com/BayBreezy/ui-thing-cli/commit/1306af9))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.2
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.1...v0.1.2)
