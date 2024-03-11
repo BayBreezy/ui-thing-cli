@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.4
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.3...v0.1.4)
+
+### 🏡 Chore
+
+- Remove datatable vue 3 version restriction ([eb54575](https://github.com/BayBreezy/ui-thing-cli/commit/eb54575))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.3
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.2...v0.1.3)
