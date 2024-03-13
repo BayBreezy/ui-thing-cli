@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.5
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.4...v0.1.5)
+
+### 🩹 Fixes
+
+- Dead loop caused by dropfile's change event ([b1e1ce1](https://github.com/BayBreezy/ui-thing-cli/commit/b1e1ce1))
+
+### 🏡 Chore
+
+- Bump deps ([d7a8e76](https://github.com/BayBreezy/ui-thing-cli/commit/d7a8e76))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.1.4
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.3...v0.1.4)
