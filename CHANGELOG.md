@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.6
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- Update to latest version of datatables ([f973a89](https://github.com/BayBreezy/ui-thing-cli/commit/f973a89))
+
+### 🏡 Chore
+
+- Bump deps ([a2be074](https://github.com/BayBreezy/ui-thing-cli/commit/a2be074))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.5
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.4...v0.1.5)
