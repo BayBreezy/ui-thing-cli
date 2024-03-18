@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.7
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.6...v0.1.7)
+
+### 🏡 Chore
+
+- Bump deps ([24db3af](https://github.com/BayBreezy/ui-thing-cli/commit/24db3af))
+- **add:** Remove overrides addition logic ([86dcae6](https://github.com/BayBreezy/ui-thing-cli/commit/86dcae6))
+- **datatables:** Update datatables comp ([ce0b4c4](https://github.com/BayBreezy/ui-thing-cli/commit/ce0b4c4))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.6
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.5...v0.1.6)
