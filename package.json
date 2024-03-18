@@ -58,11 +58,11 @@
   },
   "devDependencies": {
     "@gmrchk/cli-testing-library": "^0.1.2",
-    "@ianvs/prettier-plugin-sort-imports": "^4.2.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.2.1",
     "@types/figlet": "^1.5.8",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.0",
-    "@types/node": "^20.11.28",
+    "@types/node": "^20.11.29",
     "@types/prompts": "^2.4.9",
     "@vitest/coverage-v8": "^1.4.0",
     "magicast": "^0.3.3",
