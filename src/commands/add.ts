@@ -180,21 +180,6 @@ export const add = new Command()
               defer: true,
             });
           }
-          // Get package.json and add the overrides
-          const packageJson = readFileSync(path.join(currentDirectory, "package.json"), "utf-8");
-          // if no package.json file, do nothing
-          if (packageJson) {
-            const parsedPackageJson = JSON.parse(packageJson);
-            parsedPackageJson.overrides = defu(
-              {},
-              parsedPackageJson.overrides,
-              component.overrides
-            );
-            await writeFile(
-              path.join(currentDirectory, "package.json"),
-              JSON.stringify(parsedPackageJson, null, 2)
-            );
-          }
         }
 
         // add utils attached to the component
