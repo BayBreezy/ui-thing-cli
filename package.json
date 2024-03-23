@@ -62,12 +62,12 @@
     "@types/figlet": "^1.5.8",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.0",
-    "@types/node": "^20.11.29",
+    "@types/node": "^20.11.30",
     "@types/prompts": "^2.4.9",
     "@vitest/coverage-v8": "^1.4.0",
     "magicast": "^0.3.3",
     "tsup": "^8.0.2",
-    "typescript": "^5.4.2",
+    "typescript": "^5.4.3",
     "vitest": "^1.4.0"
   }
 }
