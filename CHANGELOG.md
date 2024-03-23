@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.1.8
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.7...v0.1.8)
+
+### 🏡 Chore
+
+- Bump deps ([22f3b36](https://github.com/BayBreezy/ui-thing-cli/commit/22f3b36))
+- Add slot for navigationmenu viewport & icon ([339656e](https://github.com/BayBreezy/ui-thing-cli/commit/339656e))
+
+### 🤖 CI
+
+- **test:** Update test github action ([6345fc6](https://github.com/BayBreezy/ui-thing-cli/commit/6345fc6))
+- **build:** Update main github action ([9353995](https://github.com/BayBreezy/ui-thing-cli/commit/9353995))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.7
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.6...v0.1.7)
