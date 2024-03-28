@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.9
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.8...v0.1.9)
+
+### 🏡 Chore
+
+- **form-elements:** Use nuxt's `useId` composable instead of the one from radix-vue ([17a952e](https://github.com/BayBreezy/ui-thing-cli/commit/17a952e))
+- Bump deps ([557e58c](https://github.com/BayBreezy/ui-thing-cli/commit/557e58c))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.8
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.7...v0.1.8)
