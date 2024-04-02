@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.10
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.9...v0.1.10)
+
+### 🚀 Enhancements
+
+- Add currency-input component ([bc0f75b](https://github.com/BayBreezy/ui-thing-cli/commit/bc0f75b))
+
+### 🏡 Chore
+
+- Bump deps ([6e6dcf6](https://github.com/BayBreezy/ui-thing-cli/commit/6e6dcf6))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+
 ## v0.1.9
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.8...v0.1.9)
