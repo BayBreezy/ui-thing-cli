@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.11
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.10...v0.1.11)
+
+### 🏡 Chore
+
+- Update component array ([7e94f02](https://github.com/BayBreezy/ui-thing-cli/commit/7e94f02))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.10
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.9...v0.1.10)
