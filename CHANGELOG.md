@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.1.12
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.11...v0.1.12)
+
+### 🚀 Enhancements
+
+- Add toggle-group component ([c887563](https://github.com/BayBreezy/ui-thing-cli/commit/c887563))
+
+### 🏡 Chore
+
+- **release:** V0.1.11 ([df916e5](https://github.com/BayBreezy/ui-thing-cli/commit/df916e5))
+- Update deps ([75f6473](https://github.com/BayBreezy/ui-thing-cli/commit/75f6473))
+
+### ❤️ Contributors
+
+- BayBreezy <behon.baker@yahoo.com>
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.11
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.10...v0.1.11)
