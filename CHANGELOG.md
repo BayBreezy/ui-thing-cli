@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.14
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.13...v0.1.14)
+
+### 🚀 Enhancements
+
+- **fancy icon:** Add FancyIcon component ([e97adb0](https://github.com/BayBreezy/ui-thing-cli/commit/e97adb0))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.13
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.12...v0.1.13)
