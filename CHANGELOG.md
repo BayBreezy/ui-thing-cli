@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.15
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.14...v0.1.15)
+
+### 🏡 Chore
+
+- **release:** V0.1.14 ([16a8485](https://github.com/BayBreezy/ui-thing-cli/commit/16a8485))
+- Update autocomplete component ([27f35dc](https://github.com/BayBreezy/ui-thing-cli/commit/27f35dc))
+- Install packages ([17e6d8a](https://github.com/BayBreezy/ui-thing-cli/commit/17e6d8a))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.14
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.13...v0.1.14)
