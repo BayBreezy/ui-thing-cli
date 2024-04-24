@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.16
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.15...v0.1.16)
+
+### 🚀 Enhancements
+
+- **component:** Add Listbox component ([46dc2b9](https://github.com/BayBreezy/ui-thing-cli/commit/46dc2b9))
+
+### ❤️ Contributors
+
+- Behon Baker <behon.baker@yahoo.com>
+
 ## v0.1.15
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.14...v0.1.15)
