@@ -2,28 +2,6 @@
   "name": "ui-thing",
   "version": "0.1.16",
   "description": "CLI used to add Nuxt 3 components to a project",
-  "type": "module",
-  "types": "./dist/index.d.ts",
-  "main": "./dist/index.js",
-  "repository": {
-    "url": "git+https://github.com/BayBreezy/ui-thing-cli.git"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "bin": {
-    "ui-thing": "dist/index.js"
-  },
-  "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "start": "node dist/index.js",
-    "format": "npx prettier --write .",
-    "release": "npm run build && npx changelogen@latest --release && npm publish && git push --follow-tags",
-    "test": "vitest",
-    "coverage": "vitest run --coverage",
-    "clean": "rm -rf dist coverage node_modules package-lock.json && npm install"
-  },
   "keywords": [
     "cli",
     "ui",
@@ -34,14 +12,33 @@
     "nuxtui",
     "shadcn-ui"
   ],
+  "repository": {
+    "url": "git+https://github.com/BayBreezy/ui-thing-cli.git"
+  },
+  "license": "MIT",
   "author": {
     "name": "Behon Baker",
     "email": "behon.baker@yahoo.com",
     "url": "https://behonbaker.com/"
   },
-  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "ui-thing": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist coverage node_modules package-lock.json && npm install",
+    "coverage": "vitest run --coverage",
+    "dev": "tsup --watch",
+    "format": "npx prettier --write .",
+    "release": "npm run build && npx changelogen@latest --release && npm publish && git push --follow-tags",
+    "start": "node dist/index.js",
+    "test": "vitest"
+  },
   "dependencies": {
-    "axios": "^1.7.1",
+    "axios": "^1.7.2",
     "boxen": "^7.1.1",
     "build": "^0.1.4",
     "c12": "^1.10.0",
@@ -69,5 +66,8 @@
     "tsup": "^8.0.2",
     "typescript": "^5.4.5",
     "vitest": "^1.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
