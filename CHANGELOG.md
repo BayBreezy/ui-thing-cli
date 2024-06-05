@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.18
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.17...v0.1.18)
+
+### 🏡 Chore
+
+- Bump deps ([e453f74](https://github.com/BayBreezy/ui-thing-cli/commit/e453f74))
+- **components:** Add new chip component and update other existing components ([7f4c4ef](https://github.com/BayBreezy/ui-thing-cli/commit/7f4c4ef))
+- **init deps:** Add tailwindcss/forms to the list of initial dependencies ([a28f7da](https://github.com/BayBreezy/ui-thing-cli/commit/a28f7da))
+- **tailwind config:** Add tailwindforms plugin to config ([7e3b706](https://github.com/BayBreezy/ui-thing-cli/commit/7e3b706))
+- **nuxt config:** Remove shim = false from nuxt config ([2423a4e](https://github.com/BayBreezy/ui-thing-cli/commit/2423a4e))
+- Bump deps ([56a4b29](https://github.com/BayBreezy/ui-thing-cli/commit/56a4b29))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.17
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.16...v0.1.17)
