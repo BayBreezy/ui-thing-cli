@@ -39,7 +39,6 @@ export const init = new Command()
     // Configure modules in nuxt config
     cfg.defaultExport.tailwindcss = defu(cfg.defaultExport.tailwindcss, { exposeConfig: true });
     cfg.defaultExport.colorMode = defu(cfg.defaultExport.colorMode, { classSuffix: "" });
-    cfg.defaultExport.typescript = defu(cfg.defaultExport.typescript, { shim: false });
     cfg.defaultExport.imports ||= {};
     cfg.defaultExport.imports.imports ||= [];
     const tvExists = cfg.defaultExport.imports.imports.find(
