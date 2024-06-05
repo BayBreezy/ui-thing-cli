@@ -9,6 +9,7 @@ export const INIT_DEV_DEPS = [
   "@nuxtjs/color-mode",
   "@ianvs/prettier-plugin-sort-imports",
   "@vueuse/nuxt",
+  "@tailwindcss/forms",
 ];
 
 export const INIT_MODULES = [
