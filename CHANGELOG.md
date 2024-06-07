@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.19
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.18...v0.1.19)
+
+### 🚀 Enhancements
+
+- **Number Field:** Add number field component ([30745ec](https://github.com/BayBreezy/ui-thing-cli/commit/30745ec))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.18
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.17...v0.1.18)
