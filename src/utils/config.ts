@@ -18,6 +18,7 @@ const defaultConfig = {
   tailwindConfigLocation: "tailwind.config.js",
   componentsLocation: "components/Ui",
   composablesLocation: "composables",
+  pluginsLocation: "plugins",
   utilsLocation: "utils",
   force: true,
   useDefaultFilename: true,
@@ -81,6 +82,7 @@ export const getUIConfig = async (options?: InitOptions) => {
 export const createConfigPaths = (uiConfig: UIConfig) => {
   // Esnure files exists
   if (uiConfig.tailwindCSSLocation) fse.ensureFileSync(uiConfig.tailwindConfigLocation);
+  if (uiConfig.pluginsLocation) fse.ensureDirSync(uiConfig.pluginsLocation);
   if (uiConfig.tailwindConfigLocation) fse.ensureFileSync(uiConfig.tailwindCSSLocation);
   if (uiConfig.componentsLocation) fse.ensureDirSync(uiConfig.componentsLocation);
   if (uiConfig.composablesLocation) fse.ensureDirSync(uiConfig.composablesLocation);

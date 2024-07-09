@@ -4,6 +4,7 @@ export type UIConfig = {
   tailwindConfigLocation: string;
   componentsLocation: string;
   composablesLocation: string;
+  pluginsLocation?: string;
   utilsLocation: string;
   force: boolean;
   useDefaultFilename: boolean;

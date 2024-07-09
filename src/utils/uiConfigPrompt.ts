@@ -36,6 +36,12 @@ export const initPrompts = async () => {
       initial: "composables",
     },
     {
+      name: "pluginsLocation",
+      type: "text",
+      message: "Where should your plugins be stored?",
+      initial: "plugins",
+    },
+    {
       name: "utilsLocation",
       type: "text",
       message: "Where should your utils be stored?",
