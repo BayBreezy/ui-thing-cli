@@ -2,9 +2,7 @@ export default [
   {
     name: "Accordion",
     value: "accordion",
-    instructions: [
-      "Remember to add the accordion animations to your tailwind.config.js",
-    ],
+    instructions: ["Remember to add the accordion animations to your tailwind.config.js"],
     files: [
       {
         fileName: "Accordion/Accordion.vue",
@@ -351,9 +349,7 @@ export default [
     value: "calendar",
     devDeps: ["@samk-dev/nuxt-vcalendar"],
     nuxtModules: ["@samk-dev/nuxt-vcalendar"],
-    instructions: [
-      "You can customize the calendar by adding options to your nuxt.config.js file",
-    ],
+    instructions: ["You can customize the calendar by adding options to your nuxt.config.js file"],
     files: [
       {
         fileName: "Calendar.vue",
@@ -392,7 +388,7 @@ export default [
         fileName: "Card/Footer.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot />\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        /** Custom class(es) to add to the element */\n        class?: any;\n      }\n    >(),\n    { as: "div" }\n  );\n\n  const styles = tv({\n    base: "flex items-center p-6 ",\n  });\n</script>\n',
+          '<template>\n  <Primitive :class="styles({ class: props.class })" :as="as" :as-child="asChild">\n    <slot />\n  </Primitive>\n</template>\n\n<script lang="ts" setup>\n  import { Primitive } from "radix-vue";\n  import type { PrimitiveProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      PrimitiveProps & {\n        /** Custom class(es) to add to the element */\n        class?: any;\n      }\n    >(),\n    { as: "div" }\n  );\n\n  const styles = tv({\n    base: "flex items-center p-6",\n  });\n</script>\n',
       },
       {
         fileName: "Card/Header.vue",
@@ -1034,7 +1030,7 @@ export default [
         fileName: "FancyIcon.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <div :class="styles().base({ class: props.class, color, type, size, circle })">\n    <slot :styles="styles().icon({ color, type, size, circle })">\n      <Icon :name="icon" :class="styles().icon({ color, type, size, circle })" />\n    </slot>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  const props = withDefaults(\n    defineProps<{\n      class?: any;\n      icon: string;\n      color?: VariantProps<typeof styles>["color"];\n      type?: VariantProps<typeof styles>["type"];\n      size?: VariantProps<typeof styles>["size"];\n      circle?: boolean;\n    }>(),\n    {\n      color: "primary",\n      type: "modern",\n      size: "lg",\n      circle: false,\n    }\n  );\n\n  const styles = tv({\n    slots: {\n      base: "flex shrink-0 items-center justify-center",\n      icon: "",\n    },\n\n    variants: {\n      color: {\n        primary: {\n          base: "",\n          icon: "",\n        },\n        success: {\n          base: "",\n          icon: "",\n        },\n        warning: {\n          base: "",\n          icon: "",\n        },\n        error: {\n          base: "",\n          icon: "",\n        },\n        info: {\n          base: "",\n          icon: "",\n        },\n      },\n      type: {\n        light: {\n          base: "",\n          icon: "",\n        },\n        dark: {\n          base: "",\n          icon: "",\n        },\n        modern: {\n          base: "",\n          icon: "",\n        },\n      },\n      size: {\n        sm: {\n          base: "size-8",\n          icon: "size-4",\n        },\n        md: {\n          base: "size-10",\n          icon: "size-5",\n        },\n        lg: {\n          base: "size-12",\n          icon: "size-6",\n        },\n        xl: {\n          base: "size-14",\n          icon: "size-7",\n        },\n      },\n      circle: {\n        true: {\n          base: "rounded-full",\n        },\n        false: {\n          base: "rounded-lg",\n        },\n      },\n    },\n    compoundVariants: [\n      {\n        color: "primary",\n        type: "light",\n        class: { base: "bg-primary/5 ", icon: "text-primary" },\n      },\n      {\n        color: "success",\n        type: "light",\n        class: {\n          base: "bg-green-500/10",\n          icon: "text-green-600",\n        },\n      },\n      {\n        color: "warning",\n        type: "light",\n        class: { base: "bg-amber-500/10", icon: "text-amber-600" },\n      },\n      {\n        color: "error",\n        type: "light",\n        class: { base: "bg-destructive/10", icon: "text-destructive" },\n      },\n      {\n        color: "info",\n        type: "light",\n        class: { base: "bg-blue-500/10", icon: "text-blue-600" },\n      },\n      // Dark\n      {\n        color: "primary",\n        type: "dark",\n        class: { base: "bg-primary", icon: "text-primary-foreground" },\n      },\n      {\n        color: "success",\n        type: "dark",\n        class: { base: "bg-green-600", icon: "text-green-50" },\n      },\n      {\n        color: "warning",\n        type: "dark",\n        class: { base: "bg-amber-600", icon: "text-amber-50" },\n      },\n      {\n        color: "error",\n        type: "dark",\n        class: { base: "bg-destructive", icon: "text-destructive-foreground" },\n      },\n      {\n        color: "info",\n        type: "dark",\n        class: { base: "bg-blue-500", icon: "text-blue-50" },\n      },\n      // Modern\n      {\n        type: "modern",\n        class: { base: "border bg-background", icon: "text-muted-foreground" },\n      },\n    ],\n    defaultVariants: {\n      color: "primary",\n      type: "modern",\n      size: "lg",\n      circle: false,\n    },\n  });\n</script>\n',
+          '<template>\n  <div :class="styles().base({ class: props.class, color, type, size, circle })">\n    <slot :styles="styles().icon({ color, type, size, circle })">\n      <Icon :name="icon" :class="styles().icon({ color, type, size, circle })" />\n    </slot>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  const props = withDefaults(\n    defineProps<{\n      class?: any;\n      icon: string;\n      color?: VariantProps<typeof styles>["color"];\n      type?: VariantProps<typeof styles>["type"];\n      size?: VariantProps<typeof styles>["size"];\n      circle?: boolean;\n    }>(),\n    {\n      color: "primary",\n      type: "modern",\n      size: "lg",\n      circle: false,\n    }\n  );\n\n  const styles = tv({\n    slots: {\n      base: "flex shrink-0 items-center justify-center",\n      icon: "",\n    },\n\n    variants: {\n      color: {\n        primary: {\n          base: "",\n          icon: "",\n        },\n        success: {\n          base: "",\n          icon: "",\n        },\n        warning: {\n          base: "",\n          icon: "",\n        },\n        error: {\n          base: "",\n          icon: "",\n        },\n        info: {\n          base: "",\n          icon: "",\n        },\n      },\n      type: {\n        light: {\n          base: "",\n          icon: "",\n        },\n        dark: {\n          base: "",\n          icon: "",\n        },\n        modern: {\n          base: "",\n          icon: "",\n        },\n      },\n      size: {\n        sm: {\n          base: "size-8",\n          icon: "size-4",\n        },\n        md: {\n          base: "size-10",\n          icon: "size-5",\n        },\n        lg: {\n          base: "size-12",\n          icon: "size-6",\n        },\n        xl: {\n          base: "size-14",\n          icon: "size-7",\n        },\n      },\n      circle: {\n        true: {\n          base: "rounded-full",\n        },\n        false: {\n          base: "rounded-lg",\n        },\n      },\n    },\n    compoundVariants: [\n      {\n        color: "primary",\n        type: "light",\n        class: { base: "bg-primary/5", icon: "text-primary" },\n      },\n      {\n        color: "success",\n        type: "light",\n        class: {\n          base: "bg-green-500/10",\n          icon: "text-green-600",\n        },\n      },\n      {\n        color: "warning",\n        type: "light",\n        class: { base: "bg-amber-500/10", icon: "text-amber-600" },\n      },\n      {\n        color: "error",\n        type: "light",\n        class: { base: "bg-destructive/10", icon: "text-destructive" },\n      },\n      {\n        color: "info",\n        type: "light",\n        class: { base: "bg-blue-500/10", icon: "text-blue-600" },\n      },\n      // Dark\n      {\n        color: "primary",\n        type: "dark",\n        class: { base: "bg-primary", icon: "text-primary-foreground" },\n      },\n      {\n        color: "success",\n        type: "dark",\n        class: { base: "bg-green-600", icon: "text-green-50" },\n      },\n      {\n        color: "warning",\n        type: "dark",\n        class: { base: "bg-amber-600", icon: "text-amber-50" },\n      },\n      {\n        color: "error",\n        type: "dark",\n        class: { base: "bg-destructive", icon: "text-destructive-foreground" },\n      },\n      {\n        color: "info",\n        type: "dark",\n        class: { base: "bg-blue-500", icon: "text-blue-50" },\n      },\n      // Modern\n      {\n        type: "modern",\n        class: { base: "border bg-background", icon: "text-muted-foreground" },\n      },\n    ],\n    defaultVariants: {\n      color: "primary",\n      type: "modern",\n      size: "lg",\n      circle: false,\n    },\n  });\n</script>\n',
       },
     ],
     utils: [],
@@ -1044,8 +1040,8 @@ export default [
   {
     name: "Form",
     value: "form",
-    deps: ["@vee-validate/nuxt", "@morev/vue-transitions"],
-    nuxtModules: ["@vee-validate/nuxt", "@morev/vue-transitions/nuxt"],
+    deps: ["@vee-validate/nuxt"],
+    nuxtModules: ["@vee-validate/nuxt"],
     composables: [
       {
         fileName: "useFormField.ts",
@@ -1112,7 +1108,7 @@ export default [
         fileName: "HoverCard/Arrow.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <HoverCardArrow :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')" />\n</template>\n\n<script lang="ts" setup>\n  import { HoverCardArrow } from "radix-vue";\n  import type { HoverCardArrowProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      HoverCardArrowProps & {\n        /** Custom class(es) to add to the parent */\n        class?: any;\n      }\n    >(),\n    {\n      height: 5,\n      width: 10,\n    }\n  );\n\n  const styles = tv({\n    base: " fill-popover",\n  });\n</script>\n',
+          '<template>\n  <HoverCardArrow :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')" />\n</template>\n\n<script lang="ts" setup>\n  import { HoverCardArrow } from "radix-vue";\n  import type { HoverCardArrowProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      HoverCardArrowProps & {\n        /** Custom class(es) to add to the parent */\n        class?: any;\n      }\n    >(),\n    {\n      height: 5,\n      width: 10,\n    }\n  );\n\n  const styles = tv({\n    base: "fill-popover",\n  });\n</script>\n',
       },
       {
         fileName: "HoverCard/Content.vue",
@@ -1411,7 +1407,7 @@ export default [
         fileName: "NativeSelect.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <div class="relative">\n    <select\n      :id="id"\n      ref="select"\n      v-model="localModel"\n      :multiple="multiple"\n      :name="name"\n      :size="size"\n      :placeholder="placeholder"\n      :disabled="disabled"\n      :required="required"\n      :class="styles({ class: props.class })"\n    >\n      <slot />\n    </select>\n    <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center justify-center">\n      <slot name="trailingIcon">\n        <Icon\n          :name="trailingIcon || \'lucide:chevrons-up-down\'"\n          class="h-4 w-4 text-muted-foreground"\n        />\n      </slot>\n    </span>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  const props = defineProps<{\n    class?: any;\n    id?: string;\n    name?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    modelValue?: any;\n    multiple?: boolean;\n    size?: number;\n    autofocus?: boolean;\n    trailingIcon?: string;\n  }>();\n  const styles = tv({\n    base: "h-10 w-full appearance-none rounded-md border border-input bg-background px-3 py-2 pr-10 ring-offset-background focus-visible:outline-none  focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm",\n  });\n\n  const select = ref<HTMLSelectElement | null>(null);\n  const emits = defineEmits<{\n    "update:modelValue": [value: any];\n  }>();\n\n  const localModel = useVModel(props, "modelValue", emits);\n\n  onMounted(() => {\n    if (props.autofocus) {\n      select.value?.focus();\n    }\n  });\n</script>\n',
+          '<template>\n  <div class="relative">\n    <select\n      :id="id"\n      ref="select"\n      v-model="localModel"\n      :multiple="multiple"\n      :name="name"\n      :size="size"\n      :placeholder="placeholder"\n      :disabled="disabled"\n      :required="required"\n      :class="styles({ class: props.class })"\n    >\n      <slot />\n    </select>\n    <span class="pointer-events-none absolute inset-y-0 right-3 flex items-center justify-center">\n      <slot name="trailingIcon">\n        <Icon\n          :name="trailingIcon || \'lucide:chevrons-up-down\'"\n          class="h-4 w-4 text-muted-foreground"\n        />\n      </slot>\n    </span>\n  </div>\n</template>\n\n<script lang="ts" setup>\n  const props = defineProps<{\n    class?: any;\n    id?: string;\n    name?: string;\n    placeholder?: string;\n    disabled?: boolean;\n    required?: boolean;\n    modelValue?: any;\n    multiple?: boolean;\n    size?: number;\n    autofocus?: boolean;\n    trailingIcon?: string;\n  }>();\n  const styles = tv({\n    base: "h-10 w-full appearance-none rounded-md border border-input bg-background px-3 py-2 pr-10 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm",\n  });\n\n  const select = ref<HTMLSelectElement | null>(null);\n  const emits = defineEmits<{\n    "update:modelValue": [value: any];\n  }>();\n\n  const localModel = useVModel(props, "modelValue", emits);\n\n  onMounted(() => {\n    if (props.autofocus) {\n      select.value?.focus();\n    }\n  });\n</script>\n',
       },
     ],
     utils: [],
@@ -1886,7 +1882,7 @@ export default [
         fileName: "Sheet/Content.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <UiSheetPortal :to="to">\n    <slot name="overlay">\n      <UiSheetOverlay />\n    </slot>\n    <DialogContent\n      :class="styles({ side, class: props.class })"\n      v-bind="{ ...forwarded, ...$attrs }"\n    >\n      <slot>\n        <slot name="header">\n          <UiSheetHeader>\n            <slot name="title">\n              <UiSheetTitle v-if="title" :title="title" />\n            </slot>\n            <slot name="description">\n              <UiSheetDescription v-if="description" :description="description" />\n            </slot>\n          </UiSheetHeader>\n        </slot>\n        <slot name="content" />\n        <slot name="footer" />\n      </slot>\n      <slot name="close">\n        <UiSheetClose :icon="icon" />\n      </slot>\n    </DialogContent>\n  </UiSheetPortal>\n</template>\n\n<script lang="ts" setup>\n  import { DialogContent, useForwardPropsEmits } from "radix-vue";\n  import type { DialogContentEmits, DialogContentProps } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n\n  const props = defineProps<\n    DialogContentProps & {\n      icon?: string;\n      title?: string;\n      description?: string;\n      class?: any;\n      side?: VariantProps<typeof styles>["side"];\n      to?: string | HTMLElement;\n    }\n  >();\n  const emits = defineEmits<DialogContentEmits>();\n  const forwarded = useForwardPropsEmits(\n    reactiveOmit(props, "icon", "title", "description", "class", "to", "side"),\n    emits\n  );\n\n  const styles = tv({\n    base: "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",\n    variants: {\n      side: {\n        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",\n        bottom:\n          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",\n        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",\n        right:\n          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",\n      },\n    },\n    defaultVariants: {\n      side: "left",\n    },\n  });\n</script>\n',
+          '<template>\n  <UiSheetPortal :to="to">\n    <slot name="overlay">\n      <UiSheetOverlay />\n    </slot>\n    <DialogContent\n      :class="styles({ side, class: props.class })"\n      v-bind="{ ...forwarded, ...$attrs }"\n    >\n      <slot>\n        <slot name="header">\n          <UiSheetHeader>\n            <slot name="title">\n              <UiSheetTitle v-if="title" :title="title" />\n            </slot>\n            <slot name="description">\n              <UiSheetDescription v-if="description" :description="description" />\n            </slot>\n          </UiSheetHeader>\n        </slot>\n        <slot name="content" />\n        <slot name="footer" />\n      </slot>\n      <slot name="close">\n        <UiSheetClose :icon="icon" />\n      </slot>\n    </DialogContent>\n  </UiSheetPortal>\n</template>\n\n<script lang="ts" setup>\n  import { DialogContent, useForwardPropsEmits } from "radix-vue";\n  import type { DialogContentEmits, DialogContentProps } from "radix-vue";\n\n  defineOptions({ inheritAttrs: false });\n\n  const props = defineProps<\n    DialogContentProps & {\n      icon?: string;\n      title?: string;\n      description?: string;\n      class?: any;\n      side?: VariantProps<typeof styles>["side"];\n      to?: string | HTMLElement;\n    }\n  >();\n  const emits = defineEmits<DialogContentEmits>();\n  const forwarded = useForwardPropsEmits(\n    reactiveOmit(props, "icon", "title", "description", "class", "to", "side"),\n    emits\n  );\n\n  const styles = tv({\n    base: "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=closed]:duration-300 data-[state=open]:duration-500 data-[state=open]:animate-in data-[state=closed]:animate-out",\n    variants: {\n      side: {\n        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",\n        bottom:\n          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",\n        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",\n        right:\n          "inset-y-0 right-0 h-full w-3/4 border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",\n      },\n    },\n    defaultVariants: {\n      side: "left",\n    },\n  });\n</script>\n',
       },
       {
         fileName: "Sheet/Description.vue",
@@ -2126,7 +2122,7 @@ export default [
         fileName: "Tabs/List.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <TabsList :class="styles({ pill, class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </TabsList>\n</template>\n\n<script lang="ts" setup>\n  import { TabsList } from "radix-vue";\n  import type { TabsListProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      TabsListProps & {\n        /** Custom class(es) to add to parent element */\n        class?: any;\n        pill?: boolean;\n      }\n    >(),\n    { pill: true }\n  );\n\n  const styles = tv({\n    base: "inline-flex h-10 items-center justify-center rounded-md  p-1 text-muted-foreground",\n    variants: {\n      pill: {\n        true: "bg-muted",\n        false: "",\n      },\n    },\n  });\n</script>\n',
+          '<template>\n  <TabsList :class="styles({ pill, class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </TabsList>\n</template>\n\n<script lang="ts" setup>\n  import { TabsList } from "radix-vue";\n  import type { TabsListProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      TabsListProps & {\n        /** Custom class(es) to add to parent element */\n        class?: any;\n        pill?: boolean;\n      }\n    >(),\n    { pill: true }\n  );\n\n  const styles = tv({\n    base: "inline-flex h-10 items-center justify-center rounded-md p-1 text-muted-foreground",\n    variants: {\n      pill: {\n        true: "bg-muted",\n        false: "",\n      },\n    },\n  });\n</script>\n',
       },
       {
         fileName: "Tabs/Tabs.vue",
@@ -2138,7 +2134,7 @@ export default [
         fileName: "Tabs/Trigger.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <TabsTrigger v-bind="reactiveOmit(props, \'class\')" :class="styles({ pill, class: props.class })">\n    <slot />\n  </TabsTrigger>\n</template>\n\n<script lang="ts" setup>\n  import { TabsTrigger } from "radix-vue";\n  import type { TabsTriggerProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      TabsTriggerProps & {\n        /** Custom class(es) to add to parent element */\n        class?: any;\n        /** Whether the trigger should be pill-shaped */\n        pill?: boolean;\n      }\n    >(),\n    {\n      pill: true,\n    }\n  );\n\n  const styles = tv({\n    base: "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ",\n    variants: {\n      pill: {\n        true: "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",\n        false:\n          "data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none",\n      },\n    },\n  });\n</script>\n',
+          '<template>\n  <TabsTrigger v-bind="reactiveOmit(props, \'class\')" :class="styles({ pill, class: props.class })">\n    <slot />\n  </TabsTrigger>\n</template>\n\n<script lang="ts" setup>\n  import { TabsTrigger } from "radix-vue";\n  import type { TabsTriggerProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      TabsTriggerProps & {\n        /** Custom class(es) to add to parent element */\n        class?: any;\n        /** Whether the trigger should be pill-shaped */\n        pill?: boolean;\n      }\n    >(),\n    {\n      pill: true,\n    }\n  );\n\n  const styles = tv({\n    base: "inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",\n    variants: {\n      pill: {\n        true: "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm",\n        false:\n          "data-[state=active]:bg-transparent data-[state=active]:text-foreground data-[state=active]:shadow-none",\n      },\n    },\n  });\n</script>\n',
       },
     ],
     utils: [],
@@ -2234,21 +2230,19 @@ export default [
           'import type { ToastProps } from "@/components/Ui/Toast/Toast.vue";\n\nconst TOAST_LIMIT = 3;\nconst TOAST_REMOVE_DELAY = 7000;\n\nexport type StringOrVNode = string | VNode | (() => VNode);\n\ntype ToasterToast = ToastProps & {\n  id: string;\n  title?: string;\n  description?: StringOrVNode;\n  action?: Component;\n  icon?: string;\n};\n\nconst actionTypes = {\n  ADD_TOAST: "ADD_TOAST",\n  UPDATE_TOAST: "UPDATE_TOAST",\n  DISMISS_TOAST: "DISMISS_TOAST",\n  REMOVE_TOAST: "REMOVE_TOAST",\n} as const;\n\nlet count = 0;\n\nfunction genId() {\n  count = (count + 1) % Number.MAX_VALUE;\n  return count.toString();\n}\n\ntype ActionType = typeof actionTypes;\n\ntype Action =\n  | {\n      type: ActionType["ADD_TOAST"];\n      toast: ToasterToast;\n    }\n  | {\n      type: ActionType["UPDATE_TOAST"];\n      toast: Partial<ToasterToast>;\n    }\n  | {\n      type: ActionType["DISMISS_TOAST"];\n      toastId?: ToasterToast["id"];\n    }\n  | {\n      type: ActionType["REMOVE_TOAST"];\n      toastId?: ToasterToast["id"];\n    };\n\ninterface State {\n  toasts: ToasterToast[];\n}\n\nconst toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();\n\nfunction addToRemoveQueue(toastId: string) {\n  if (toastTimeouts.has(toastId)) return;\n\n  const timeout = setTimeout(() => {\n    toastTimeouts.delete(toastId);\n    dispatch({\n      type: actionTypes.REMOVE_TOAST,\n      toastId,\n    });\n  }, TOAST_REMOVE_DELAY);\n\n  toastTimeouts.set(toastId, timeout);\n}\n\nconst state = ref<State>({\n  toasts: [],\n});\n\nfunction dispatch(action: Action) {\n  switch (action.type) {\n    case actionTypes.ADD_TOAST:\n      state.value.toasts = [action.toast, ...state.value.toasts].slice(0, TOAST_LIMIT);\n      break;\n\n    case actionTypes.UPDATE_TOAST:\n      state.value.toasts = state.value.toasts.map((t) =>\n        t.id === action.toast.id ? { ...t, ...action.toast } : t\n      );\n      break;\n\n    case actionTypes.DISMISS_TOAST: {\n      const { toastId } = action;\n\n      if (toastId) {\n        addToRemoveQueue(toastId);\n      } else {\n        state.value.toasts.forEach((toast) => {\n          addToRemoveQueue(toast.id);\n        });\n      }\n\n      state.value.toasts = state.value.toasts.map((t) =>\n        t.id === toastId || toastId === undefined\n          ? {\n              ...t,\n              open: false,\n            }\n          : t\n      );\n      break;\n    }\n\n    case actionTypes.REMOVE_TOAST:\n      if (action.toastId === undefined) state.value.toasts = [];\n      else state.value.toasts = state.value.toasts.filter((t) => t.id !== action.toastId);\n\n      break;\n  }\n}\n\nfunction useToast() {\n  return {\n    toasts: computed(() => state.value.toasts),\n    toast,\n    dismiss: (toastId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, toastId }),\n  };\n}\n\ntype Toast = Omit<ToasterToast, "id">;\n\nfunction toast(props: Toast) {\n  const id = genId();\n\n  const update = (props: ToasterToast) =>\n    dispatch({\n      type: actionTypes.UPDATE_TOAST,\n      toast: { ...props, id },\n    });\n\n  const dismiss = () => dispatch({ type: actionTypes.DISMISS_TOAST, toastId: id });\n\n  dispatch({\n    type: actionTypes.ADD_TOAST,\n    toast: {\n      ...props,\n      id,\n      open: true,\n      onOpenChange: (open: boolean) => {\n        if (!open) dismiss();\n      },\n    },\n  });\n\n  return {\n    id,\n    dismiss,\n    update,\n  };\n}\n\nexport { toast, useToast };\n',
       },
     ],
-    instructions: [
-      "Remeber to add <UiToastToaster /> to your app.vue/layout file.",
-    ],
+    instructions: ["Remeber to add <UiToastToaster /> to your app.vue/layout file."],
     files: [
       {
         fileName: "Toast/Action.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <ToastAction :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </ToastAction>\n</template>\n\n<script lang="ts" setup>\n  import { ToastAction } from "radix-vue";\n  import type { ToastActionProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      ToastActionProps & {\n        /**\n         * Custom class names to add to the button.\n         */\n        class?: any;\n      }\n    >(),\n    {\n      altText: "Action button",\n    }\n  );\n\n  const styles = tv({\n    base: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3  text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",\n  });\n</script>\n',
+          '<template>\n  <ToastAction :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </ToastAction>\n</template>\n\n<script lang="ts" setup>\n  import { ToastAction } from "radix-vue";\n  import type { ToastActionProps } from "radix-vue";\n\n  const props = withDefaults(\n    defineProps<\n      ToastActionProps & {\n        /**\n         * Custom class names to add to the button.\n         */\n        class?: any;\n      }\n    >(),\n    {\n      altText: "Action button",\n    }\n  );\n\n  const styles = tv({\n    base: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-xs font-medium ring-offset-background transition-colors hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-muted/40 group-[.destructive]:hover:border-destructive/30 group-[.destructive]:hover:bg-destructive group-[.destructive]:hover:text-destructive-foreground group-[.destructive]:focus:ring-destructive",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Close.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <ToastClose :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\', \'icon\')">\n    <slot>\n      <Icon :name="icon || \'lucide:x\'" class="h-4 w-4" />\n    </slot>\n  </ToastClose>\n</template>\n\n<script lang="ts" setup>\n  import { ToastClose } from "radix-vue";\n  import type { ToastCloseProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastCloseProps & {\n      /**\n       * Custom class names to add to the button.\n       */\n      class?: any;\n      /**\n       * The icon to render.\n       */\n      icon?: string;\n    }\n  >();\n\n  const styles = tv({\n    base: "absolute right-2 top-2 inline-flex items-center justify-center rounded-md p-1 text-foreground/50 opacity-50 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 focus-visible:ring-ring  group-hover:opacity-100",\n  });\n</script>\n',
+          '<template>\n  <ToastClose :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\', \'icon\')">\n    <slot>\n      <Icon :name="icon || \'lucide:x\'" class="h-4 w-4" />\n    </slot>\n  </ToastClose>\n</template>\n\n<script lang="ts" setup>\n  import { ToastClose } from "radix-vue";\n  import type { ToastCloseProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastCloseProps & {\n      /**\n       * Custom class names to add to the button.\n       */\n      class?: any;\n      /**\n       * The icon to render.\n       */\n      icon?: string;\n    }\n  >();\n\n  const styles = tv({\n    base: "absolute right-2 top-2 inline-flex items-center justify-center rounded-md p-1 text-foreground/50 opacity-50 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 focus-visible:ring-ring group-hover:opacity-100",\n  });\n</script>\n',
       },
       {
         fileName: "Toast/Description.vue",
@@ -2284,7 +2278,7 @@ export default [
         fileName: "Toast/Viewport.vue",
         dirPath: "components/UI",
         fileContent:
-          '<template>\n  <ToastViewport :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </ToastViewport>\n</template>\n\n<script lang="ts" setup>\n  import { ToastViewport } from "radix-vue";\n  import type { ToastViewportProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastViewportProps & {\n      /**\n       * Custom class names to add to the button.\n       */\n      class?: any;\n    }\n  >();\n\n  const styles = tv({\n    base: "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring  sm:bottom-auto sm:right-0 sm:flex-col md:max-w-[420px]",\n  });\n</script>\n\n<style>\n  [aria-label~="Notifications"] {\n    display: grid;\n  }\n</style>\n',
+          '<template>\n  <ToastViewport :class="styles({ class: props.class })" v-bind="reactiveOmit(props, \'class\')">\n    <slot />\n  </ToastViewport>\n</template>\n\n<script lang="ts" setup>\n  import { ToastViewport } from "radix-vue";\n  import type { ToastViewportProps } from "radix-vue";\n\n  const props = defineProps<\n    ToastViewportProps & {\n      /**\n       * Custom class names to add to the button.\n       */\n      class?: any;\n    }\n  >();\n\n  const styles = tv({\n    base: "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse gap-2 p-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:bottom-auto sm:right-0 sm:flex-col md:max-w-[420px]",\n  });\n</script>\n\n<style>\n  [aria-label~="Notifications"] {\n    display: grid;\n  }\n</style>\n',
       },
     ],
     utils: [],
@@ -2372,6 +2366,33 @@ export default [
     plugins: [],
   },
   {
+    name: "Tree",
+    value: "tree",
+    files: [
+      {
+        fileName: "Tree/Item.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <TreeItem v-slot="slotProps" v-bind="forwarded">\n    <slot v-bind="slotProps" />\n  </TreeItem>\n</template>\n\n<script lang="ts" setup generic="T extends Record<string, any>">\n  import { TreeItem, useForwardPropsEmits } from "radix-vue";\n  import type { TreeItemProps } from "radix-vue";\n\n  // Remove this when the type is properly exported from radix-vue\n  type TreeItemEmits = {\n    /**\n     * Event handler called when the selecting item.\n     *\n     * It can be prevented by calling `event.preventDefault`.\n     */\n    select: [event: any];\n    /**\n     * Event handler called when the selecting item.\n     *\n     * It can be prevented by calling `event.preventDefault`.\n     */\n    toggle: [event: any];\n  };\n\n  const props = defineProps<TreeItemProps<T>>();\n\n  const emit = defineEmits<TreeItemEmits>();\n\n  const forwarded = useForwardPropsEmits(props, emit);\n</script>\n',
+      },
+      {
+        fileName: "Tree/Tree.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <TreeRoot v-slot="slotProps" v-bind="forwarded">\n    <slot v-bind="slotProps" />\n  </TreeRoot>\n</template>\n\n<script lang="ts" setup>\n  import { TreeRoot, useForwardPropsEmits } from "radix-vue";\n  import type { TreeRootEmits, TreeRootProps } from "radix-vue";\n\n  const props = defineProps<TreeRootProps>();\n  const emit = defineEmits<TreeRootEmits>();\n\n  const forwarded = useForwardPropsEmits(props, emit);\n</script>\n',
+      },
+      {
+        fileName: "Tree/Virtualizer.vue",
+        dirPath: "components/UI",
+        fileContent:
+          '<template>\n  <TreeVirtualizer v-slot="slotProps" v-bind="forwarded">\n    <slot v-bind="slotProps" />\n  </TreeVirtualizer>\n</template>\n\n<script lang="ts" setup>\n  import { TreeVirtualizer, useForwardPropsEmits } from "radix-vue";\n  import type { TreeVirtualizerProps } from "radix-vue";\n\n  const props = defineProps<TreeVirtualizerProps>();\n\n  const forwarded = useForwardPropsEmits(props);\n</script>\n',
+      },
+    ],
+    utils: [],
+    composables: [],
+    plugins: [],
+  },
+  {
     name: "VeeCheckbox",
     value: "vee-checkbox",
     deps: ["@vee-validate/nuxt", "@morev/vue-transitions"],
@@ -2412,11 +2433,7 @@ export default [
   {
     name: "VeeDateField",
     value: "vee-date-field",
-    deps: [
-      "@vee-validate/nuxt",
-      "@morev/vue-transitions",
-      "@internationalized/date",
-    ],
+    deps: ["@vee-validate/nuxt", "@morev/vue-transitions", "@internationalized/date"],
     askValidator: true,
     nuxtModules: ["@vee-validate/nuxt", "@morev/vue-transitions/nuxt"],
     components: ["date-field", "label"],
@@ -2492,11 +2509,7 @@ export default [
   {
     name: "VeeMultiSelect",
     value: "vee-multi-select",
-    deps: [
-      "@vee-validate/nuxt",
-      "@morev/vue-transitions",
-      "@vueform/multiselect",
-    ],
+    deps: ["@vee-validate/nuxt", "@morev/vue-transitions", "@vueform/multiselect"],
     askValidator: true,
     nuxtModules: ["@vee-validate/nuxt", "@morev/vue-transitions/nuxt"],
     components: ["label"],
@@ -2515,11 +2528,7 @@ export default [
   {
     name: "VeeNumberField",
     value: "vee-number-field",
-    deps: [
-      "@vee-validate/nuxt",
-      "@morev/vue-transitions",
-      "@internationalized/number",
-    ],
+    deps: ["@vee-validate/nuxt", "@morev/vue-transitions", "@internationalized/number"],
     askValidator: true,
     nuxtModules: ["@vee-validate/nuxt", "@morev/vue-transitions/nuxt"],
     components: ["label", "number-field"],
@@ -2634,9 +2643,7 @@ export default [
     name: "Vue Sonner",
     value: "vue-sonner",
     deps: ["vue-sonner"],
-    instructions: [
-      "Remember to add the <UiVueSonner /> tag to your app.vue/layout file.",
-    ],
+    instructions: ["Remember to add the <UiVueSonner /> tag to your app.vue/layout file."],
     files: [
       {
         fileName: "VueSonner.client.vue",
