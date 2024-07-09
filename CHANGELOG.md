@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.1.20
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.19...v0.1.20)
+
+### 🚀 Enhancements
+
+- Add tree component ([5cd5671](https://github.com/BayBreezy/ui-thing-cli/commit/5cd5671))
+
+### 🏡 Chore
+
+- Update deps ([c24ec88](https://github.com/BayBreezy/ui-thing-cli/commit/c24ec88))
+- Add plugins location to the list of questions ([722d589](https://github.com/BayBreezy/ui-thing-cli/commit/722d589))
+- Use plugin location when adding components ([7da57de](https://github.com/BayBreezy/ui-thing-cli/commit/7da57de))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.19
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.18...v0.1.19)
