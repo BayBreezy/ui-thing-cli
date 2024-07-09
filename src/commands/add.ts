@@ -233,7 +233,11 @@ export const add = new Command()
         // add plugins attached to the component
         loop5: for (let j = 0; j < component.plugins.length; j++) {
           const plugin = component.plugins[j];
-          const filePath = path.join(currentDirectory, plugin.dirPath, plugin.fileName);
+          const filePath = path.join(
+            currentDirectory,
+            uiConfig.pluginsLocation ?? plugin.dirPath,
+            plugin.fileName
+          );
           // Check if the file exists
           const exists = await fileExists(filePath);
           if (exists && !uiConfig.force) {
