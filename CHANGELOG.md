@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.21
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.20...v0.1.21)
+
+### 🚀 Enhancements
+
+- Add stepper component ([00d02fa](https://github.com/BayBreezy/ui-thing-cli/commit/00d02fa))
+
+### 🏡 Chore
+
+- Update deps ([0f0f58b](https://github.com/BayBreezy/ui-thing-cli/commit/0f0f58b))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.20
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.19...v0.1.20)
