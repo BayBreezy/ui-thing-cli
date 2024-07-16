@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.22
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.21...v0.1.22)
+
+### 🚀 Enhancements
+
+- Add `Editable` component ([14d3446](https://github.com/BayBreezy/ui-thing-cli/commit/14d3446))
+
+### 🏡 Chore
+
+- Bump deps ([93a2392](https://github.com/BayBreezy/ui-thing-cli/commit/93a2392))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.21
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.20...v0.1.21)
