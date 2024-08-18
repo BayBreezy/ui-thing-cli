@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.23
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.22...v0.1.23)
+
+### 🏡 Chore
+
+- Bump deps ([f964b0a](https://github.com/BayBreezy/ui-thing-cli/commit/f964b0a))
+- Move `reactiveOmit` from out of the template and add it to the script. ([3b8667b](https://github.com/BayBreezy/ui-thing-cli/commit/3b8667b))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.22
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.21...v0.1.22)
