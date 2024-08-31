@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.24
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.23...v0.1.24)
+
+### 🏡 Chore
+
+- Bump deps ([1ba7fe7](https://github.com/BayBreezy/ui-thing-cli/commit/1ba7fe7))
+- Use new version of nuxt icon ([507db3d](https://github.com/BayBreezy/ui-thing-cli/commit/507db3d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.23
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.22...v0.1.23)
