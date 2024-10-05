@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.26
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.25...v0.1.26)
+
+### 🚀 Enhancements
+
+- Add `chart` component ([e153dcf](https://github.com/BayBreezy/ui-thing-cli/commit/e153dcf))
+
+### 🏡 Chore
+
+- Bump deps ([7bba4d8](https://github.com/BayBreezy/ui-thing-cli/commit/7bba4d8))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.25
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.24...v0.1.25)
