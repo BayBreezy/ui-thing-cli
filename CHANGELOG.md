@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.27
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.26...v0.1.27)
+
+### 🏡 Chore
+
+- Bump deps & pass slots from some radix components ([5caf188](https://github.com/BayBreezy/ui-thing-cli/commit/5caf188))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.26
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.25...v0.1.26)
