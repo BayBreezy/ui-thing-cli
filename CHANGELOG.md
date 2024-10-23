@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.28
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.27...v0.1.28)
+
+### 🏡 Chore
+
+- Add updated dialog content close button styles ([3583a9d](https://github.com/BayBreezy/ui-thing-cli/commit/3583a9d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.27
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.26...v0.1.27)
