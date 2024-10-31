@@ -1,4 +1,5 @@
 export type UIConfig = {
+  nuxtVersion?: number;
   theme: string;
   tailwindCSSLocation: string;
   tailwindConfigLocation: string;
@@ -11,7 +12,7 @@ export type UIConfig = {
   packageManager: string;
 };
 
-export type InitOptions = { force?: boolean; yes?: boolean };
+export type InitOptions = { force?: boolean; yes?: boolean; nuxtVersion?: number };
 
 export type Component = {
   name: string;
