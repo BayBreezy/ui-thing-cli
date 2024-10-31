@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { Command } from "commander";
 
+import { version } from "../package.json";
 import { add } from "./commands/add";
 import { init } from "./commands/init";
 import { addPrettier } from "./commands/prettier";
@@ -22,7 +23,7 @@ console.log();
 program
   .name("ui-thing")
   .description("CLI for adding ui-thing components to your Nuxt 3 application")
-  .version("0.0.1")
+  .version(version)
   .addCommand(init)
   .addCommand(add)
   .addCommand(theme)
