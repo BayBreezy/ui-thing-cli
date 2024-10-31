@@ -1,10 +1,17 @@
 import kleur from "kleur";
 import prompts from "prompts";
 
-import { CSS_THEME_OPTIONS } from "./constants";
+import { CSS_THEME_OPTIONS, NUXT_VERSIONS } from "./constants";
 
 export const initPrompts = async () => {
   const response = await prompts([
+    {
+      name: "nuxtVersion",
+      type: "select",
+      message: "Which Nuxt version are you using?",
+      choices: NUXT_VERSIONS,
+      initial: 4,
+    },
     {
       name: "theme",
       type: "autocomplete",
@@ -15,7 +22,8 @@ export const initPrompts = async () => {
       name: "tailwindCSSLocation",
       type: "text",
       message: "Where is your tailwind.css file located?",
-      initial: "assets/css/tailwind.css",
+      initial: (_, v) =>
+        v.nuxtVersion == 3 ? "assets/css/tailwind.css" : "app/assets/css/tailwind.css",
     },
     {
       name: "tailwindConfigLocation",
@@ -27,25 +35,25 @@ export const initPrompts = async () => {
       name: "componentsLocation",
       type: "text",
       message: "Where should your components be stored?",
-      initial: "components/Ui",
+      initial: (_, v) => (v.nuxtVersion == 3 ? "components/Ui" : "app/components/Ui"),
     },
     {
       name: "composablesLocation",
       type: "text",
       message: "Where should your composables be stored?",
-      initial: "composables",
+      initial: (_, v) => (v.nuxtVersion == 3 ? "composables" : "app/composables"),
     },
     {
       name: "pluginsLocation",
       type: "text",
       message: "Where should your plugins be stored?",
-      initial: "plugins",
+      initial: (_, v) => (v.nuxtVersion == 3 ? "plugins" : "app/plugins"),
     },
     {
       name: "utilsLocation",
       type: "text",
       message: "Where should your utils be stored?",
-      initial: "utils",
+      initial: (_, v) => (v.nuxtVersion == 3 ? "utils" : "app/utils"),
     },
     {
       name: "force",
@@ -65,9 +73,9 @@ export const initPrompts = async () => {
       message: "Which package manager do you use?",
       choices: [
         { title: "NPM", value: "npm" },
-        { title: "Yarn", value: "yarn" },
+        { title: "YARN", value: "yarn" },
         { title: "PNPM", value: "pnpm" },
-        { title: "Bun", value: "bun" },
+        { title: "BUN", value: "bun" },
       ],
     },
   ]);
