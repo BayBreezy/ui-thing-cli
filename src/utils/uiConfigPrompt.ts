@@ -1,7 +1,23 @@
 import kleur from "kleur";
 import prompts from "prompts";
 
-import { CSS_THEME_OPTIONS, NUXT_VERSIONS } from "./constants";
+import { CSS_THEME_OPTIONS, NUXT_VERSIONS, PACKAGE_MANAGER_CHOICES } from "./constants";
+
+export const promptForNuxtVersion = async () => {
+  const response = await prompts([
+    {
+      name: "nuxtVersion",
+      type: "select",
+      message: "Which Nuxt version are you using?",
+      choices: NUXT_VERSIONS,
+    },
+  ]);
+  if (!response.nuxtVersion) {
+    console.log(kleur.red("No Nuxt version selected. Exiting..."));
+    return process.exit(0);
+  }
+  return response.nuxtVersion;
+};
 
 export const initPrompts = async () => {
   const response = await prompts([
@@ -10,7 +26,6 @@ export const initPrompts = async () => {
       type: "select",
       message: "Which Nuxt version are you using?",
       choices: NUXT_VERSIONS,
-      initial: 4,
     },
     {
       name: "theme",
@@ -71,15 +86,11 @@ export const initPrompts = async () => {
       name: "packageManager",
       type: "select",
       message: "Which package manager do you use?",
-      choices: [
-        { title: "NPM", value: "npm" },
-        { title: "YARN", value: "yarn" },
-        { title: "PNPM", value: "pnpm" },
-        { title: "BUN", value: "bun" },
-      ],
+      choices: PACKAGE_MANAGER_CHOICES,
     },
   ]);
-  if (!response || Object.keys(response).length < 9) {
+
+  if (!response || Object.keys(response).length < 10) {
     console.log(kleur.red("Incomplete configuration submitted. Exiting..."));
     return process.exit(0);
   }
