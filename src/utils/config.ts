@@ -8,11 +8,12 @@ import { addNuxtModule, getDefaultExportOptions } from "magicast/helpers";
 import prompts from "prompts";
 
 import { InitOptions, UIConfig } from "../types";
-import { initPrompts } from "./uiConfigPrompt";
+import { initPrompts, promptForNuxtVersion } from "./uiConfigPrompt";
 
 const currentDir = process.cwd();
 const uiConfigFilename = "ui-thing.config.ts";
-const defaultConfig = {
+const defaultConfig: UIConfig = {
+  nuxtVersion: 3,
   theme: "zinc",
   tailwindCSSLocation: "assets/css/tailwind.css",
   tailwindConfigLocation: "tailwind.config.js",
@@ -20,6 +21,19 @@ const defaultConfig = {
   composablesLocation: "composables",
   pluginsLocation: "plugins",
   utilsLocation: "utils",
+  force: true,
+  useDefaultFilename: true,
+  packageManager: "npm",
+};
+const defaultNuxt4Config: UIConfig = {
+  nuxtVersion: 4,
+  theme: "zinc",
+  tailwindCSSLocation: "app/assets/css/tailwind.css",
+  tailwindConfigLocation: "tailwind.config.js",
+  componentsLocation: "app/components/Ui",
+  composablesLocation: "app/composables",
+  pluginsLocation: "app/plugins",
+  utilsLocation: "app/utils",
   force: true,
   useDefaultFilename: true,
   packageManager: "npm",
@@ -38,11 +52,15 @@ export const getNuxtConfig = async () => {
 export const getUIConfig = async (options?: InitOptions) => {
   const configFileExists = fse.existsSync(uiConfigFilename);
   let uiConfig: UIConfig = {} as UIConfig;
+  let nuxtVersion = Number(options?.nuxtVersion);
 
   if (!configFileExists || options?.force) {
+    if (!nuxtVersion) {
+      nuxtVersion = await promptForNuxtVersion();
+    }
     // if option yes is passed, use default values
     if (options?.yes) {
-      uiConfig = defaultConfig;
+      uiConfig = Number(nuxtVersion) === 4 ? defaultNuxt4Config : defaultConfig;
     } else {
       uiConfig = await initPrompts();
     }
