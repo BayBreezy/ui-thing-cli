@@ -5,6 +5,7 @@ import * as testingFn from "../../src/utils/compareUIConfig";
 import * as configModule from "../../src/utils/config";
 
 const goodConfig: UIConfig = {
+  nuxtVersion: 3,
   theme: "string",
   tailwindCSSLocation: "string",
   tailwindConfigLocation: "string",
