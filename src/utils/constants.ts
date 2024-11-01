@@ -1,4 +1,4 @@
-export const INIT_DEPS = ["radix-vue", "tailwind-variants"];
+export const INIT_DEPS = ["radix-vue", "tailwind-variants", "@nuxt/fonts"];
 export const INIT_DEV_DEPS = [
   "typescript",
   "tailwindcss-animate",
@@ -17,6 +17,19 @@ export const INIT_MODULES = [
   "@nuxtjs/color-mode",
   "@vueuse/nuxt",
   "@nuxt/icon",
+  "@nuxt/fonts",
+];
+
+export const NUXT_VERSIONS = [
+  { title: "Nuxt 3", value: 3 },
+  { title: "Nuxt 4", value: 4 },
+];
+
+export const PACKAGE_MANAGER_CHOICES = [
+  { title: "NPM", value: "npm" },
+  { title: "YARN", value: "yarn" },
+  { title: "PNPM", value: "pnpm" },
+  { title: "BUN", value: "bun" },
 ];
 
 export const CSS_THEME_OPTIONS = [
