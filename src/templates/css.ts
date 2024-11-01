@@ -1,6 +1,4 @@
-export const CSS_START = `@import url("https://rsms.me/inter/inter.css");
-
-@tailwind base;
+export const CSS_START = `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 `;
@@ -9,14 +7,14 @@ export const CSS_END = `@layer base {
   * {
     @apply border-border;
   }
+  html {
+    @apply antialiased;
+  }
   body {
     @apply bg-background text-foreground;
-    font-feature-settings:
-      "rlig" 1,
-      "calt" 1;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
-
 `;
 
 export const createCSS = (theme: keyof typeof themes) => {
