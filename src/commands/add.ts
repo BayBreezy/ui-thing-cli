@@ -1,8 +1,6 @@
-import { readFileSync } from "fs";
 import path from "node:path";
 import { Command } from "commander";
 import { consola } from "consola";
-import { defu } from "defu";
 import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
@@ -144,11 +142,8 @@ export const add = new Command()
             (i: any) => i.from === "vue-sonner" && i.name === "toast"
           );
           if (!sonnerExists) {
-            cfg.defaultExport.imports.imports.push({
-              from: "vue-sonner",
-              name: "toast",
-              as: "useSonner",
-            });
+            // prettier-ignore
+            cfg.defaultExport.imports.imports.push({ from: "vue-sonner", name: "toast", as: "useSonner" });
           }
           const transpileExists = cfg.defaultExport.build.transpile.find((i: any) => "vue-sonner");
           if (!transpileExists) {
@@ -162,21 +157,21 @@ export const add = new Command()
           cfg.defaultExport.app.head.script ||= [];
           const scriptOneExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js"
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"
           );
           if (!scriptOneExists) {
             cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/pdfmake.min.js",
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
               defer: true,
             });
           }
           const scriptTwoExists = cfg.defaultExport.app.head.script.find(
             (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js"
+              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"
           );
           if (!scriptTwoExists) {
             cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.9/vfs_fonts.min.js",
+              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
               defer: true,
             });
           }
