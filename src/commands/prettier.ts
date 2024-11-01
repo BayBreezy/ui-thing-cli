@@ -2,6 +2,7 @@ import { Command } from "commander";
 import prompts from "prompts";
 
 import { addPrettierConfig } from "../utils/addPrettierConfig";
+import { PACKAGE_MANAGER_CHOICES } from "../utils/constants";
 import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 
@@ -24,12 +25,7 @@ export const addPrettier = new Command()
       name: "pkgManager",
       type: "select",
       message: "Which package manager are you using?",
-      choices: [
-        { title: "npm", value: "npm" },
-        { title: "yarn", value: "yarn" },
-        { title: "pnpm", value: "pnpm" },
-        { title: "bun", value: "bun" },
-      ],
+      choices: PACKAGE_MANAGER_CHOICES,
     });
     if (!pkgManager) return process.exit(0);
 
