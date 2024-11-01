@@ -20,7 +20,7 @@ export const init = new Command()
   )
   .option("-f --force", "Overwrite config file if it exists.", false)
   .option("-y --yes", "Skip prompts and use default values.", false)
-  .option("-n --nuxtVersion", "Specify the Nuxt version you are using.", "3")
+  .option("-n --nuxtVersion <number>", "Specify the Nuxt version you are using.", "3")
   .action(async (options: InitOptions) => {
     // Get nuxt config
     const cfg = await getNuxtConfig();
