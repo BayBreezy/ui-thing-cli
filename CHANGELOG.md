@@ -1,5 +1,43 @@
 # Changelog
 
+## v0.1.29
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.28...v0.1.29)
+
+### 🚀 Enhancements
+
+- **css:** Update font config for css file/themes ([a1c5bcc](https://github.com/BayBreezy/ui-thing-cli/commit/a1c5bcc))
+- **shortcusts:** Update templates for shortcuts composable ([f527c26](https://github.com/BayBreezy/ui-thing-cli/commit/f527c26))
+
+### 🏡 Chore
+
+- **release:** V0.1.28 ([b870037](https://github.com/BayBreezy/ui-thing-cli/commit/b870037))
+- Bump deps ([b74b527](https://github.com/BayBreezy/ui-thing-cli/commit/b74b527))
+- **config:** Add `nuxtVersion` to initial config ([843eff0](https://github.com/BayBreezy/ui-thing-cli/commit/843eff0))
+- **tsconfig:** Add `resolveJsonModule` to tsconfig ([ed955f5](https://github.com/BayBreezy/ui-thing-cli/commit/ed955f5))
+- **components:** Update components list ([25ba2bf](https://github.com/BayBreezy/ui-thing-cli/commit/25ba2bf))
+- Import cli version from `package.json` ([401f902](https://github.com/BayBreezy/ui-thing-cli/commit/401f902))
+- Update project types ([e5ae1f8](https://github.com/BayBreezy/ui-thing-cli/commit/e5ae1f8))
+- **add command:** Remove unused imports & update `pdfMake` version ([8364dba](https://github.com/BayBreezy/ui-thing-cli/commit/8364dba))
+- **init command:** Allo user to enter their nuxt version when initializing ([76624ad](https://github.com/BayBreezy/ui-thing-cli/commit/76624ad))
+- **init command:** Allo user to enter their nuxt version when initializing ([564a910](https://github.com/BayBreezy/ui-thing-cli/commit/564a910))
+- **prettier command:** Import package manager options from constant file ([6da2b44](https://github.com/BayBreezy/ui-thing-cli/commit/6da2b44))
+- **shortcuts command:** Import package manager options from constant file ([aa7f00b](https://github.com/BayBreezy/ui-thing-cli/commit/aa7f00b))
+- **tailwind template:** Update default tailwind configuration ([b81c493](https://github.com/BayBreezy/ui-thing-cli/commit/b81c493))
+- **config files:** Adjust how paths are created and export package array constant ([e7ea1e2](https://github.com/BayBreezy/ui-thing-cli/commit/e7ea1e2))
+- **config files:** Adjust config type ([3beb3ad](https://github.com/BayBreezy/ui-thing-cli/commit/3beb3ad))
+- **config files:** Add default nuxt 4 configuration ([050d798](https://github.com/BayBreezy/ui-thing-cli/commit/050d798))
+- **config files:** Export `promptForNuxtVersion` function ([67a1b5b](https://github.com/BayBreezy/ui-thing-cli/commit/67a1b5b))
+- Bump node types dep ([5ded5d2](https://github.com/BayBreezy/ui-thing-cli/commit/5ded5d2))
+
+### ✅ Tests
+
+- Update config test. added the `nuxtVersion` property ([557b181](https://github.com/BayBreezy/ui-thing-cli/commit/557b181))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.28
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.27...v0.1.28)
