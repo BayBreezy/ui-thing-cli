@@ -9,6 +9,7 @@ export const compareUIConfig = async () => {
   // Get ui config
   let userConfig: UIConfig = await getUIConfig();
   const tempConfig: UIConfig = {
+    nuxtVersion: 3,
     theme: "string",
     tailwindCSSLocation: "string",
     tailwindConfigLocation: "string",
