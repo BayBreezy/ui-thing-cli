@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.30
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.29...v0.1.30)
+
+### 🚀 Enhancements
+
+- Update vee-input component ([302c4fd](https://github.com/BayBreezy/ui-thing-cli/commit/302c4fd))
+
+### 🏡 Chore
+
+- Bump deps ([a4140b2](https://github.com/BayBreezy/ui-thing-cli/commit/a4140b2))
+- Add dependabot config ([fae5b34](https://github.com/BayBreezy/ui-thing-cli/commit/fae5b34))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.29
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.28...v0.1.29)
