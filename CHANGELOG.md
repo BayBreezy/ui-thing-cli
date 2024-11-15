@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.31
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.30...v0.1.31)
+
+### 🚀 Enhancements
+
+- Update table styles ([f3a697e](https://github.com/BayBreezy/ui-thing-cli/commit/f3a697e))
+
+### 🏡 Chore
+
+- Bump deps ([9ffc32d](https://github.com/BayBreezy/ui-thing-cli/commit/9ffc32d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.30
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.29...v0.1.30)
