@@ -50,22 +50,22 @@
     "kleur": "^4.1.5",
     "lodash": "^4.17.21",
     "nypm": "^0.3.12",
-    "ora": "^8.1.0",
+    "ora": "^8.1.1",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
     "@gmrchk/cli-testing-library": "^0.1.2",
-    "@ianvs/prettier-plugin-sort-imports": "^4.3.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.0",
     "@types/figlet": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.13",
-    "@types/node": "^22.8.6",
+    "@types/node": "^22.9.0",
     "@types/prompts": "^2.4.9",
-    "@vitest/coverage-v8": "^2.1.4",
+    "@vitest/coverage-v8": "^2.1.5",
     "magicast": "^0.3.5",
     "tsup": "^8.3.5",
     "typescript": "^5.6.3",
-    "vitest": "^2.1.4"
+    "vitest": "^2.1.5"
   },
   "publishConfig": {
     "access": "public"
