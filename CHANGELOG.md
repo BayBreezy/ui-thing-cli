@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.32
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.31...v0.1.32)
+
+### 🏡 Chore
+
+- **release:** V0.1.31 ([2f5b36f](https://github.com/BayBreezy/ui-thing-cli/commit/2f5b36f))
+- Update kbd component ([66b58f7](https://github.com/BayBreezy/ui-thing-cli/commit/66b58f7))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.31
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.30...v0.1.31)
