@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.34
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.33...v0.1.34)
+
+### 🏡 Chore
+
+- Update sidebar components themeing ([b01c9d5](https://github.com/BayBreezy/ui-thing-cli/commit/b01c9d5))
+- Add sidebar css ([3789dab](https://github.com/BayBreezy/ui-thing-cli/commit/3789dab))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.33
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.32...v0.1.33)
