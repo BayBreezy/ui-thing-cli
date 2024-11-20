@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.33
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.32...v0.1.33)
+
+### 🚀 Enhancements
+
+- Added sidebar & placeholder components ([2fab9df](https://github.com/BayBreezy/ui-thing-cli/commit/2fab9df))
+
+### 🏡 Chore
+
+- Bump deps ([2cf4cfc](https://github.com/BayBreezy/ui-thing-cli/commit/2cf4cfc))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.32
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.31...v0.1.32)
