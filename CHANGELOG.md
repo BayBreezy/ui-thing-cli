@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.35
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.34...v0.1.35)
+
+### 🏡 Chore
+
+- Update Provider for sidebar ([ad591f2](https://github.com/BayBreezy/ui-thing-cli/commit/ad591f2))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.34
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.33...v0.1.34)
