@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.1.36
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.35...v0.1.36)
+
+### 🚀 Enhancements
+
+- Add slider component from vueform ([8c192e8](https://github.com/BayBreezy/ui-thing-cli/commit/8c192e8))
+
+### 🏡 Chore
+
+- **deps-dev:** Bump typescript from 5.6.3 to 5.7.2 ([5220a36](https://github.com/BayBreezy/ui-thing-cli/commit/5220a36))
+- **deps-dev:** Bump @types/node from 22.9.1 to 22.9.3 ([adc38a1](https://github.com/BayBreezy/ui-thing-cli/commit/adc38a1))
+- **deps-dev:** Bump @types/node from 22.9.3 to 22.10.1 ([c045189](https://github.com/BayBreezy/ui-thing-cli/commit/c045189))
+- **deps-dev:** Bump @vitest/coverage-v8 from 2.1.5 to 2.1.6 ([f775ac2](https://github.com/BayBreezy/ui-thing-cli/commit/f775ac2))
+- **deps-dev:** Bump vitest from 2.1.5 to 2.1.6 ([c4dea4e](https://github.com/BayBreezy/ui-thing-cli/commit/c4dea4e))
+- Bump deps ([0935284](https://github.com/BayBreezy/ui-thing-cli/commit/0935284))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.35
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.34...v0.1.35)
