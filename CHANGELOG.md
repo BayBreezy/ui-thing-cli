@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.37
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.36...v0.1.37)
+
+### 🏡 Chore
+
+- **deps-dev:** Bump @vitest/coverage-v8 from 2.1.6 to 2.1.8 ([4707300](https://github.com/BayBreezy/ui-thing-cli/commit/4707300))
+- Bump deps ([1359f5a](https://github.com/BayBreezy/ui-thing-cli/commit/1359f5a))
+- Move some initial packages to dependencies list instead of devDeps ([676c0fa](https://github.com/BayBreezy/ui-thing-cli/commit/676c0fa))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.36
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.35...v0.1.36)
