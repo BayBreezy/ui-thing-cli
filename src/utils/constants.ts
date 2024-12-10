@@ -1,15 +1,19 @@
-export const INIT_DEPS = ["radix-vue", "tailwind-variants", "@nuxt/fonts"];
-export const INIT_DEV_DEPS = [
-  "typescript",
-  "tailwindcss-animate",
-  "@nuxt/icon",
-  "prettier-plugin-tailwindcss",
-  "prettier",
+export const INIT_DEPS = [
+  "radix-vue",
+  "tailwind-variants",
+  "@nuxt/fonts",
   "@nuxtjs/tailwindcss",
   "@nuxtjs/color-mode",
-  "@ianvs/prettier-plugin-sort-imports",
+  "@nuxt/icon",
   "@vueuse/nuxt",
   "@tailwindcss/forms",
+  "tailwindcss-animate",
+];
+export const INIT_DEV_DEPS = [
+  "typescript",
+  "prettier-plugin-tailwindcss",
+  "prettier",
+  "@ianvs/prettier-plugin-sort-imports",
 ];
 
 export const INIT_MODULES = [
