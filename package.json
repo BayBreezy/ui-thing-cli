@@ -38,13 +38,13 @@
     "test": "vitest"
   },
   "dependencies": {
-    "axios": "^1.7.8",
+    "axios": "^1.7.9",
     "boxen": "^8.0.1",
     "build": "^0.1.4",
     "c12": "^2.0.1",
     "commander": "^12.1.0",
     "defu": "^6.1.4",
-    "execa": "^9.5.1",
+    "execa": "^9.5.2",
     "figlet": "^1.8.0",
     "fs-extra": "^11.2.0",
     "kleur": "^4.1.5",
@@ -61,11 +61,11 @@
     "@types/lodash": "^4.17.13",
     "@types/node": "^22.10.1",
     "@types/prompts": "^2.4.9",
-    "@vitest/coverage-v8": "^2.1.6",
+    "@vitest/coverage-v8": "^2.1.8",
     "magicast": "^0.3.5",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.6"
+    "vitest": "^2.1.8"
   },
   "publishConfig": {
     "access": "public"
