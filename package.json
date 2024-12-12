@@ -59,7 +59,7 @@
     "@types/figlet": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.13",
-    "@types/node": "^22.10.1",
+    "@types/node": "^22.10.2",
     "@types/prompts": "^2.4.9",
     "@vitest/coverage-v8": "^2.1.8",
     "magicast": "^0.3.5",
