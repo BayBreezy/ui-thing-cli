@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.39
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.38...v0.1.39)
+
+### 🏡 Chore
+
+- Added the drawer heade and footer components ([00ea23d](https://github.com/BayBreezy/ui-thing-cli/commit/00ea23d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.38
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.37...v0.1.38)
