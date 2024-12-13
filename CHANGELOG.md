@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.40
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.39...v0.1.40)
+
+### 🏡 Chore
+
+- **release:** V0.1.39 ([e11329a](https://github.com/BayBreezy/ui-thing-cli/commit/e11329a))
+- Update styles on dialog components ([38f199a](https://github.com/BayBreezy/ui-thing-cli/commit/38f199a))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.39
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.38...v0.1.39)
