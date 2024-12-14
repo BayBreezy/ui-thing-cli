@@ -12,6 +12,12 @@
 
 Thanks to the maintainers of the other third party libraries used in this project.
 
+## 💸 Support Me
+
+If you can 😊
+
+<a href="https://buymeacoffee.com/llehXIrI8g" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important" ></a>
+
 ## Getting Started
 
 - Create a Nuxt 3 project
