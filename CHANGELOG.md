@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.42
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.41...v0.1.42)
+
+### 🏡 Chore
+
+- Update slider styles to accomodate vertical sliders ([9d6bf2d](https://github.com/BayBreezy/ui-thing-cli/commit/9d6bf2d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.41
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.40...v0.1.41)
