@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.1.41
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.40...v0.1.41)
+
+### 💅 Refactors
+
+- Update component file ([7f9a763](https://github.com/BayBreezy/ui-thing-cli/commit/7f9a763))
+
+### 📖 Documentation
+
+- Add buymeecoffee link to readme ([ec42cd7](https://github.com/BayBreezy/ui-thing-cli/commit/ec42cd7))
+
+### 🏡 Chore
+
+- **release:** V0.1.40 ([3cdacad](https://github.com/BayBreezy/ui-thing-cli/commit/3cdacad))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.40
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.39...v0.1.40)
