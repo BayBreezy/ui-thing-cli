@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.43
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.42...v0.1.43)
+
+### 🏡 Chore
+
+- **release:** V0.1.42 ([8b2b5ae](https://github.com/BayBreezy/ui-thing-cli/commit/8b2b5ae))
+- Update the `alert` component ([7c3b19e](https://github.com/BayBreezy/ui-thing-cli/commit/7c3b19e))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.42
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.41...v0.1.42)
