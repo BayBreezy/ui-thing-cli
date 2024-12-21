@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.45
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.44...v0.1.45)
+
+### 🚀 Enhancements
+
+- Ask for validator when a component needs it ([57981da](https://github.com/BayBreezy/ui-thing-cli/commit/57981da))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.44
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.43...v0.1.44)
