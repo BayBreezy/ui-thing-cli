@@ -11,6 +11,7 @@ import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getNuxtConfig, getUIConfig, updateConfig } from "../utils/config";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
+import { installValidator } from "../utils/installValidator";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 import { promptUserForComponents } from "../utils/promptForComponents";
 import { writeFile } from "../utils/writeFile";
@@ -279,6 +280,21 @@ export const add = new Command()
           await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
         }
       }
+    }
+
+    // check if any of the components has the `askValidator` property set to true
+    let shouldAskValidator = false;
+    // Check if any component has askValidator set to true
+    for (const component of found) {
+      if (component.askValidator) {
+        shouldAskValidator = true;
+        break;
+      }
+    }
+
+    if (shouldAskValidator) {
+      // Ask the user for their choice of validator
+      await installValidator(uiConfig.packageManager);
     }
 
     printFancyBoxMessage(
