@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.44
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.43...v0.1.44)
+
+### 🚀 Enhancements
+
+- Add `carousel` component ([ed82caf](https://github.com/BayBreezy/ui-thing-cli/commit/ed82caf))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.43
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.42...v0.1.43)
