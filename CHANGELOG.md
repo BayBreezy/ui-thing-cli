@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.46
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.45...v0.1.46)
+
+### 🏡 Chore
+
+- Update button loading state ([cf8e3a9](https://github.com/BayBreezy/ui-thing-cli/commit/cf8e3a9))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.45
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.44...v0.1.45)
