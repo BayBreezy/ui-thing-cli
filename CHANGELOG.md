@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.47
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.46...v0.1.47)
+
+### 🏡 Chore
+
+- Update `pagination` & `breadcrumbs` components ([3d1c515](https://github.com/BayBreezy/ui-thing-cli/commit/3d1c515))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.46
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.45...v0.1.46)
