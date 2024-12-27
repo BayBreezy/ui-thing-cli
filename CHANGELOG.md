@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.48
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.47...v0.1.48)
+
+### 🚀 Enhancements
+
+- Add `pattern` & `maxlength` props to `input` and `textarea` components. ([b8ff095](https://github.com/BayBreezy/ui-thing-cli/commit/b8ff095))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.47
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.46...v0.1.47)
