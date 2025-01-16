@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.50
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.49...v0.1.50)
+
+### 🏡 Chore
+
+- Update datatables.net component ([1b3e478](https://github.com/BayBreezy/ui-thing-cli/commit/1b3e478))
+- Bump deps ([9e87d39](https://github.com/BayBreezy/ui-thing-cli/commit/9e87d39))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.49
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.48...v0.1.49)
