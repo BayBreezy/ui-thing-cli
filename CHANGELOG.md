@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.1.49
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.48...v0.1.49)
+
+### 🏡 Chore
+
+- Bump deps ([aa0ef8b](https://github.com/BayBreezy/ui-thing-cli/commit/aa0ef8b))
+- Update components ([9172393](https://github.com/BayBreezy/ui-thing-cli/commit/9172393))
+- Bump deps ([198d193](https://github.com/BayBreezy/ui-thing-cli/commit/198d193))
+
+### ❤️ Contributors
+
+- Behon Baker
+
 ## v0.1.48
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.47...v0.1.48)
