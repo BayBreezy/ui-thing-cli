@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.51
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.50...v0.1.51)
+
+### 🚀 Enhancements
+
+- Add form-builder component ([f33bfc7](https://github.com/BayBreezy/ui-thing-cli/commit/f33bfc7))
+
+### 🏡 Chore
+
+- **release:** V0.1.50 ([6cb4bd5](https://github.com/BayBreezy/ui-thing-cli/commit/6cb4bd5))
+- Bump deps ([a80a6b9](https://github.com/BayBreezy/ui-thing-cli/commit/a80a6b9))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.50
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.49...v0.1.50)
