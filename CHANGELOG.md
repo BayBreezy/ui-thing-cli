@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.54
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.53...v0.1.54)
+
+### 🏡 Chore
+
+- Add dependencies & dev deps to the loader component ([ca53edd](https://github.com/BayBreezy/ui-thing-cli/commit/ca53edd))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.53
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.52...v0.1.53)
