@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.53
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.52...v0.1.53)
+
+### 🏡 Chore
+
+- **release:** V0.1.52 ([c873055](https://github.com/BayBreezy/ui-thing-cli/commit/c873055))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.52
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.51...v0.1.52)
