@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.52
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.51...v0.1.52)
+
+### 🚀 Enhancements
+
+- Add loader component ([15b26cf](https://github.com/BayBreezy/ui-thing-cli/commit/15b26cf))
+
+### 🏡 Chore
+
+- Bump deps ([e11ee22](https://github.com/BayBreezy/ui-thing-cli/commit/e11ee22))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.51
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.50...v0.1.51)
