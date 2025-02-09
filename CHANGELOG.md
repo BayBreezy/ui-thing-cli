@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.55
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.54...v0.1.55)
+
+### 🏡 Chore
+
+- Add new components: description list & native checkbox ([175003e](https://github.com/BayBreezy/ui-thing-cli/commit/175003e))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](http://github.com/BayBreezy))
+
 ## v0.1.54
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.53...v0.1.54)
