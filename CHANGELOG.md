@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.56
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.55...v0.1.56)
+
+### 🚀 Enhancements
+
+- Add timeline component ([ee8c46a](https://github.com/BayBreezy/ui-thing-cli/commit/ee8c46a))
+
+### 🏡 Chore
+
+- Bump deps ([7a6c05d](https://github.com/BayBreezy/ui-thing-cli/commit/7a6c05d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.1.55
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.54...v0.1.55)
