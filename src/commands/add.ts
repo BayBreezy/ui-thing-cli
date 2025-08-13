@@ -299,8 +299,8 @@ export const add = new Command()
 
     printFancyBoxMessage(
       "All Done!",
-      { title: "Components Added" },
-      `Run the ${kleur.cyan("ui-thing@latest --help")} command to learn more.\n`
+      `Run the ${kleur.cyan("ui-thing@latest --help")} command to learn more.\n`,
+      { box: { title: "Components Added" } }
     );
     const combinedInstructions = found.map((c) => c.instructions).flat();
     // remove undefined from the array

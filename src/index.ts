@@ -17,12 +17,12 @@ const program = new Command();
 
 console.clear();
 
-printFancyBoxMessage("UI Thing", { title: "Welcome" });
+printFancyBoxMessage("UI Thing", undefined, { box: { title: "Welcome" } });
 console.log();
 
 program
   .name("ui-thing")
-  .description("CLI for adding ui-thing components to your Nuxt 3 application")
+  .description("CLI for adding ui-thing components to your Nuxt application")
   .version(version)
   .addCommand(init)
   .addCommand(add)

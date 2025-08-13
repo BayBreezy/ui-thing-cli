@@ -55,7 +55,7 @@ export const theme = new Command()
 
     printFancyBoxMessage(
       `${_.capitalize(theme)}`,
-      { title: "New Theme Added" },
-      `${_.capitalize(theme)} theme has been added to ${uiConfig.tailwindCSSLocation}`
+      `${_.capitalize(theme)} theme has been added to ${uiConfig.tailwindCSSLocation}`,
+      { box: { title: "New Theme Added" } }
     );
   });

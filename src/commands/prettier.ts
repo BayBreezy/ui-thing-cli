@@ -13,11 +13,9 @@ export const addPrettier = new Command()
   .action(async () => {
     const added = await addPrettierConfig(undefined, false);
     if (!added) {
-      printFancyBoxMessage(
-        "Not Added",
-        { title: "Prettier Not Added", borderColor: "red" },
-        `Prettier config was not added.`
-      );
+      printFancyBoxMessage("Not Added", `Prettier config was not added.`, {
+        box: { title: "Prettier Not Added", borderColor: "red" },
+      });
       return;
     }
 
@@ -37,7 +35,7 @@ export const addPrettier = new Command()
     ]);
     printFancyBoxMessage(
       "All Done!",
-      { title: "Prettier Added" },
-      `A .prettierrc file has been added to your project and the code formatted. Enjoy!`
+      `A .prettierrc file has been added to your project and the code formatted. Enjoy!`,
+      { box: { title: "Prettier Added" } }
     );
   });

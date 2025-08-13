@@ -70,7 +70,7 @@ export const init = new Command()
 
     printFancyBoxMessage(
       "Initialized",
-      { title: "Complete" },
-      `Feel free to start adding components with the ${kleur.bgWhite(" add ")} command.`
+      `Feel free to start adding components with the ${kleur.bgWhite(" add ")} command.`,
+      { box: { title: "Complete" } }
     );
   });

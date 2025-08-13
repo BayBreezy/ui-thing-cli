@@ -32,7 +32,7 @@ export const addShortcuts = new Command()
     await installPackages(pkgManager, undefined, ["@vueuse/math", "@vueuse/nuxt"]);
     printFancyBoxMessage(
       "All Done!",
-      { title: "Shortcuts Added" },
-      `Check the composables folder for the defineShortcuts & useShortcuts composables.`
+      `Check the composables folder for the defineShortcuts & useShortcuts composables.`,
+      { box: { title: "Shortcuts Added" } }
     );
   });
