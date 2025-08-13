@@ -65,7 +65,11 @@ export const runInitCommand = async (options: InitOptions) => {
           (i: any) => i.from === "tailwind-variants" && i.name === "VariantProps"
         )
       ) {
-        config.imports.imports.push({ from: "tailwind-variants", name: "VariantProps" });
+        config.imports.imports.push({
+          from: "tailwind-variants",
+          name: "VariantProps",
+          type: true,
+        });
       }
     },
   });
