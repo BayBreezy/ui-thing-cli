@@ -14,7 +14,7 @@ export function detectNuxtVersion() {
       return 3;
     }
   } catch {
-    return null;
+    return 4;
   }
-  return null;
+  return 4;
 }
