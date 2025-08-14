@@ -7,7 +7,7 @@
     "ui",
     "thing",
     "nuxt3",
-    "radix-vue",
+    "reka-ui",
     "tailwindcss",
     "nuxtui",
     "shadcn-ui"
@@ -33,20 +33,28 @@
     "coverage": "vitest run --coverage",
     "dev": "tsup --watch",
     "format": "npx prettier --write .",
+    "knip": "knip",
+    "knip:fix": "knip --fix",
     "lint-staged": "lint-staged",
     "prepare": "husky",
     "release": "npm run build && npx changelogen@latest --release && npm publish && git push --follow-tags",
     "start": "node dist/index.js",
     "test": "vitest"
   },
+  "lint-staged": {
+    "*": [
+      "npm run format"
+    ],
+    "*.{js,ts}": [
+      "npm run knip"
+    ]
+  },
   "dependencies": {
-    "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
     "boxen": "^8.0.1",
-    "build": "^0.1.4",
     "c12": "^3.2.0",
     "commander": "^14.0.0",
-    "defu": "^6.1.4",
+    "consola": "^3.4.2",
     "dotenv": "^17.2.1",
     "es-toolkit": "^1.39.9",
     "execa": "^9.6.0",
@@ -54,14 +62,10 @@
     "fs-extra": "^11.3.1",
     "kleur": "^4.1.5",
     "lodash": "^4.17.21",
-    "nypm": "^0.6.1",
     "ora": "^8.2.0",
-    "prompts": "^2.4.2",
-    "tailwindcss": "^4.1.11",
-    "tmp-promise": "^3.0.3"
+    "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@gmrchk/cli-testing-library": "^0.1.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.6.1",
     "@types/figlet": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
@@ -70,6 +74,7 @@
     "@types/prompts": "^2.4.9",
     "@vitest/coverage-v8": "^3.2.4",
     "husky": "^9.1.7",
+    "knip": "^5.62.0",
     "lint-staged": "^16.1.5",
     "magicast": "^0.3.5",
     "prettier": "^3.6.2",
@@ -79,10 +84,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "lint-staged": {
-    "*": [
-      "npm run format"
-    ]
   }
 }
