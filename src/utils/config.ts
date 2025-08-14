@@ -1,120 +1,107 @@
-import { join } from "path";
+import { join } from "node:path";
 import { loadConfig } from "c12";
+import { updateConfig } from "c12/update";
 import fse from "fs-extra";
-import kleur from "kleur";
 import _ from "lodash";
-import { loadFile, ProxifiedModule, writeFile } from "magicast";
-import { addNuxtModule, getDefaultExportOptions } from "magicast/helpers";
+import { loadFile, writeFile } from "magicast";
+import { addNuxtModule } from "magicast/helpers";
 import prompts from "prompts";
 
 import { InitOptions, UIConfig } from "../types";
-import { initPrompts, promptForNuxtVersion } from "./uiConfigPrompt";
+import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, UI_CONFIG_FILENAME } from "./constants";
+import { detectNuxtVersion } from "./detectNuxtVersion";
+import { initPrompts } from "./uiConfigPrompt";
 
 const currentDir = process.cwd();
-const uiConfigFilename = "ui-thing.config.ts";
-const defaultConfig: UIConfig = {
-  nuxtVersion: 3,
-  theme: "zinc",
-  tailwindCSSLocation: "assets/css/tailwind.css",
-  tailwindConfigLocation: "tailwind.config.js",
-  componentsLocation: "components/Ui",
-  composablesLocation: "composables",
-  pluginsLocation: "plugins",
-  utilsLocation: "utils",
-  force: true,
-  useDefaultFilename: true,
-  packageManager: "npm",
-};
-const defaultNuxt4Config: UIConfig = {
-  nuxtVersion: 4,
-  theme: "zinc",
-  tailwindCSSLocation: "app/assets/css/tailwind.css",
-  tailwindConfigLocation: "tailwind.config.js",
-  componentsLocation: "app/components/Ui",
-  composablesLocation: "app/composables",
-  pluginsLocation: "app/plugins",
-  utilsLocation: "app/utils",
-  force: true,
-  useDefaultFilename: true,
-  packageManager: "npm",
-};
 
-export const getNuxtConfig = async () => {
-  if (!fse.existsSync("nuxt.config.ts")) {
-    console.log(kleur.red(`No ${kleur.bgWhite(`nuxt.config.ts`)} file found. Exiting...`));
-    return process.exit(0);
-  }
-  const nuxtConfig = await loadFile(join(currentDir, "nuxt.config.ts"));
-  const defaultExport = getDefaultExportOptions(nuxtConfig);
-  return { nuxtConfig, defaultExport };
-};
+/**
+ * Loads or creates Nuxt config safely.
+ */
+export const getNuxtConfig = async () =>
+  updateConfig({
+    configFile: "nuxt.config",
+    cwd: currentDir,
+    onCreate: () =>
+      `export default defineNuxtConfig({
+  modules: []
+})`,
+  });
 
-export const getUIConfig = async (options?: InitOptions) => {
-  const configFileExists = fse.existsSync(uiConfigFilename);
+/**
+ * Creates or retrieves the UI Thing config.
+ */
+export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
+  const configExists = fse.existsSync(UI_CONFIG_FILENAME);
   let uiConfig: UIConfig = {} as UIConfig;
-  let nuxtVersion = Number(options?.nuxtVersion);
+  const nuxtVersion = Number(options?.nuxtVersion) || detectNuxtVersion();
 
-  if (!configFileExists || options?.force) {
-    if (!nuxtVersion) {
-      nuxtVersion = await promptForNuxtVersion();
-    }
-    // if option yes is passed, use default values
-    if (options?.yes) {
-      uiConfig = Number(nuxtVersion) === 4 ? defaultNuxt4Config : defaultConfig;
-    } else {
-      uiConfig = await initPrompts();
-    }
-    await fse.writeFile(uiConfigFilename, `export default ${JSON.stringify(uiConfig, null, 2)}`);
-    // Check if user chose pnpm as package manager
+  // Force creation or first-time setup
+  if (!configExists || options?.force) {
+    uiConfig = options?.yes
+      ? nuxtVersion === 4
+        ? DEFAULT_CONFIG_NUXT4
+        : DEFAULT_CONFIG
+      : await initPrompts(nuxtVersion);
+
+    await fse.writeFile(UI_CONFIG_FILENAME, `export default ${JSON.stringify(uiConfig, null, 2)}`);
+
+    // Handle pnpm special case
     if (uiConfig.packageManager === "pnpm") {
-      // check if a .npmrc file exists
       const npmrcExists = fse.existsSync(".npmrc");
-      // as the user if they want to create a .npmrc file
+      let shouldWrite = true;
+
       if (npmrcExists) {
         const { confirmCreateNpmrc } = await prompts({
           type: "confirm",
           name: "confirmCreateNpmrc",
-          message: "A .npmrc file already exists. Do you want to overwrite it?",
+          message: "A .npmrc file already exists. Overwrite it?",
           initial: false,
         });
-        if (confirmCreateNpmrc) {
-          await fse.writeFile(".npmrc", "shamefully-hoist=true\nstrict-peer-dependencies=false\n");
-        }
-      } else {
+        shouldWrite = confirmCreateNpmrc;
+      }
+
+      if (shouldWrite) {
         await fse.writeFile(".npmrc", "shamefully-hoist=true\nstrict-peer-dependencies=false\n");
       }
     }
   } else {
-    const data = await loadConfig({
-      configFile: uiConfigFilename.replace(".ts", ""),
+    const data = await loadConfig<UIConfig>({
+      configFile: UI_CONFIG_FILENAME.replace(".ts", ""),
     });
     uiConfig = data.config as UIConfig;
   }
-  if (_.isEmpty(uiConfig)) {
-    await getUIConfig({ force: true });
-  }
+
+  // Ensure valid config
+  if (_.isEmpty(uiConfig)) return getUIConfig({ force: true });
+
   createConfigPaths(uiConfig);
   return uiConfig;
 };
 
+/**
+ * Ensures all required paths exist for UI Thing.
+ */
 export const createConfigPaths = (uiConfig: UIConfig) => {
-  // Esnure files exists
-  if (uiConfig.tailwindCSSLocation) fse.ensureFileSync(uiConfig.tailwindConfigLocation);
-  if (uiConfig.pluginsLocation) fse.ensureDirSync(uiConfig.pluginsLocation);
-  if (uiConfig.tailwindConfigLocation) fse.ensureFileSync(uiConfig.tailwindCSSLocation);
-  if (uiConfig.componentsLocation) fse.ensureDirSync(uiConfig.componentsLocation);
-  if (uiConfig.composablesLocation) fse.ensureDirSync(uiConfig.composablesLocation);
-  if (uiConfig.utilsLocation) fse.ensureDirSync(uiConfig.utilsLocation);
+  const ensureFileOrDir = (pathValue?: string, isDir = false) => {
+    if (!pathValue) return;
+    isDir ? fse.ensureDirSync(pathValue) : fse.ensureFileSync(pathValue);
+  };
+
+  ensureFileOrDir(uiConfig.tailwindCSSLocation);
+  ensureFileOrDir(uiConfig.pluginsLocation, true);
+  ensureFileOrDir(uiConfig.componentsLocation, true);
+  ensureFileOrDir(uiConfig.composablesLocation, true);
+  ensureFileOrDir(uiConfig.utilsLocation, true);
 };
 
-export const addModuleToConfig = (cfg: ProxifiedModule, modules: string[] | string) => {
-  if (typeof modules === "string") {
-    modules = [modules];
-  }
-  modules.forEach((m) => addNuxtModule(cfg, m));
-  return cfg;
-};
+/**
+ * Adds one or multiple Nuxt modules to nuxt.config.ts safely.
+ */
+export const addModuleToConfig = async (modules: string[] | string) => {
+  if (!modules) return;
+  const modulesArray = typeof modules === "string" ? [modules] : modules;
 
-export const updateConfig = async (cfg: ProxifiedModule, fileName = "nuxt.config.ts") => {
-  await writeFile(cfg.$ast, fileName);
+  const proxy = await loadFile(join(currentDir, "nuxt.config.ts"));
+  modulesArray.forEach((m) => addNuxtModule(proxy, m));
+  await writeFile(proxy, join(currentDir, "nuxt.config.ts"));
 };
