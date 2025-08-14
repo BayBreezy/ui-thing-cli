@@ -1,14 +1,15 @@
 import path from "node:path";
+import { updateConfig } from "c12/update";
 import { Command } from "commander";
 import { consola } from "consola";
 import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
 
-import allComponents from "../comps";
-import { Component } from "../types";
+import { AddCommand, Component } from "../types";
 import { compareUIConfig } from "../utils/compareUIConfig";
-import { addModuleToConfig, getNuxtConfig, getUIConfig, updateConfig } from "../utils/config";
+import { addModuleToConfig, getUIConfig } from "../utils/config";
+import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
 import { installValidator } from "../utils/installValidator";
@@ -16,14 +17,205 @@ import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 import { promptUserForComponents } from "../utils/promptForComponents";
 import { writeFile } from "../utils/writeFile";
 
+let allComponents: Component[] = [];
 const currentDirectory = process.cwd();
 
-const findComponent = (name: string) => {
-  return allComponents.find((c) => c.value.toLowerCase() === name.toLowerCase());
+/**
+ * Finds a component definition by its name (case-insensitive).
+ */
+const findComponent = (name: string) =>
+  allComponents.find((c) => c.value.toLowerCase() === name.toLowerCase());
+
+/**
+ * Handles writing a file with overwrite checks.
+ */
+async function safeWriteFile(
+  targetPath: string,
+  content: string,
+  forceOverwrite: boolean,
+  promptMessage: string
+) {
+  const exists = await fileExists(targetPath);
+
+  if (exists && !forceOverwrite) {
+    const { value: overwrite } = await prompts({
+      type: "confirm",
+      name: "value",
+      message: promptMessage,
+      initial: false,
+    });
+    if (!overwrite) {
+      consola.info(`Skipped: ${kleur.cyan(path.basename(targetPath))}`);
+      return false;
+    }
+  }
+
+  await writeFile(targetPath, content);
+  return true;
+}
+
+/**
+ * Writes all files in a given category (utils, composables, plugins).
+ */
+async function writeCategoryFiles(
+  category: string,
+  items: Array<{ fileName: string; fileContent: string; dirPath?: string }>,
+  baseDir: string,
+  forceOverwrite: boolean
+) {
+  for (const item of items) {
+    const targetPath = path.join(currentDirectory, baseDir, item.fileName);
+    await safeWriteFile(
+      targetPath,
+      item.fileContent,
+      forceOverwrite,
+      `The ${category} file ${kleur.bold(item.fileName)} already exists. Overwrite?`
+    );
+  }
+}
+
+/**
+ * Main command logic for adding components.
+ */
+export const runAddCommand = async (components: string[], options: AddCommand) => {
+  // Step 1 — Load and verify UI config
+  let uiConfig = await getUIConfig();
+  if (!(await compareUIConfig())) {
+    uiConfig = await getUIConfig({ force: true });
+  }
+  if (_.isEmpty(uiConfig)) {
+    consola.info("Config file not set. Exiting...");
+    process.exit(0);
+  }
+
+  // Step 2 — Fetch all available components
+  allComponents = await fetchComponents();
+
+  // Step 3 — If no components were passed, prompt user to select them
+  let componentNames = components;
+  if (componentNames.length === 0) {
+    const response = await promptUserForComponents(options.all);
+    if (!response || response.length === 0) {
+      consola.info("No components selected. Exiting...");
+      process.exit(0);
+    }
+    componentNames = response;
+  }
+
+  // Step 4 — Validate component names
+  const notFound = componentNames.filter((name) => !findComponent(name));
+  if (notFound.length > 0) {
+    consola.error(`Not found: ${kleur.bgRed(notFound.join(", "))}`);
+  }
+
+  // Step 5 — Collect found components and their dependencies
+  let found: Component[] = componentNames
+    .map((name) => findComponent(name))
+    .filter(Boolean) as Component[];
+
+  for (const comp of [...found]) {
+    if (comp.components) {
+      comp.components.forEach((dep) => {
+        if (!found.find((c) => c.value === dep)) {
+          found.push(findComponent(dep)!);
+        }
+      });
+    }
+  }
+
+  // Step 6 — Write files for each component
+  for (const component of found) {
+    for (const file of component.files) {
+      let dirPath = uiConfig.componentsLocation;
+      let filePath = path.join(currentDirectory, dirPath, file.fileName);
+
+      // Ask for custom location if not using default
+      if (!uiConfig.useDefaultFilename) {
+        const { value: newDir } = await prompts({
+          type: "text",
+          name: "value",
+          message: `Where should we add the file ${kleur.cyan(file.fileName)}?`,
+          initial: dirPath,
+        });
+        if (newDir) {
+          dirPath = newDir;
+          filePath = path.join(currentDirectory, dirPath, file.fileName);
+        }
+      }
+
+      const fileWritten = await safeWriteFile(
+        filePath,
+        file.fileContent,
+        uiConfig.force,
+        `The file ${kleur.bold(file.fileName)} already exists. Overwrite?`
+      );
+      if (!fileWritten) continue;
+
+      // Component-specific logic hooks
+      if (component.value === "vue-sonner" || component.value === "sonner") await addSonner();
+      if (component.value === "datatable") await addDataTable();
+
+      // Write related files
+      await writeCategoryFiles("utils", component.utils, uiConfig.utilsLocation, uiConfig.force);
+      await writeCategoryFiles(
+        "composables",
+        component.composables,
+        uiConfig.composablesLocation,
+        uiConfig.force
+      );
+      await writeCategoryFiles(
+        "plugins",
+        component.plugins,
+        uiConfig.pluginsLocation ?? "",
+        uiConfig.force
+      );
+    }
+  }
+
+  // Step 7 — Add Nuxt modules
+  await addModuleToConfig(_.uniq(found.flatMap((c) => c.nuxtModules || [])));
+
+  // Step 8 — Install dependencies if necessary
+  const deps = _.uniq(found.flatMap((c) => c.deps || []));
+  const devDeps = _.uniq(found.flatMap((c) => c.devDeps || []));
+  if (deps.length > 0 || devDeps.length > 0) {
+    if (options.all) {
+      await installPackages(uiConfig.packageManager, deps, devDeps);
+    } else {
+      const { confirmInstall } = await prompts({
+        type: "confirm",
+        name: "confirmInstall",
+        message: `Install packages: ${kleur.cyan([...deps, ...devDeps].join(", "))}?`,
+        initial: true,
+      });
+      if (confirmInstall) {
+        await installPackages(uiConfig.packageManager, deps, devDeps);
+      }
+    }
+  }
+
+  // Step 9 — Install validator if required
+  if (found.some((c) => c.askValidator)) {
+    await installValidator(uiConfig.packageManager);
+  }
+
+  // Step 10 — Success message & instructions
+  printFancyBoxMessage(
+    "All Done!",
+    `Run the ${kleur.cyan("ui-thing@latest --help")} command to learn more.\n`,
+    { box: { title: "Components Added" } }
+  );
+
+  const instructions = _.compact(found.flatMap((c) => c.instructions));
+  if (instructions.length > 0) {
+    console.log("");
+    console.log(kleur.bgCyan(" Instructions "));
+    instructions.forEach((i) => console.log(`${kleur.cyan("-")} ${i}`));
+  }
 };
 
 /**
- * Adds a component to your project
+ * CLI Command Registration
  */
 export const add = new Command()
   .name("add")
@@ -31,287 +223,39 @@ export const add = new Command()
   .description("Add a list of components to your project.")
   .option("-a --all", "Add all components to your project.", false)
   .argument("[componentNames...]", "Components that you want to add.")
-  .action(async (components: Array<string>, options: { all?: boolean }) => {
-    // Get nuxt config
-    const cfg = await getNuxtConfig();
-    // Get ui config
-    let uiConfig = await getUIConfig();
-    let uiConfigIsCorrect = await compareUIConfig();
-    if (!uiConfigIsCorrect) {
-      uiConfig = await getUIConfig({ force: true });
-    }
-    if (_.isEmpty(uiConfig)) {
-      consola.info("Config file not set. Exiting...");
-      process.exit(0);
-    }
+  .action(runAddCommand);
 
-    let componentNames = components;
-    // if no components are passed, prompt the user to select components
-    if (componentNames.length === 0) {
-      const response = await promptUserForComponents(options.all);
-      if ((response && response.length === 0) || !response) {
-        consola.info("No components selected. Exiting...");
-        process.exit(0);
+/**
+ * Component-specific setup helpers
+ */
+async function addSonner() {
+  await updateConfig({
+    configFile: "nuxt.config",
+    cwd: currentDirectory,
+    onUpdate(config: any) {
+      config.imports ||= { imports: [] };
+      if (!config.imports.imports.find((i: any) => i.from === "vue-sonner" && i.name === "toast")) {
+        config.imports.imports.push({ from: "vue-sonner", name: "toast", as: "useSonner" });
       }
-      componentNames = response;
-    }
-
-    // store the components that are not found
-    let notFound: string[] = [];
-    componentNames.forEach((c) => {
-      if (!findComponent(c)) {
-        notFound.push(c);
-      }
-    });
-    if (notFound.length > 0) {
-      consola.error(`The following components were not found: ${kleur.bgRed(notFound.join(", "))}`);
-    }
-
-    // store the components that are found
-    let found: Component[] = [];
-    componentNames.forEach((c) => {
-      if (findComponent(c)) {
-        found.push(findComponent(c)!);
-      }
-    });
-    // check if the found components depends on other components and add them to the list
-    for (let i = 0; i < found.length; i++) {
-      const component = found[i];
-      if (component.components) {
-        for (let j = 0; j < component.components.length; j++) {
-          const comp = component.components[j];
-          if (!found.find((c) => c.value === comp)) {
-            found.push(findComponent(comp)!);
-          }
-        }
-      }
-    }
-
-    // add the components & files associated with them
-    for (let i = 0; i < found.length; i++) {
-      const component = found[i];
-      loop2: for (let k = 0; k < component.files.length; k++) {
-        const file = component.files[k];
-        let fileName = file.fileName;
-        let dirPath = uiConfig.componentsLocation;
-        let filePath = path.join(currentDirectory, dirPath, fileName);
-        if (!uiConfig.useDefaultFilename) {
-          const res = await prompts({
-            type: "text",
-            name: "value",
-            message: `Where should we add the file`,
-            initial: dirPath,
-            onRender(kleur) {
-              //@ts-ignore
-              this.msg =
-                kleur.bgCyan(" Location ") +
-                ` Where should we add the file ${kleur.cyan(`${fileName}`)} `;
-            },
-          });
-          if (res.value) {
-            dirPath = res.value;
-            filePath = path.join(currentDirectory, res.value, fileName);
-          }
-        }
-        // Check if the file exists
-        const exists = await fileExists(filePath);
-        // if it exists & the force option was not passed, ask the user to confirm overwriting the file
-        if (exists && !uiConfig.force) {
-          const res = await prompts({
-            type: "confirm",
-            name: "value",
-            message: `The file that we are trying to add ${kleur.bold(
-              fileName
-            )} to is already taken. Overwrite?`,
-            initial: false,
-          });
-          if (!res.value) {
-            consola.info(`We will not overwrite the file for ${kleur.cyan(fileName)}`);
-            continue loop2;
-          }
-        }
-        await writeFile(filePath, file.fileContent);
-
-        // @not-scalable
-        if (component.value === "vue-sonner") {
-          // Update the nuxt config
-          cfg.defaultExport.imports ||= {};
-          cfg.defaultExport.build ||= {};
-          cfg.defaultExport.imports.imports ||= [];
-          cfg.defaultExport.build.transpile ||= [];
-          const sonnerExists = cfg.defaultExport.imports.imports.find(
-            (i: any) => i.from === "vue-sonner" && i.name === "toast"
-          );
-          if (!sonnerExists) {
-            // prettier-ignore
-            cfg.defaultExport.imports.imports.push({ from: "vue-sonner", name: "toast", as: "useSonner" });
-          }
-          const transpileExists = cfg.defaultExport.build.transpile.find((i: any) => "vue-sonner");
-          if (!transpileExists) {
-            cfg.defaultExport.build.transpile.push("vue-sonner");
-          }
-        }
-        // @not-scalable
-        if (component.value === "datatable") {
-          cfg.defaultExport.app ||= {};
-          cfg.defaultExport.app.head ||= {};
-          cfg.defaultExport.app.head.script ||= [];
-          const scriptOneExists = cfg.defaultExport.app.head.script.find(
-            (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js"
-          );
-          if (!scriptOneExists) {
-            cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
-              defer: true,
-            });
-          }
-          const scriptTwoExists = cfg.defaultExport.app.head.script.find(
-            (i: any) =>
-              i.src === "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js"
-          );
-          if (!scriptTwoExists) {
-            cfg.defaultExport.app.head.script.push({
-              src: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
-              defer: true,
-            });
-          }
-        }
-
-        // add utils attached to the component
-        loop3: for (let j = 0; j < component.utils.length; j++) {
-          const util = component.utils[j];
-          const filePath = path.join(currentDirectory, uiConfig.utilsLocation, util.fileName);
-          // Check if the file exists
-          const exists = await fileExists(filePath);
-          if (exists && !uiConfig.force) {
-            const res = await prompts({
-              type: "confirm",
-              name: "value",
-              message: `The utils file that we are trying to add ${kleur.bold(
-                util.fileName
-              )} already exists. Overwrite?`,
-              initial: true,
-            });
-            if (!res.value) {
-              consola.info(`We will not overwrite the file for ${kleur.cyan(util.fileName)}`);
-              continue loop3;
-            }
-          }
-          await writeFile(filePath, util.fileContent);
-        }
-        // add composables attached to the component
-        loop4: for (let j = 0; j < component.composables.length; j++) {
-          const composable = component.composables[j];
-          const filePath = path.join(
-            currentDirectory,
-            uiConfig.composablesLocation,
-            composable.fileName
-          );
-          // Check if the file exists
-          const exists = await fileExists(filePath);
-          if (exists && !uiConfig.force) {
-            const res = await prompts({
-              type: "confirm",
-              name: "value",
-              message: `The composables file that we are trying to add ${kleur.bold(
-                composable.fileName
-              )} already exists. Overwrite?`,
-              initial: true,
-            });
-            if (!res.value) {
-              consola.info(`We will not overwrite the file for ${kleur.cyan(composable.fileName)}`);
-              continue loop4;
-            }
-          }
-          await writeFile(filePath, composable.fileContent);
-        }
-        // add plugins attached to the component
-        loop5: for (let j = 0; j < component.plugins.length; j++) {
-          const plugin = component.plugins[j];
-          const filePath = path.join(
-            currentDirectory,
-            uiConfig.pluginsLocation ?? plugin.dirPath,
-            plugin.fileName
-          );
-          // Check if the file exists
-          const exists = await fileExists(filePath);
-          if (exists && !uiConfig.force) {
-            const res = await prompts({
-              type: "confirm",
-              name: "value",
-              message: `The plugins file that we are trying to add ${kleur.bold(
-                plugin.fileName
-              )} already exists. Overwrite?`,
-              initial: true,
-            });
-            if (!res.value) {
-              consola.info(`We will not overwrite the file for ${kleur.cyan(plugin.fileName)}`);
-              continue loop5;
-            }
-          }
-          await writeFile(filePath, plugin.fileContent);
-        }
-      }
-    }
-    // Add modules to nuxt config
-    addModuleToConfig(cfg.nuxtConfig, _.uniq(found.map((c) => c.nuxtModules || []).flat()));
-    // Write the changes to the nuxt config
-    await updateConfig(cfg.nuxtConfig, "nuxt.config.ts");
-    const foundDeps = _.uniq(found.map((c) => c.deps || []).flat());
-    const foundDevDeps = _.uniq(found.map((c) => c.devDeps || []).flat());
-
-    // check if the foundDeps & foundDevDeps lists are not empty, ask the user to install them
-    if (foundDeps.length > 0 || foundDevDeps.length > 0) {
-      // if the all option was passed, install the packages without asking
-      if (options.all) {
-        await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
-      } else {
-        // Ask the user to install the packages
-        const { confirmInstall } = await prompts({
-          type: "confirm",
-          name: "confirmInstall",
-          message: `Do you want to install the following packages: ${kleur.cyan(
-            foundDeps.join(", ")
-          )} ${kleur.cyan(foundDevDeps.join(", "))}`,
-          initial: true,
-        });
-        if (confirmInstall) {
-          await installPackages(uiConfig.packageManager, foundDeps, foundDevDeps);
-        }
-      }
-    }
-
-    // check if any of the components has the `askValidator` property set to true
-    let shouldAskValidator = false;
-    // Check if any component has askValidator set to true
-    for (const component of found) {
-      if (component.askValidator) {
-        shouldAskValidator = true;
-        break;
-      }
-    }
-
-    if (shouldAskValidator) {
-      // Ask the user for their choice of validator
-      await installValidator(uiConfig.packageManager);
-    }
-
-    printFancyBoxMessage(
-      "All Done!",
-      `Run the ${kleur.cyan("ui-thing@latest --help")} command to learn more.\n`,
-      { box: { title: "Components Added" } }
-    );
-    const combinedInstructions = found.map((c) => c.instructions).flat();
-    // remove undefined from the array
-    _.remove(combinedInstructions, (i) => !i);
-
-    // print the instructions if there are any
-    if (combinedInstructions.length > 0) {
-      console.log("");
-      console.log(kleur.bgCyan(" Instructions "));
-      combinedInstructions.forEach((i) => {
-        console.log(`${kleur.cyan("-")} ${i}`);
-      });
-    }
+    },
   });
+}
+
+async function addDataTable() {
+  await updateConfig({
+    configFile: "nuxt.config",
+    cwd: currentDirectory,
+    onUpdate(cfg: any) {
+      cfg.app ||= { head: { script: [] } };
+      const scripts = [
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
+      ];
+      scripts.forEach((src) => {
+        if (!cfg.app.head.script.find((i: any) => i.src === src)) {
+          cfg.app.head.script.push({ src, defer: true });
+        }
+      });
+    },
+  });
+}
