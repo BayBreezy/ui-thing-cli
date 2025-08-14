@@ -1,24 +1,21 @@
 import { Command } from "commander";
+import { execa } from "execa";
+import ora from "ora";
 import prompts from "prompts";
 
 import { addShortcutFiles } from "../utils/addShortcutFiles";
-import { addModuleToConfig, getNuxtConfig, updateConfig } from "../utils/config";
 import { PACKAGE_MANAGER_CHOICES } from "../utils/constants";
-import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 
+/**
+ * Adds the shortcuts composables to the project.
+ */
 export const addShortcuts = new Command()
   .command("shortcuts")
   .name("shortcuts")
-  .description("Add the defineShortcuts & useShortcuts composables to your project.")
+  .description("Add the shortcuts composables to your project.")
   .action(async () => {
     await addShortcutFiles();
-
-    // Get nuxt config
-    const cfg = await getNuxtConfig();
-    addModuleToConfig(cfg.nuxtConfig, ["@vueuse/nuxt"]);
-    // Write changes to nuxt config
-    await updateConfig(cfg.nuxtConfig, "nuxt.config.ts");
 
     const { pkgManager } = await prompts({
       name: "pkgManager",
@@ -28,11 +25,14 @@ export const addShortcuts = new Command()
     });
     if (!pkgManager) return process.exit(0);
 
-    // install prettier dep
-    await installPackages(pkgManager, undefined, ["@vueuse/math", "@vueuse/nuxt"]);
+    const spinner = ora("Installing vueuse module...").start();
+    // install vueuse for nuxt
+    await execa`npx -y nuxi@latest module add vueuse`;
+    spinner.succeed("VueUse module installed successfully!");
+
     printFancyBoxMessage(
       "All Done!",
-      `Check the composables folder for the defineShortcuts & useShortcuts composables.`,
-      { box: { title: "Shortcuts Added" } }
+      `Check the composables folder for the shortcuts composables.`,
+      { box: { title: "Composable Added" } }
     );
   });
