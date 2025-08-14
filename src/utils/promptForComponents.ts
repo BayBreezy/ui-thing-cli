@@ -6,8 +6,10 @@ import { fetchComponents } from "./fetchComponents";
 /**
  * Prompts the user to select components to add.
  */
-export const promptUserForComponents = async (all?: boolean): Promise<string[]> => {
-  const allComponents = await fetchComponents();
+export const promptUserForComponents = async (
+  all?: boolean,
+  allComponents: Component[] = []
+): Promise<string[]> => {
   // If all is true, return all components
   if (all) return allComponents.map((c: Component) => c.value);
   const { components } = await prompts({
