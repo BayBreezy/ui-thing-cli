@@ -1,6 +1,5 @@
 import { join } from "node:path";
 import { loadConfig } from "c12";
-import { updateConfig } from "c12/update";
 import fse from "fs-extra";
 import _ from "lodash";
 import { loadFile, writeFile } from "magicast";
@@ -13,19 +12,6 @@ import { detectNuxtVersion } from "./detectNuxtVersion";
 import { initPrompts } from "./uiConfigPrompt";
 
 const currentDir = process.cwd();
-
-/**
- * Loads or creates Nuxt config safely.
- */
-export const getNuxtConfig = async () =>
-  updateConfig({
-    configFile: "nuxt.config",
-    cwd: currentDir,
-    onCreate: () =>
-      `export default defineNuxtConfig({
-  modules: []
-})`,
-  });
 
 /**
  * Creates or retrieves the UI Thing config.
@@ -81,7 +67,7 @@ export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
 /**
  * Ensures all required paths exist for UI Thing.
  */
-export const createConfigPaths = (uiConfig: UIConfig) => {
+const createConfigPaths = (uiConfig: UIConfig) => {
   const ensureFileOrDir = (pathValue?: string, isDir = false) => {
     if (!pathValue) return;
     isDir ? fse.ensureDirSync(pathValue) : fse.ensureFileSync(pathValue);
