@@ -94,7 +94,7 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
   // Step 3 — If no components were passed, prompt user to select them
   let componentNames = components;
   if (componentNames.length === 0) {
-    const response = await promptUserForComponents(options.all);
+    const response = await promptUserForComponents(options.all, allComponents);
     if (!response || response.length === 0) {
       consola.info("No components selected. Exiting...");
       process.exit(0);
