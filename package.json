@@ -1,12 +1,12 @@
 {
   "name": "ui-thing",
   "version": "0.1.56",
-  "description": "CLI used to add Nuxt 3 components to a project",
+  "description": "CLI used to add Nuxt components to a project",
   "keywords": [
     "cli",
     "ui",
     "thing",
-    "nuxt3",
+    "nuxt",
     "reka-ui",
     "tailwindcss",
     "nuxtui",
@@ -63,7 +63,7 @@
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@ianvs/prettier-plugin-sort-imports": "^4.6.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.6.2",
     "@types/figlet": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.20",
