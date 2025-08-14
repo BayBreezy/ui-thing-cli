@@ -9,7 +9,7 @@ import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 export const addPrettier = new Command()
   .command("prettier")
   .name("prettier")
-  .description("Add prettier to your project.")
+  .description("Adds prettier config to your project.")
   .action(async () => {
     const added = await addPrettierConfig(undefined, false);
     if (!added) {
