@@ -1,9 +1,10 @@
-import "dotenv/config";
-
 import axios from "axios";
+import dotenv from "dotenv";
 import ora from "ora";
 
 import { Component } from "../types";
+
+dotenv.config();
 
 /**
  * Function used to fetch components from the API.
