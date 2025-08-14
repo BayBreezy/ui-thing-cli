@@ -71,6 +71,9 @@ export const runInitCommand = async (options: InitOptions) => {
           type: true,
         });
       }
+      // Add css path to config
+      config.css ||= [];
+      config.css.push(`~/${uiConfig.tailwindCSSLocation?.split("app/")[1]}`);
     },
   });
   await addTailwindVitePlugin();
