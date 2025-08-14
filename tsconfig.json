@@ -3,7 +3,8 @@
   "exclude": ["node_modules", "**/*.spec.ts", "dist"],
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "outDir": "dist",
     "rootDir": "src",
     "strict": true,

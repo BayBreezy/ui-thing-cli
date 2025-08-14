@@ -40,12 +40,15 @@
     "test": "vitest"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
     "axios": "^1.11.0",
     "boxen": "^8.0.1",
     "build": "^0.1.4",
     "c12": "^3.2.0",
     "commander": "^14.0.0",
     "defu": "^6.1.4",
+    "dotenv": "^17.2.1",
+    "es-toolkit": "^1.39.9",
     "execa": "^9.6.0",
     "figlet": "^1.8.2",
     "fs-extra": "^11.3.1",
@@ -53,7 +56,9 @@
     "lodash": "^4.17.21",
     "nypm": "^0.6.1",
     "ora": "^8.2.0",
-    "prompts": "^2.4.2"
+    "prompts": "^2.4.2",
+    "tailwindcss": "^4.1.11",
+    "tmp-promise": "^3.0.3"
   },
   "devDependencies": {
     "@gmrchk/cli-testing-library": "^0.1.2",
