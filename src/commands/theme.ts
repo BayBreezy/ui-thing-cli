@@ -1,6 +1,6 @@
 import { Command } from "commander";
-import { consola } from "consola";
 import fse from "fs-extra";
+import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
 
@@ -10,6 +10,9 @@ import { getUIConfig } from "../utils/config";
 import { CSS_THEME_OPTIONS } from "../utils/constants";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 
+/**
+ * Adds a new theme to the project.
+ */
 export const theme = new Command()
   .command("theme")
   .name("theme")
@@ -22,7 +25,7 @@ export const theme = new Command()
       uiConfig = await getUIConfig({ force: true });
     }
     if (_.isEmpty(uiConfig)) {
-      consola.info("Config file not set. Exiting...");
+      console.log(kleur.red("Config file not set. Exiting..."));
       process.exit(0);
     }
     const { theme } = await prompts([
@@ -34,8 +37,8 @@ export const theme = new Command()
       },
     ]);
     if (!theme) {
-      console.log("No theme selected. Exiting...");
-      return process.exit(0);
+      console.log(kleur.red("No theme selected. Exiting..."));
+      process.exit(0);
     }
     if (fse.existsSync(uiConfig.tailwindCSSLocation)) {
       const { force } = await prompts([
