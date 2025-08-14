@@ -1,11 +1,12 @@
 # UI Thing CLI
 
-![Cover Image](https://ui-thing.behonbaker.com/cover.png)
+![Cover Image](https://uithing.com/cover.png)
 
 ## Credits
 
 - shadcn/ui
 - Radiv-Vue
+- Reka UI
 - TailwindCSS
 - Nuxt
 - Nuxt UI
@@ -20,7 +21,7 @@ If you can 😊
 
 ## Getting Started
 
-- Create a Nuxt 3 project
+- Create a Nuxt project
 - Install the dependencies
 - Run the init command
 
@@ -80,4 +81,4 @@ This command will add the prettier configuration to your project.
 npx ui-thing@latest shortcuts
 ```
 
-This command will add the `defineShortcuts` & `useShortcuts` composables to your project.
+This command will add the `shortcuts` composable to your project.
