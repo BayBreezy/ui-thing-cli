@@ -101,7 +101,7 @@ export type Component = {
   overrides?: Record<string, any>;
 };
 
-export type Composable = {
+type Composable = {
   fileName: string;
   dirPath: string;
   fileContent: string;

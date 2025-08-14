@@ -1,4 +1,4 @@
-export const CSS_START = `@import "tailwindcss";
+const CSS_START = `@import "tailwindcss";
 @import "tw-animate-css";
 
 @plugin "@tailwindcss/forms" {
@@ -125,7 +125,7 @@ export const CSS_START = `@import "tailwindcss";
   
 `;
 
-export const CSS_END = `@layer base {
+const CSS_END = `@layer base {
   * {
     @apply border-border outline-ring/50;
   }
@@ -235,7 +235,7 @@ export const ZINC_THEME = `
 }
 
 `;
-export const SLATE_THEME = `
+const SLATE_THEME = `
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -307,7 +307,7 @@ export const SLATE_THEME = `
 
 `;
 
-export const STONE_THEME = `
+const STONE_THEME = `
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -378,7 +378,7 @@ export const STONE_THEME = `
 
 `;
 
-export const GRAY_THEME = `
+const GRAY_THEME = `
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -450,7 +450,7 @@ export const GRAY_THEME = `
 
 `;
 
-export const NEUTRAL_THEME = `
+const NEUTRAL_THEME = `
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -522,7 +522,7 @@ export const NEUTRAL_THEME = `
 
 `;
 
-export const RED_THEME = `
+const RED_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -594,7 +594,7 @@ export const RED_THEME = `
 
 `;
 
-export const ROSE_THEME = `
+const ROSE_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -666,7 +666,7 @@ export const ROSE_THEME = `
 
 `;
 
-export const ORANGE_THEME = `
+const ORANGE_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -738,7 +738,7 @@ export const ORANGE_THEME = `
 
 `;
 
-export const GREEN_THEME = `
+const GREEN_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -882,7 +882,7 @@ export const BLUE_THEME = `
 
 `;
 
-export const YELLOW_THEME = `
+const YELLOW_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);
@@ -954,7 +954,7 @@ export const YELLOW_THEME = `
 
 `;
 
-export const VIOLET_THEME = `
+const VIOLET_THEME = `
 :root {
   --radius: 0.65rem;
   --background: oklch(1 0 0);

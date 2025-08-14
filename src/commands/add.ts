@@ -77,7 +77,7 @@ async function writeCategoryFiles(
 /**
  * Main command logic for adding components.
  */
-export const runAddCommand = async (components: string[], options: AddCommand) => {
+const runAddCommand = async (components: string[], options: AddCommand) => {
   // Step 1 — Load and verify UI config
   let uiConfig = await getUIConfig();
   if (!(await compareUIConfig())) {

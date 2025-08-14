@@ -18,7 +18,7 @@ interface FancyBoxOptions {
  * @param options - Styling and font configuration
  * @returns A fully formatted string with ASCII title inside a box
  */
-export const createFancyBoxMessage = (
+const createFancyBoxMessage = (
   title: string,
   description?: string,
   options: FancyBoxOptions = {}
