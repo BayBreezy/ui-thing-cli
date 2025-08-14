@@ -1,15 +1,95 @@
-export const DEFINE_SHORTCUT = `/* eslint-disable @typescript-eslint/no-unsafe-function-type */
-import { logicAnd, logicNot } from "@vueuse/math";
-import type { ComputedRef, WatchSource } from "vue";
+export const DEFINE_SHORTCUT = `import {
+  createSharedComposable,
+  useActiveElement,
+  useDebounceFn,
+  useEventListener,
+} from "@vueuse/core";
+import type { MaybeRef } from "vue";
+
+type KbdKeysSpecificMap = {
+  meta: string;
+  alt: string;
+  ctrl: string;
+};
+
+export const kbdKeysMap = {
+  meta: "",
+  ctrl: "",
+  alt: "",
+  win: "⊞",
+  command: "⌘",
+  shift: "⇧",
+  control: "⌃",
+  option: "⌥",
+  enter: "↵",
+  delete: "⌦",
+  backspace: "⌫",
+  escape: "⎋",
+  tab: "⇥",
+  capslock: "⇪",
+  arrowup: "↑",
+  arrowright: "→",
+  arrowdown: "↓",
+  arrowleft: "←",
+  pageup: "⇞",
+  pagedown: "⇟",
+  home: "↖",
+  end: "↘",
+};
+
+export type KbdKey = keyof typeof kbdKeysMap;
+export type KbdKeySpecific = keyof KbdKeysSpecificMap;
+
+const _useKbd = () => {
+  const macOS = computed(
+    () =>
+      import.meta.client &&
+      navigator &&
+      navigator.userAgent &&
+      navigator.userAgent.match(/Macintosh;/)
+  );
+
+  const kbdKeysSpecificMap = reactive({
+    meta: " ",
+    alt: " ",
+    ctrl: " ",
+  });
+
+  onMounted(() => {
+    kbdKeysSpecificMap.meta = macOS.value ? kbdKeysMap.command : "Ctrl";
+    kbdKeysSpecificMap.ctrl = macOS.value ? kbdKeysMap.control : "Ctrl";
+    kbdKeysSpecificMap.alt = macOS.value ? kbdKeysMap.option : "Alt";
+  });
+
+  function getKbdKey(value?: KbdKey | string) {
+    if (!value) {
+      return;
+    }
+
+    if (["meta", "alt", "ctrl"].includes(value)) {
+      return kbdKeysSpecificMap[value as KbdKeySpecific];
+    }
+
+    return kbdKeysMap[value as KbdKey] || value.toUpperCase();
+  }
+
+  return {
+    macOS,
+    getKbdKey,
+  };
+};
+
+export const useKbd = /* @__PURE__ */ createSharedComposable(_useKbd);
+
+type Handler = (e?: any) => void;
 
 export interface ShortcutConfig {
-  handler: Function;
+  handler: Handler;
   usingInput?: string | boolean;
-  whenever?: WatchSource<boolean>[];
 }
 
 export interface ShortcutsConfig {
-  [key: string]: ShortcutConfig | Function;
+  [key: string]: ShortcutConfig | Handler | false | null | undefined;
 }
 
 export interface ShortcutsOptions {
@@ -17,8 +97,8 @@ export interface ShortcutsOptions {
 }
 
 interface Shortcut {
-  handler: Function;
-  condition: ComputedRef<boolean>;
+  handler: Handler;
+  enabled: boolean;
   chained: boolean;
   // KeyboardEvent attributes
   key: string;
@@ -30,16 +110,52 @@ interface Shortcut {
   // keyCode?: number
 }
 
-export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptions = {}) => {
-  const { macOS, usingInput } = useShortcuts();
+const chainedShortcutRegex = /^[^-]+.*-.*[^-]+$/;
+const combinedShortcutRegex = /^[^_]+.*_.*[^_]+$/;
+// keyboard keys which can be combined with Shift modifier (in addition to alphabet keys)
+const shiftableKeys = [
+  "arrowleft",
+  "arrowright",
+  "arrowup",
+  "arrowright",
+  "tab",
+  "escape",
+  "enter",
+  "backspace",
+];
 
-  let shortcuts: Shortcut[] = [];
+export function extractShortcuts(items: any[] | any[][]) {
+  const shortcuts: Record<string, Handler> = {};
 
-  const chainedInputs = ref<any[]>([]);
+  function traverse(items: any[]) {
+    items.forEach((item) => {
+      if (item.kbds?.length && (item.onSelect || item.onClick)) {
+        const shortcutKey = item.kbds.join("_");
+        shortcuts[shortcutKey] = item.onSelect || item.onClick;
+      }
+      if (item.children) {
+        traverse(item.children.flat());
+      }
+      if (item.items) {
+        traverse(item.items.flat());
+      }
+    });
+  }
+
+  traverse(items.flat());
+
+  return shortcuts;
+}
+
+export function defineShortcuts(config: MaybeRef<ShortcutsConfig>, options: ShortcutsOptions = {}) {
+  const chainedInputs = ref<string[]>([]);
   const clearChainedInput = () => {
     chainedInputs.value.splice(0, chainedInputs.value.length);
   };
   const debouncedClearChainedInput = useDebounceFn(clearChainedInput, options.chainDelay ?? 800);
+
+  const { macOS } = useKbd();
+  const activeElement = useActiveElement();
 
   const onKeyDown = (e: KeyboardEvent) => {
     // Input autocomplete triggers a keydown event
@@ -47,7 +163,8 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
       return;
     }
 
-    const alphabeticalKey = /^[a-z]{1}$/i.test(e.key);
+    const alphabetKey = /^[a-z]{1}$/i.test(e.key);
+    const shiftableKey = shiftableKeys.includes(e.key.toLowerCase());
 
     let chainedKey;
     chainedInputs.value.push(e.key);
@@ -55,14 +172,14 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
     if (chainedInputs.value.length >= 2) {
       chainedKey = chainedInputs.value.slice(-2).join("-");
 
-      for (const shortcut of shortcuts.filter((s) => s.chained)) {
+      for (const shortcut of shortcuts.value.filter((s) => s.chained)) {
         if (shortcut.key !== chainedKey) {
           continue;
         }
 
-        if (shortcut.condition.value) {
+        if (shortcut.enabled) {
           e.preventDefault();
-          shortcut.handler();
+          shortcut.handler(e);
         }
         clearChainedInput();
         return;
@@ -70,7 +187,7 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
     }
 
     // try matching a standard shortcut
-    for (const shortcut of shortcuts.filter((s) => !s.chained)) {
+    for (const shortcut of shortcuts.value.filter((s) => !s.chained)) {
       if (e.key.toLowerCase() !== shortcut.key) {
         continue;
       }
@@ -80,17 +197,17 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
       if (e.ctrlKey !== shortcut.ctrlKey) {
         continue;
       }
-      // shift modifier is only checked in combination with alphabetical keys
-      // (shift with non-alphabetical keys would change the key)
-      if (alphabeticalKey && e.shiftKey !== shortcut.shiftKey) {
+      // shift modifier is only checked in combination with alphabet keys and some extra keys
+      // (shift with special characters would change the key)
+      if ((alphabetKey || shiftableKey) && e.shiftKey !== shortcut.shiftKey) {
         continue;
       }
       // alt modifier changes the combined key anyways
       // if (e.altKey !== shortcut.altKey) { continue }
 
-      if (shortcut.condition.value) {
+      if (shortcut.enabled) {
         e.preventDefault();
-        shortcut.handler();
+        shortcut.handler(e);
       }
       clearChainedInput();
       return;
@@ -99,103 +216,15 @@ export const defineShortcuts = (config: ShortcutsConfig, options: ShortcutsOptio
     debouncedClearChainedInput();
   };
 
-  // Map config to full detailled shortcuts
-  shortcuts = Object.entries(config)
-    .map(([key, shortcutConfig]) => {
-      if (!shortcutConfig) {
-        return null;
-      }
-
-      // Parse key and modifiers
-      let shortcut: Partial<Shortcut>;
-
-      if (key.includes("-") && key.includes("_")) {
-        console.trace("[Shortcut] Invalid key");
-        return null;
-      }
-
-      const chained = key.includes("-");
-      if (chained) {
-        shortcut = {
-          key: key.toLowerCase(),
-          metaKey: false,
-          ctrlKey: false,
-          shiftKey: false,
-          altKey: false,
-        };
-      } else {
-        const keySplit = key
-          .toLowerCase()
-          .split("_")
-          .map((k) => k);
-        shortcut = {
-          key: keySplit.filter((k) => !["meta", "ctrl", "shift", "alt"].includes(k)).join("_"),
-          metaKey: keySplit.includes("meta"),
-          ctrlKey: keySplit.includes("ctrl"),
-          shiftKey: keySplit.includes("shift"),
-          altKey: keySplit.includes("alt"),
-        };
-      }
-      shortcut.chained = chained;
-
-      // Convert Meta to Ctrl for non-MacOS
-      if (!macOS.value && shortcut.metaKey && !shortcut.ctrlKey) {
-        shortcut.metaKey = false;
-        shortcut.ctrlKey = true;
-      }
-
-      // Retrieve handler function
-      if (typeof shortcutConfig === "function") {
-        shortcut.handler = shortcutConfig;
-      } else if (typeof shortcutConfig === "object") {
-        shortcut = { ...shortcut, handler: shortcutConfig.handler };
-      }
-
-      if (!shortcut.handler) {
-        console.trace("[Shortcut] Invalid value");
-        return null;
-      }
-
-      // Create shortcut computed
-      const conditions: ComputedRef<boolean>[] = [];
-      if (!(shortcutConfig as ShortcutConfig).usingInput) {
-        conditions.push(logicNot(usingInput));
-      } else if (typeof (shortcutConfig as ShortcutConfig).usingInput === "string") {
-        conditions.push(
-          computed(() => usingInput.value === (shortcutConfig as ShortcutConfig).usingInput)
-        );
-      }
-      shortcut.condition = logicAnd(
-        ...conditions,
-        ...((shortcutConfig as ShortcutConfig).whenever || [])
-      );
-
-      return shortcut as Shortcut;
-    })
-    .filter(Boolean) as Shortcut[];
-
-  useEventListener("keydown", onKeyDown);
-};
-
-`;
-
-export const USE_SHORTCUTS = `export const _useShortcuts = () => {
-  const macOS = computed(
-    () =>
-      import.meta.client &&
-      navigator &&
-      navigator.userAgent &&
-      navigator.userAgent.match(/Macintosh;/)
-  );
-
-  const metaSymbol = ref(" ");
-
-  const activeElement = useActiveElement();
   const usingInput = computed(() => {
+    const tagName = activeElement.value?.tagName;
+    const contentEditable = activeElement.value?.contentEditable;
+
     const usingInput = !!(
-      activeElement.value?.tagName === "INPUT" ||
-      activeElement.value?.tagName === "TEXTAREA" ||
-      activeElement.value?.contentEditable === "true"
+      tagName === "INPUT" ||
+      tagName === "TEXTAREA" ||
+      contentEditable === "true" ||
+      contentEditable === "plaintext-only"
     );
 
     if (usingInput) {
@@ -205,18 +234,88 @@ export const USE_SHORTCUTS = `export const _useShortcuts = () => {
     return false;
   });
 
-  onMounted(() => {
-    metaSymbol.value = macOS.value ? "⌘" : "Ctrl";
+  // Map config to full detailed shortcuts
+  const shortcuts = computed<Shortcut[]>(() => {
+    return Object.entries(toValue(config))
+      .map(([key, shortcutConfig]) => {
+        if (!shortcutConfig) {
+          return null;
+        }
+
+        // Parse key and modifiers
+        let shortcut: Partial<Shortcut>;
+
+        if (
+          key.includes("-") &&
+          key !== "-" &&
+          !key.includes("_") &&
+          !key.match(chainedShortcutRegex)?.length
+        ) {
+          console.trace(\`[Shortcut] Invalid key: "\${key}"\`);
+        }
+
+        if (key.includes("_") && key !== "_" && !key.match(combinedShortcutRegex)?.length) {
+          console.trace(\`[Shortcut] Invalid key: "\${key}"\`);
+        }
+
+        const chained = key.includes("-") && key !== "-" && !key.includes("_");
+        if (chained) {
+          shortcut = {
+            key: key.toLowerCase(),
+            metaKey: false,
+            ctrlKey: false,
+            shiftKey: false,
+            altKey: false,
+          };
+        } else {
+          const keySplit = key
+            .toLowerCase()
+            .split("_")
+            .map((k) => k);
+          shortcut = {
+            key: keySplit
+              .filter((k) => !["meta", "command", "ctrl", "shift", "alt", "option"].includes(k))
+              .join("_"),
+            metaKey: keySplit.includes("meta") || keySplit.includes("command"),
+            ctrlKey: keySplit.includes("ctrl"),
+            shiftKey: keySplit.includes("shift"),
+            altKey: keySplit.includes("alt") || keySplit.includes("option"),
+          };
+        }
+        shortcut.chained = chained;
+
+        // Convert Meta to Ctrl for non-MacOS
+        if (!macOS.value && shortcut.metaKey && !shortcut.ctrlKey) {
+          shortcut.metaKey = false;
+          shortcut.ctrlKey = true;
+        }
+
+        // Retrieve handler function
+        if (typeof shortcutConfig === "function") {
+          shortcut.handler = shortcutConfig;
+        } else if (typeof shortcutConfig === "object") {
+          shortcut = { ...shortcut, handler: shortcutConfig.handler };
+        }
+
+        if (!shortcut.handler) {
+          console.trace("[Shortcut] Invalid value");
+          return null;
+        }
+
+        let enabled = true;
+        if (!(shortcutConfig as ShortcutConfig).usingInput) {
+          enabled = !usingInput.value;
+        } else if (typeof (shortcutConfig as ShortcutConfig).usingInput === "string") {
+          enabled = usingInput.value === (shortcutConfig as ShortcutConfig).usingInput;
+        }
+        shortcut.enabled = enabled;
+
+        return shortcut;
+      })
+      .filter(Boolean) as Shortcut[];
   });
 
-  return {
-    macOS,
-    metaSymbol,
-    activeElement,
-    usingInput,
-  };
-};
-
-export const useShortcuts = createSharedComposable(_useShortcuts);
+  return useEventListener("keydown", onKeyDown);
+}
 
 `;
