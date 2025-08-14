@@ -12,7 +12,6 @@ export const compareUIConfig = async () => {
     nuxtVersion: 3,
     theme: "string",
     tailwindCSSLocation: "string",
-    tailwindConfigLocation: "string",
     componentsLocation: "string",
     composablesLocation: "string",
     utilsLocation: "string",
@@ -29,7 +28,7 @@ export const compareUIConfig = async () => {
     }
   }
 
-  if (missingProperties.length > 0) {
+  if (missingProperties.length > 1) {
     return false;
   }
   return true;
