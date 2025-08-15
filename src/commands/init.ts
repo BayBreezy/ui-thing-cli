@@ -73,7 +73,10 @@ const runInitCommand = async (options: InitOptions) => {
       }
       // Add css path to config
       config.css ||= [];
-      config.css.push(`~/${uiConfig.tailwindCSSLocation?.split("app/")[1]}`);
+      const cssPath = uiConfig.tailwindCSSLocation?.split("app/")[1];
+      if (!cssPath) {
+        config.css.push(`~/${cssPath}`);
+      }
     },
   });
   await addTailwindVitePlugin();
