@@ -1,5 +1,69 @@
 # Changelog
 
+## v0.2.0
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.56...v0.2.0)
+
+### 🚀 Enhancements
+
+- **tw-helper:** Add helper function for Tailwind CSS class suggestions ([229f84e](https://github.com/BayBreezy/ui-thing-cli/commit/229f84e))
+- **vscode:** Add VS Code recommendations and settings configuration ([6ca724c](https://github.com/BayBreezy/ui-thing-cli/commit/6ca724c))
+- **tailwind:** Add function to integrate Tailwind CSS Vite plugin into Nuxt config ([ca20e72](https://github.com/BayBreezy/ui-thing-cli/commit/ca20e72))
+- **mergeJsonFile:** Add function to merge JSON data into a file without overwriting existing keys ([891a79a](https://github.com/BayBreezy/ui-thing-cli/commit/891a79a))
+- **init:** Add CSS path to configuration for Tailwind CSS integration ([750bf7f](https://github.com/BayBreezy/ui-thing-cli/commit/750bf7f))
+
+### 🩹 Fixes
+
+- **detectNuxtVersion:** Return default version 4 instead of null on error ([023e5fa](https://github.com/BayBreezy/ui-thing-cli/commit/023e5fa))
+- **init:** Add type property to imports for tailwind-variants ([f014cd9](https://github.com/BayBreezy/ui-thing-cli/commit/f014cd9))
+
+### 💅 Refactors
+
+- Update structure of `printFancyBoxMessage` allowing the file to be more testable & flexible ([5853619](https://github.com/BayBreezy/ui-thing-cli/commit/5853619))
+- **init:** Update the init command ([45ff68d](https://github.com/BayBreezy/ui-thing-cli/commit/45ff68d))
+- **prettier:** Enhance config merging logic and user prompts for existing .prettierrc ([05b360c](https://github.com/BayBreezy/ui-thing-cli/commit/05b360c))
+- **installPackages:** Remove package.json check and streamline postinstall execution ([d3a3167](https://github.com/BayBreezy/ui-thing-cli/commit/d3a3167))
+- **uiConfigPrompt:** Remove Nuxt version prompt and streamline configuration logic ([d1d37eb](https://github.com/BayBreezy/ui-thing-cli/commit/d1d37eb))
+- **addCommand:** Refactor add command to improve component handling and configuration updates ([838a59f](https://github.com/BayBreezy/ui-thing-cli/commit/838a59f))
+- **shortcuts:** Simplify shortcuts command and update descriptions ([f3b9487](https://github.com/BayBreezy/ui-thing-cli/commit/f3b9487))
+- **theme:** Replace consola with kleur for improved error messaging ([d35f04b](https://github.com/BayBreezy/ui-thing-cli/commit/d35f04b))
+- **prettier:** Convert PRETTIER_CONFIG from string to object for improved readability ([cd393bb](https://github.com/BayBreezy/ui-thing-cli/commit/cd393bb))
+- **shortcuts:** Enhance shortcut handling with improved key mapping and event management ([c74938a](https://github.com/BayBreezy/ui-thing-cli/commit/c74938a))
+- **css:** Update css themes to match theming in Tailwind v4 ([77cd9c3](https://github.com/BayBreezy/ui-thing-cli/commit/77cd9c3))
+- **shortcuts:** Remove unused useShortcuts composable and update file writing logic ([04b13e6](https://github.com/BayBreezy/ui-thing-cli/commit/04b13e6))
+- **compareUIConfig:** Remove `tailwindConfigLocation` and adjust missing properties check ([e697309](https://github.com/BayBreezy/ui-thing-cli/commit/e697309))
+- **config:** Update import paths and streamline UI config handling ([34c5291](https://github.com/BayBreezy/ui-thing-cli/commit/34c5291))
+- **constants:** Update UI configuration and dependencies for Nuxt 3 and 4 ([e140d92](https://github.com/BayBreezy/ui-thing-cli/commit/e140d92))
+- **fetchComponents:** Enhance component fetching with spinner and environment variable support ([658656d](https://github.com/BayBreezy/ui-thing-cli/commit/658656d))
+- **promptForComponents:** Fetch components dynamically for user selection ([69b36ad](https://github.com/BayBreezy/ui-thing-cli/commit/69b36ad))
+- **runAddCommand:** Pass allComponents to promptUserForComponents for improved user selection ([6b10c36](https://github.com/BayBreezy/ui-thing-cli/commit/6b10c36))
+- **tailwind:** Remove deprecated Tailwind CSS configuration file ([fed7a46](https://github.com/BayBreezy/ui-thing-cli/commit/fed7a46))
+- **fetchComponents:** Reorder dotenv import for consistency ([20577b7](https://github.com/BayBreezy/ui-thing-cli/commit/20577b7))
+- **promptUserForComponents:** Allow passing allComponents as an argument for flexibility ([051d4e6](https://github.com/BayBreezy/ui-thing-cli/commit/051d4e6))
+- **types:** Enhance UIConfig and InitOptions types with detailed comments and structure ([fa83270](https://github.com/BayBreezy/ui-thing-cli/commit/fa83270))
+- **config:** Remove unused getNuxtConfig function and make createConfigPaths private ([d2c0bbc](https://github.com/BayBreezy/ui-thing-cli/commit/d2c0bbc))
+- Change exported functions to local scope for better encapsulation ([3437c0e](https://github.com/BayBreezy/ui-thing-cli/commit/3437c0e))
+- **prompt:** Simplify onRender message in component selection prompt ([0119278](https://github.com/BayBreezy/ui-thing-cli/commit/0119278))
+- **prompt:** Remove unnecessary onRender function from component selection prompt ([d4de748](https://github.com/BayBreezy/ui-thing-cli/commit/d4de748))
+
+### 📖 Documentation
+
+- **prettier:** Update description to clarify purpose of the command ([d4aa3cf](https://github.com/BayBreezy/ui-thing-cli/commit/d4aa3cf))
+- Update cover image URL and refine project description in README ([41a545d](https://github.com/BayBreezy/ui-thing-cli/commit/41a545d))
+
+### 🏡 Chore
+
+- Bump deps ([fbec408](https://github.com/BayBreezy/ui-thing-cli/commit/fbec408))
+- Add lint-staged ([d804d18](https://github.com/BayBreezy/ui-thing-cli/commit/d804d18))
+- Update dependencies and modify TypeScript configuration ([8145761](https://github.com/BayBreezy/ui-thing-cli/commit/8145761))
+- Update dependencies and scripts in package.json ([2045df5](https://github.com/BayBreezy/ui-thing-cli/commit/2045df5))
+- Remove unused comp file ([8864f56](https://github.com/BayBreezy/ui-thing-cli/commit/8864f56))
+- Update description and upgrade prettier-plugin-sort-imports to version 4.6.2 ([5939aa9](https://github.com/BayBreezy/ui-thing-cli/commit/5939aa9))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.1.56
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.1.55...v0.1.56)
