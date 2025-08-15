@@ -17,9 +17,9 @@ export const promptUserForComponents = async (
     name: "components",
     message: "Select the components you want to add",
     choices: allComponents.map((c: Component) => ({ title: c.name, value: c.value })),
-    onRender(kleur) {
+    onRender() {
       // @ts-ignore
-      this.msg = kleur.bgCyan(" Choose components ") + "  Select the components you want to add";
+      this.msg = "Select the components you want to add";
     },
   });
   return components;
