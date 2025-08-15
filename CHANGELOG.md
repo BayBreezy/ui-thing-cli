@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.3
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.2...v0.2.3)
+
+### 🩹 Fixes
+
+- **init:** Ensure css path is added to config only if not already present ([89b2aae](https://github.com/BayBreezy/ui-thing-cli/commit/89b2aae))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.2
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.1...v0.2.2)
