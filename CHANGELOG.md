@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.2
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.1...v0.2.2)
+
+### 🩹 Fixes
+
+- **init:** Prevent css from being added to config more than once ([9723898](https://github.com/BayBreezy/ui-thing-cli/commit/9723898))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.1
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.0...v0.2.1)
