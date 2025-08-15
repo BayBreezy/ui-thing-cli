@@ -73,9 +73,14 @@ const runInitCommand = async (options: InitOptions) => {
       }
       // Add css path to config
       config.css ||= [];
-      const cssPath = uiConfig.tailwindCSSLocation?.split("app/")[1];
-      if (!cssPath) {
-        config.css.push(`~/${cssPath}`);
+
+      const relativeCssPath = uiConfig.tailwindCSSLocation?.split("app/")[1];
+      const tildePath = `~/${relativeCssPath}`;
+      const atPath = `@/${relativeCssPath}`;
+
+      // Only add if neither alias is present
+      if (!config.css.includes(tildePath) && !config.css.includes(atPath)) {
+        config.css.push(tildePath);
       }
     },
   });
