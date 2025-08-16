@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.2.4
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.3...v0.2.4)
+
+### 🩹 Fixes
+
+- **init:** Add classSuffix to colorMode storageKey configuration ([d9869a9](https://github.com/BayBreezy/ui-thing-cli/commit/d9869a9))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.3
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.2...v0.2.3)
