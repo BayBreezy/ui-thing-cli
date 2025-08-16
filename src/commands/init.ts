@@ -41,7 +41,7 @@ const runInitCommand = async (options: InitOptions) => {
       if (!config.colorMode) {
         // get the name of the folder(project name)
         const projectName = path.basename(process.cwd());
-        config.colorMode = { storageKey: `${projectName}-color-mode` };
+        config.colorMode = { storageKey: `${projectName}-color-mode`, classSuffix: "" };
       }
       // Add icon config if not present
       if (!config.icon) {
