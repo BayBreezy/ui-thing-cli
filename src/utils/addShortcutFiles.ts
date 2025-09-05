@@ -10,7 +10,7 @@ import { getUIConfig } from "./config";
  */
 export const addShortcutFiles = async (cwd = process.cwd()) => {
   // get config
-  let userConfig: UIConfig = await getUIConfig();
+  const userConfig: UIConfig = await getUIConfig();
   const composablesLocation = join(cwd, userConfig.composablesLocation);
   // ensure that the composable folder exists
   await fse.ensureDir(composablesLocation);

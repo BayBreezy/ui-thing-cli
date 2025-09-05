@@ -21,7 +21,7 @@ import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
  */
 const runInitCommand = async (options: InitOptions) => {
   // Get or create the initial configuration file
-  let uiConfig: UIConfig = await getUIConfig(options);
+  const uiConfig: UIConfig = await getUIConfig(options);
   const spinner = ora("Updating nuxt.config...").start();
   // Get nuxt config
   await updateConfig({

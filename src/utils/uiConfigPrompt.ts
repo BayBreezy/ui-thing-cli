@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import kleur from "kleur";
 import prompts from "prompts";
 

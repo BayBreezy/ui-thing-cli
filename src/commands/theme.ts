@@ -20,7 +20,7 @@ export const theme = new Command()
   .action(async () => {
     // Get ui config
     let uiConfig = await getUIConfig();
-    let uiConfigIsCorrect = await compareUIConfig();
+    const uiConfigIsCorrect = await compareUIConfig();
     if (!uiConfigIsCorrect) {
       uiConfig = await getUIConfig({ force: true });
     }

@@ -109,7 +109,7 @@ const runAddCommand = async (components: string[], options: AddCommand) => {
   }
 
   // Step 5 — Collect found components and their dependencies
-  let found: Component[] = componentNames
+  const found: Component[] = componentNames
     .map((name) => findComponent(name))
     .filter(Boolean) as Component[];
 

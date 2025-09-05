@@ -70,7 +70,11 @@ export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
 const createConfigPaths = (uiConfig: UIConfig) => {
   const ensureFileOrDir = (pathValue?: string, isDir = false) => {
     if (!pathValue) return;
-    isDir ? fse.ensureDirSync(pathValue) : fse.ensureFileSync(pathValue);
+    if (isDir) {
+      fse.ensureDirSync(pathValue);
+    } else {
+      fse.ensureFileSync(pathValue);
+    }
   };
 
   ensureFileOrDir(uiConfig.tailwindCSSLocation);

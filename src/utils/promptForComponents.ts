@@ -1,7 +1,6 @@
 import prompts from "prompts";
 
 import { Component } from "../types";
-import { fetchComponents } from "./fetchComponents";
 
 /**
  * Prompts the user to select components to add.
