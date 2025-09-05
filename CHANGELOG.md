@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.2.5
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.4...v0.2.5)
+
+### 🚀 Enhancements
+
+- **theme:** Add theme name validation and improve theme selection process ([737acaf](https://github.com/BayBreezy/ui-thing-cli/commit/737acaf))
+
+### 🏡 Chore
+
+- **deps-dev:** Bump @types/node from 24.2.1 to 24.3.0 ([858469e](https://github.com/BayBreezy/ui-thing-cli/commit/858469e))
+- **deps-dev:** Bump knip from 5.62.0 to 5.63.0 ([0409d0f](https://github.com/BayBreezy/ui-thing-cli/commit/0409d0f))
+- **deps-dev:** Bump @ianvs/prettier-plugin-sort-imports ([1dc849d](https://github.com/BayBreezy/ui-thing-cli/commit/1dc849d))
+- Update package.json to add linting scripts and ESLint configuration ([f836ee1](https://github.com/BayBreezy/ui-thing-cli/commit/f836ee1))
+- Update ESLint configuration to disable no-explicit-any rule ([112a5dd](https://github.com/BayBreezy/ui-thing-cli/commit/112a5dd))
+
+### 🎨 Styles
+
+- **eslint:** Fix eslint errors ([3972b3d](https://github.com/BayBreezy/ui-thing-cli/commit/3972b3d))
+
+### ❤️ Contributors
+
+- Behon Baker
+
 ## v0.2.4
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.3...v0.2.4)
