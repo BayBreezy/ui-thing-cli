@@ -52,7 +52,7 @@
   "dependencies": {
     "axios": "^1.13.1",
     "boxen": "^8.0.1",
-    "c12": "^3.2.0",
+    "c12": "^3.3.1",
     "commander": "^14.0.2",
     "consola": "^3.4.2",
     "dotenv": "^17.2.3",
@@ -63,29 +63,29 @@
     "kleur": "^4.1.5",
     "lodash": "^4.17.21",
     "magicast": "^0.3.5",
-    "ora": "^8.2.0",
+    "ora": "^9.0.0",
     "prompts": "^2.4.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.38.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@types/figlet": "^1.7.0",
     "@types/fs-extra": "^11.0.4",
     "@types/lodash": "^4.17.20",
     "@types/node": "^24.9.2",
     "@types/prompts": "^2.4.9",
-    "@vitest/coverage-v8": "^3.2.4",
-    "eslint": "^9.35.0",
+    "@vitest/coverage-v8": "^4.0.5",
+    "eslint": "^9.38.0",
     "globals": "^16.4.0",
     "husky": "^9.1.7",
-    "jiti": "^2.5.1",
+    "jiti": "^2.6.1",
     "knip": "^5.66.4",
     "lint-staged": "^16.2.6",
     "prettier": "^3.6.2",
     "tsup": "^8.5.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.42.0",
-    "vitest": "^3.2.4"
+    "typescript-eslint": "^8.46.2",
+    "vitest": "^4.0.5"
   },
   "publishConfig": {
     "access": "public"
