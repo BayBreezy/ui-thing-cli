@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.2.6
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.5...v0.2.6)
+
+### 🚀 Enhancements
+
+- Add issue templates for bug reports and feature requests ([906dabc](https://github.com/BayBreezy/ui-thing-cli/commit/906dabc))
+- Enhance Prettier integration by prompting user for configuration and updating dependencies ([5d9f7b0](https://github.com/BayBreezy/ui-thing-cli/commit/5d9f7b0))
+
+### 📖 Documentation
+
+- Update README to clarify `init` command functionality ([2353699](https://github.com/BayBreezy/ui-thing-cli/commit/2353699))
+- Add CONTRIBUTING.md to guide new contributors ([3cfd3cd](https://github.com/BayBreezy/ui-thing-cli/commit/3cfd3cd))
+- Add SECURITY.md to outline security policy and reporting procedures ([1213eef](https://github.com/BayBreezy/ui-thing-cli/commit/1213eef))
+
+### 🏡 Chore
+
+- Update dependencies to latest versions ([fbb17d0](https://github.com/BayBreezy/ui-thing-cli/commit/fbb17d0))
+- Update dependencies and devDependencies ([a6793dd](https://github.com/BayBreezy/ui-thing-cli/commit/a6793dd))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.5
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.4...v0.2.5)

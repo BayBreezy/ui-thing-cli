@@ -1,6 +1,6 @@
 {
   "name": "ui-thing",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "CLI used to add Nuxt components to a project",
   "keywords": [
     "cli",
