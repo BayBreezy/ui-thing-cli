@@ -8,11 +8,11 @@ import ora from "ora";
 import { createCSS } from "../templates/css";
 import { TW_HELPER } from "../templates/tw-helper";
 import { InitOptions, UIConfig } from "../types";
-import { addPrettierConfig } from "../utils/addPrettierConfig";
+import { addPrettierConfig, askPrettierConfig } from "../utils/addPrettierConfig";
 import { addTailwindVitePlugin } from "../utils/addTailwindVitePlugin";
 import { addVSCodeFiles } from "../utils/addVSCodeFiles";
 import { getUIConfig } from "../utils/config";
-import { INIT_DEPS, INIT_DEV_DEPS, INIT_MODULES } from "../utils/constants";
+import { INIT_DEPS, INIT_DEV_DEPS, INIT_DEV_DEPS_PRETTIER, INIT_MODULES } from "../utils/constants";
 import { installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 
@@ -103,8 +103,12 @@ const runInitCommand = async (options: InitOptions) => {
   spinner.succeed("Merged VS Code settings!");
   // Install deps
   await installPackages(uiConfig.packageManager, INIT_DEPS, INIT_DEV_DEPS);
-  // Add prettier config
-  await addPrettierConfig();
+  // Add prettier config if user agrees
+  const addPrettier = await askPrettierConfig();
+  if (addPrettier) {
+    await installPackages(uiConfig.packageManager, [], INIT_DEV_DEPS_PRETTIER);
+    await addPrettierConfig();
+  }
   printFancyBoxMessage(
     "Initialized",
     `Feel free to start adding components with the ${kleur.bgWhite(" add ")} command.`,

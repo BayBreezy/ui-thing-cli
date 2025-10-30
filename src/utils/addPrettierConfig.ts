@@ -67,3 +67,16 @@ export const addPrettierConfig = async (cwd = process.cwd(), format: boolean = t
 
   return true;
 };
+
+/**
+ * Asks the user if they want to add a Prettier configuration.
+ */
+export const askPrettierConfig = async (): Promise<boolean> => {
+  const { addPrettier } = await prompts({
+    name: "addPrettier",
+    type: "confirm",
+    message: "Would you like to add a Prettier configuration to your project?",
+    initial: true,
+  });
+  return addPrettier;
+};

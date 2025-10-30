@@ -58,12 +58,14 @@ export const INIT_DEPS = [
 /**
  * The initial development dependencies
  */
-export const INIT_DEV_DEPS = [
-  "typescript",
+export const INIT_DEV_DEPS = ["typescript", "tw-animate-css"];
+/**
+ * The initial development dependencies for prettier stuff
+ */
+export const INIT_DEV_DEPS_PRETTIER = [
   "prettier-plugin-tailwindcss",
   "prettier",
   "@ianvs/prettier-plugin-sort-imports",
-  "tw-animate-css",
 ];
 
 /**
