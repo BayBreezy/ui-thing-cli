@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📧 Email Support
+    url: mailto:behon.baker@yahoo.com
+    about: For urgent issues or private concerns, contact the maintainer directly
+  - name: 💬 Discussions
+    url: https://github.com/BayBreezy/ui-thing-cli/discussions
+    about: Ask questions and discuss ideas with the community
