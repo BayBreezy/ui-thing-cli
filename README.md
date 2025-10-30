@@ -49,7 +49,7 @@ npx ui-thing@latest add
 npx ui-thing@latest init
 ```
 
-This command will install the dependencies and add the required configuration to your project.
+This command will install the dependencies and add the required configuration to your project. It will also add a `.prettierrc` file to your project.
 
 ### `add`
 
