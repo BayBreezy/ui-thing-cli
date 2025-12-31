@@ -1,10 +1,4 @@
-export const DEFINE_SHORTCUT = `import {
-  createSharedComposable,
-  useActiveElement,
-  useDebounceFn,
-  useEventListener,
-} from "@vueuse/core";
-import type { MaybeRef } from "vue";
+export const DEFINE_SHORTCUT = `import type { MaybeRef } from "vue";
 
 type KbdKeysSpecificMap = {
   meta: string;
