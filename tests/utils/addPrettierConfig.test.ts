@@ -1,8 +1,11 @@
-import * as execa from "execa";
 import fse from "fs-extra";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 import * as testingFn from "../../src/utils/addPrettierConfig";
+
+vi.mock("execa", () => ({
+  $: vi.fn(),
+}));
 
 const currentDir = process.cwd();
 
@@ -43,28 +46,19 @@ describe("utils/addPrettierConfig", () => {
   });
 
   it("should format files with prettier if format is true", async () => {
+    const { $ } = await import("execa");
+    const mockExeca$ = vi.mocked($);
+
     vi.spyOn(testingFn, "addPrettierConfig");
     vi.spyOn(fse, "existsSync").mockImplementation(() => false);
     vi.spyOn(fse, "writeFile").mockResolvedValue();
-    vi.mock("execa", async () => {
-      const execa = await vi.importActual<typeof import("execa")>("execa");
-      return {
-        ...execa,
-        $: async () => {
-          return true;
-        },
-        default: async () => {
-          return true;
-        },
-      };
-    });
-    vi.spyOn(execa, "$");
+    mockExeca$.mockResolvedValue(true as any);
 
     const result = await testingFn.addPrettierConfig(currentDir, true);
     expect(result).toBe(true);
     expect(fse.existsSync).toHaveBeenCalledTimes(1);
     expect(fse.writeFile).toHaveBeenCalledTimes(1);
-    expect(execa.$).toHaveBeenCalledTimes(1);
+    expect(mockExeca$).toHaveBeenCalledTimes(1);
     expect(testingFn.addPrettierConfig).toHaveBeenCalledTimes(1);
   });
 });

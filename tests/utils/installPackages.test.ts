@@ -1,10 +1,11 @@
-import { execa } from "execa";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { installPackages } from "../../src/utils/installPackages";
 
-// Mock execa
-vi.mock("execa");
+// Mock execa at the module level
+vi.mock("execa", () => ({
+  execa: vi.fn(),
+}));
 
 describe("utils/installPackages", () => {
   beforeEach(() => {
@@ -16,6 +17,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should install dependencies with npm", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -26,6 +28,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should install dev dependencies with npm", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -35,6 +38,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should install both dependencies and dev dependencies", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -45,6 +49,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should use yarn add instead of install", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -55,6 +60,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should handle string input for deps", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -64,6 +70,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should handle string input for devDeps", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -73,6 +80,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should work with pnpm", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -83,6 +91,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should run nuxt prepare after installation", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
@@ -92,6 +101,7 @@ describe("utils/installPackages", () => {
   });
 
   it("should skip installing empty dependencies", async () => {
+    const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
