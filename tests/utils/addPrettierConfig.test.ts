@@ -1,7 +1,6 @@
 import * as execa from "execa";
 import fse from "fs-extra";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import type { PathLike } from "fs";
 
 import * as testingFn from "../../src/utils/addPrettierConfig";
 
@@ -14,7 +13,7 @@ describe("utils/addPrettierConfig", () => {
   });
 
   it("should ask the user if they want to overwrite the existing prettier config file if one exists", async () => {
-    vi.spyOn(fse, "existsSync").mockImplementation((path: PathLike) => true);
+    vi.spyOn(fse, "existsSync").mockImplementation(() => true);
     vi.mock("prompts", async () => {
       const prompts = await vi.importActual<typeof import("prompts")>("prompts");
       return {

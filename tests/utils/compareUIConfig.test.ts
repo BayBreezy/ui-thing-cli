@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 
 import { UIConfig } from "../../src/types";
 import * as testingFn from "../../src/utils/compareUIConfig";
@@ -8,13 +8,13 @@ const goodConfig: UIConfig = {
   nuxtVersion: 3,
   theme: "string",
   tailwindCSSLocation: "string",
-  tailwindConfigLocation: "string",
   componentsLocation: "string",
   composablesLocation: "string",
   utilsLocation: "string",
   force: true,
   useDefaultFilename: true,
   packageManager: "string",
+  pluginsLocation: "string",
 };
 
 const badConfig = {
@@ -33,7 +33,7 @@ describe("utils/compareUIConfig", () => {
 
   it("should return false if properties are missing", async () => {
     // create spies
-    vi.spyOn(configModule, "getUIConfig").mockResolvedValue(badConfig as UIConfig);
+    vi.spyOn(configModule, "getUIConfig").mockResolvedValue(badConfig as unknown as UIConfig);
     vi.spyOn(testingFn, "compareUIConfig");
 
     // call the function we are testing
