@@ -9,6 +9,6 @@ export const PRETTIER_CONFIG = {
   trailingComma: "es5",
   useTabs: false,
   vueIndentScriptAndStyle: true,
-  tailwindFunctions: ["tv"],
+  tailwindFunctions: ["tv", "tw"],
   importOrder: ["<BUILTIN_MODULES>", "<THIRD_PARTY_MODULES>", "<TYPES>", "", "^[.]"],
 };
