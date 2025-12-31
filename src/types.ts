@@ -99,6 +99,7 @@ export type Component = {
   components?: string[];
   askValidator?: boolean;
   overrides?: Record<string, any>;
+  docsPath?: string;
 };
 
 type Composable = {
