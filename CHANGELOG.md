@@ -1,5 +1,40 @@
 # Changelog
 
+## v0.2.7
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.6...v0.2.7)
+
+### 🚀 Enhancements
+
+- Update tailwindFunctions in Prettier configuration to include 'tw' ([273f00a](https://github.com/BayBreezy/ui-thing-cli/commit/273f00a))
+- Update VS Code recommendations ([898dc3d](https://github.com/BayBreezy/ui-thing-cli/commit/898dc3d))
+- Add docsPath property to Component type ([7eb5fb4](https://github.com/BayBreezy/ui-thing-cli/commit/7eb5fb4))
+- Simplify DEFINE_SHORTCUT import statement in shortcuts.ts ([2cb48c7](https://github.com/BayBreezy/ui-thing-cli/commit/2cb48c7))
+- Add unit tests for various utility functions and components ([9b9067a](https://github.com/BayBreezy/ui-thing-cli/commit/9b9067a))
+- Enhance test configuration in vite.config.ts for improved coverage reporting ([051541f](https://github.com/BayBreezy/ui-thing-cli/commit/051541f))
+- Update dependencies in package.json and package-lock.json for improved functionality ([4b5a43c](https://github.com/BayBreezy/ui-thing-cli/commit/4b5a43c))
+- Enhance promptUserForComponents to support ProseComponent type ([aa77801](https://github.com/BayBreezy/ui-thing-cli/commit/aa77801))
+- Add fetchProseComponents utility to retrieve prose components from UI Thing API ([78acc6a](https://github.com/BayBreezy/ui-thing-cli/commit/78acc6a))
+- Add fetchBlocks utility to retrieve block components from UI Thing API ([8bffb9e](https://github.com/BayBreezy/ui-thing-cli/commit/8bffb9e))
+- Add fetchBlockCategories utility to retrieve block categories from UI Thing API ([cb5bde0](https://github.com/BayBreezy/ui-thing-cli/commit/cb5bde0))
+- Implement prose command to add prose components to the project ([1f5c532](https://github.com/BayBreezy/ui-thing-cli/commit/1f5c532))
+- Implement block command to add UI Thing blocks with category filtering ([23aa9e4](https://github.com/BayBreezy/ui-thing-cli/commit/23aa9e4))
+- Update types to include TemplateFile and enhance ProseComponent and BlockComponent definitions ([1563080](https://github.com/BayBreezy/ui-thing-cli/commit/1563080))
+- Add block and prose commands to the CLI ([d35e3b7](https://github.com/BayBreezy/ui-thing-cli/commit/d35e3b7))
+
+### 🩹 Fixes
+
+- Update test mocking for CI compatibility ([9bc7a32](https://github.com/BayBreezy/ui-thing-cli/commit/9bc7a32))
+
+### 🏡 Chore
+
+- Update dependencies to latest versions ([f70d2d5](https://github.com/BayBreezy/ui-thing-cli/commit/f70d2d5))
+- Remove unused devDependencies from package.json and package-lock.json ([ba2d7cf](https://github.com/BayBreezy/ui-thing-cli/commit/ba2d7cf))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.6
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.5...v0.2.6)
