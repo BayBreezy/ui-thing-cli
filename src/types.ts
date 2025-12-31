@@ -85,6 +85,12 @@ export type AddCommand = {
   all?: boolean;
 };
 
+export type TemplateFile = {
+  fileName: string;
+  dirPath: string;
+  fileContent: string;
+};
+
 export type Component = {
   name: string;
   value: string;
@@ -92,18 +98,56 @@ export type Component = {
   devDeps?: string[];
   nuxtModules?: string[];
   instructions?: string[];
-  files: Composable[];
-  utils: Composable[];
-  composables: Composable[];
-  plugins: Composable[];
+  files: TemplateFile[];
+  utils: TemplateFile[];
+  composables: TemplateFile[];
+  plugins: TemplateFile[];
   components?: string[];
   askValidator?: boolean;
   overrides?: Record<string, any>;
   docsPath?: string;
 };
 
-type Composable = {
+export type ProseComponent = {
+  name: string;
+  value: string;
+  description?: string;
+  filePath: string;
   fileName: string;
-  dirPath: string;
-  fileContent: string;
+  /**
+   * The other prose components that should be added alongside this one.
+   */
+  prose?: string[];
+  docsUrl?: string;
+  file: TemplateFile;
+  /**
+   * The components that this prose component depends on.
+   *
+   * Should be added from the add command
+   */
+  components?: string[];
+  composables?: TemplateFile[];
+  utils?: TemplateFile[];
+  plugins?: TemplateFile[];
+  /** The dependencies to add */
+  deps?: string[];
+  /** The development dependencies to add */
+  devDeps?: string[];
+  /** The nuxt modules to add */
+  modules?: string[];
+};
+
+export type BlockComponent = {
+  /** The display name of the block */
+  name: string;
+  /** The filename of the block */
+  fileName: string;
+  /** The actual file content of the block */
+  file: string;
+  /** The category of the block */
+  category: string;
+  /** The path to the block */
+  path: string;
+  /** The components used by the block */
+  components?: string[];
 };
