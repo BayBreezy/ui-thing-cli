@@ -3,8 +3,10 @@ import { Command } from "commander";
 
 import { version } from "../package.json";
 import { add } from "./commands/add";
+import { block } from "./commands/block";
 import { init } from "./commands/init";
 import { addPrettier } from "./commands/prettier";
+import { prose } from "./commands/prose";
 import { addShortcuts } from "./commands/shortcuts";
 import { theme } from "./commands/theme";
 import { printFancyBoxMessage } from "./utils/printFancyBoxMessage";
@@ -26,6 +28,8 @@ program
   .version(version)
   .addCommand(init)
   .addCommand(add)
+  .addCommand(prose)
+  .addCommand(block)
   .addCommand(theme)
   .addCommand(addShortcuts)
   .addCommand(addPrettier);
