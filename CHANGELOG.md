@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.2.8
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.7...v0.2.8)
+
+### 🚀 Enhancements
+
+- Enhance CSS styles with color-scheme support and scrollbar utility ([d61751c](https://github.com/BayBreezy/ui-thing-cli/commit/d61751c))
+- Add additional regex patterns for Tailwind CSS class detection in VS Code settings ([7a2793e](https://github.com/BayBreezy/ui-thing-cli/commit/7a2793e))
+
+### 🏡 Chore
+
+- **release:** V0.2.7 ([59f052e](https://github.com/BayBreezy/ui-thing-cli/commit/59f052e))
+- Update dependencies and devDependencies in package.json ([af6d501](https://github.com/BayBreezy/ui-thing-cli/commit/af6d501))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.7
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.6...v0.2.7)
