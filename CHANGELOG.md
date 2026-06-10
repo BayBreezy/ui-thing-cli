@@ -1,5 +1,31 @@
 # Changelog
 
+## v0.2.9
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.8...v0.2.9)
+
+### 🚀 Enhancements
+
+- Enhance CSS styles with color-scheme support and scrollbar utility ([d61751c](https://github.com/BayBreezy/ui-thing-cli/commit/d61751c))
+- Add additional regex patterns for Tailwind CSS class detection in VS Code settings ([7a2793e](https://github.com/BayBreezy/ui-thing-cli/commit/7a2793e))
+- Add dark mode support for select background color in CSS ([1f10c63](https://github.com/BayBreezy/ui-thing-cli/commit/1f10c63))
+- Remove unnecessary VS Code extension and simplify regex patterns for Tailwind CSS ([b4651e3](https://github.com/BayBreezy/ui-thing-cli/commit/b4651e3))
+
+### 🩹 Fixes
+
+- Remove unnecessary eslint directive for uiConfig initialization ([af23eb3](https://github.com/BayBreezy/ui-thing-cli/commit/af23eb3))
+- Update dts configuration to include compiler options for deprecation handling ([28b31da](https://github.com/BayBreezy/ui-thing-cli/commit/28b31da))
+
+### 🏡 Chore
+
+- Update dependencies and devDependencies in package.json ([af6d501](https://github.com/BayBreezy/ui-thing-cli/commit/af6d501))
+- **release:** V0.2.8 ([980fa78](https://github.com/BayBreezy/ui-thing-cli/commit/980fa78))
+- Update deps and switch over to bun for pm ([4d88abc](https://github.com/BayBreezy/ui-thing-cli/commit/4d88abc))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.8
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.7...v0.2.8)
