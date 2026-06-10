@@ -3,7 +3,11 @@ import { defineConfig } from "tsup";
 export default defineConfig({
   sourcemap: true,
   entry: ["src/index.ts"],
-  dts: true,
+  dts: {
+    compilerOptions: {
+      ignoreDeprecations: "6.0",
+    },
+  },
   clean: true,
   format: ["esm"],
   minify: true,
