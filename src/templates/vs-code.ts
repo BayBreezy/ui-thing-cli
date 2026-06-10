@@ -8,7 +8,6 @@ export const VS_CODE_RECOMMENDATIONS = {
     "antfu.iconify",
     "formulahendry.auto-close-tag",
     "formulahendry.auto-rename-tag",
-    "prettier.prettier-vscode",
   ],
 };
 
@@ -21,13 +20,6 @@ export const VS_CODE_SETTINGS = {
   "files.associations": { "*.css": "tailwindcss" },
   "tailwindCSS.classFunctions": ["tw", "clsx", "tw\\.[a-z-]+"],
   "tailwindCSS.experimental.classRegex": [
-    [
-      "tv\\(([^)(]*(?:\\([^)(]*(?:\\([^)(]*(?:\\([^)(]*\\)[^)(]*)*\\)[^)(]*)*\\)[^)(]*)*)\\)",
-      '"(.*?)"',
-    ],
-    "tw`(.*?)`",
-    "tw\\('(.*?)'\\)",
-    "tw\\(\\s*('(.*?)'|\"(.*?)\")\\s*\\)",
     [
       "\\btv\\(\\s*((?:\"(?:\\\\.|[^\"\\\\])*\"|'(?:\\\\.|[^'\\\\])*'|`(?:\\\\.|[^`\\\\])*`|[^)]*)*)\\)",
       "[\"']([^\"']*)[\"']",
