@@ -162,6 +162,11 @@ const CSS_END = `@layer base {
   html.light {
     color-scheme: light;
   }
+  @media (prefers-color-scheme: dark) {
+    select {
+      background-color: var(--popover);
+    }
+  }
 }
 
 @utility no-scrollbar {
