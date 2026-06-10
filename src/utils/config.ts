@@ -18,7 +18,8 @@ const currentDir = process.cwd();
  */
 export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
   const configExists = fse.existsSync(UI_CONFIG_FILENAME);
-  let uiConfig: UIConfig = {} as UIConfig;
+  // eslint-disable-next-line no-useless-assignment
+  let uiConfig = {} as UIConfig;
   const nuxtVersion = Number(options?.nuxtVersion) || detectNuxtVersion();
 
   // Force creation or first-time setup
