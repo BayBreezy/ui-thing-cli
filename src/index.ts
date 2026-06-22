@@ -10,6 +10,7 @@ import { addPrettier } from "./commands/prettier";
 import { prose } from "./commands/prose";
 import { addShortcuts } from "./commands/shortcuts";
 import { theme } from "./commands/theme";
+import { update } from "./commands/update";
 import { printFancyBoxMessage } from "./utils/printFancyBoxMessage";
 
 process.on("SIGINT", () => process.exit(0));
@@ -33,6 +34,7 @@ program
   .addCommand(block)
   .addCommand(theme)
   .addCommand(list)
+  .addCommand(update)
   .addCommand(addShortcuts)
   .addCommand(addPrettier);
 
