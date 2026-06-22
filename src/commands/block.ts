@@ -145,7 +145,9 @@ const runBlockCommand = async (components: string[], options: BlockOptions) => {
       stdio: "inherit",
     });
     if (result.error) {
-      consola.error("Failed to add components:", result.error.message);
+      consola.error("Failed to spawn component installer:", result.error.message);
+    } else if (result.status !== 0) {
+      consola.error(`Component installer exited with code ${result.status}`);
     }
   }
 
