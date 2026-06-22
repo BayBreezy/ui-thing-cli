@@ -5,6 +5,7 @@ import { version } from "../package.json";
 import { add } from "./commands/add";
 import { block } from "./commands/block";
 import { init } from "./commands/init";
+import { list } from "./commands/list";
 import { addPrettier } from "./commands/prettier";
 import { prose } from "./commands/prose";
 import { addShortcuts } from "./commands/shortcuts";
@@ -31,6 +32,7 @@ program
   .addCommand(prose)
   .addCommand(block)
   .addCommand(theme)
+  .addCommand(list)
   .addCommand(addShortcuts)
   .addCommand(addPrettier);
 
