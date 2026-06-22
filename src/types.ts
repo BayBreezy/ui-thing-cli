@@ -83,6 +83,18 @@ export type AddCommand = {
    * @default false
    */
   all?: boolean;
+  /**
+   * Skip loading the ui-thing config file and use auto-detected defaults instead.
+   * Useful for adding components to a project that has no ui-thing.config.ts.
+   *
+   * @default false
+   */
+  skipConfig?: boolean;
+  /**
+   * Override the package manager when using --skip-config.
+   * If not set and --skip-config is active, the user will be prompted.
+   */
+  packageManager?: string;
 };
 
 export type TemplateFile = {

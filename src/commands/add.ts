@@ -6,9 +6,11 @@ import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
 
-import { AddCommand, Component } from "../types";
+import { AddCommand, Component, UIConfig } from "../types";
 import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getUIConfig } from "../utils/config";
+import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, PACKAGE_MANAGER_CHOICES } from "../utils/constants";
+import { detectNuxtVersion } from "../utils/detectNuxtVersion";
 import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
@@ -78,15 +80,33 @@ async function writeCategoryFiles(
 /**
  * Main command logic for adding components.
  */
-const runAddCommand = async (components: string[], options: AddCommand) => {
+export const runAddCommand = async (components: string[], options: AddCommand) => {
   // Step 1 — Load and verify UI config
-  let uiConfig = await getUIConfig();
-  if (!(await compareUIConfig())) {
-    uiConfig = await getUIConfig({ force: true });
-  }
-  if (_.isEmpty(uiConfig)) {
-    consola.error("Config file not set. Exiting...");
-    process.exit(1);
+  let uiConfig: UIConfig;
+
+  if (options.skipConfig) {
+    const nuxtVersion = detectNuxtVersion();
+    const base = nuxtVersion === 4 ? DEFAULT_CONFIG_NUXT4 : DEFAULT_CONFIG;
+    let pm = options.packageManager;
+    if (!pm) {
+      const { packageManager } = await prompts({
+        type: "select",
+        name: "packageManager",
+        message: "Which package manager are you using?",
+        choices: PACKAGE_MANAGER_CHOICES,
+      });
+      pm = packageManager ?? "npm";
+    }
+    uiConfig = { ...base, packageManager: pm };
+  } else {
+    uiConfig = await getUIConfig();
+    if (!(await compareUIConfig())) {
+      uiConfig = await getUIConfig({ force: true });
+    }
+    if (_.isEmpty(uiConfig)) {
+      consola.error("Config file not set. Exiting...");
+      process.exit(1);
+    }
   }
 
   // Step 2 — Fetch all available components
@@ -226,6 +246,11 @@ export const add = new Command()
   .command("add")
   .description("Add a list of components to your project.")
   .option("-a --all", "Add all components to your project.", false)
+  .option(
+    "--skip-config",
+    "Add components without a ui-thing config file. Uses auto-detected Nuxt defaults."
+  )
+  .option("--package-manager <pm>", "Package manager to use when --skip-config is set.")
   .argument("[componentNames...]", "Components that you want to add.")
   .action(runAddCommand);
 
