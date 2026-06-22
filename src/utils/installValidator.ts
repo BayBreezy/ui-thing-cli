@@ -1,9 +1,9 @@
 import prompts from "prompts";
 
 import { installPackages } from "./installPackages";
+import { logger } from "./logger";
 
 export const installValidator = async (packageManager: string) => {
-  // Depending on the selected validator, install the corresponding packages
   const validatorPackages = {
     yup: ["yup", "@vee-validate/yup"],
     zod: ["zod", "@vee-validate/zod"],
@@ -23,10 +23,10 @@ export const installValidator = async (packageManager: string) => {
     ],
   });
   if (!validator) {
-    console.log("No validator package selected");
+    logger.warn("No validator package selected");
     return;
   }
-  console.log(`Selected ${validator} as the validator package`);
+  logger.info(`Selected ${validator} as the validator package`);
 
   if (validatorPackages[validator]) {
     await installPackages(packageManager, validatorPackages[validator]);

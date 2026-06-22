@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import kleur from "kleur";
 import prompts from "prompts";
 
 import { CSS_THEME_OPTIONS, PACKAGE_MANAGER_CHOICES } from "./constants";
+import { logger } from "./logger";
 
-/**
- * Prompts the user for UI configuration values.
- */
 export const initPrompts = async (nuxtVersion: number) => {
   const response = await prompts([
     {
@@ -67,7 +64,7 @@ export const initPrompts = async (nuxtVersion: number) => {
   ]);
 
   if (!response || Object.keys(response).length < 9) {
-    console.log(kleur.red(kleur.bold("Incomplete configuration submitted. Exiting...")));
+    logger.error("Incomplete configuration submitted. Exiting...");
     return process.exit(1);
   }
   return response;

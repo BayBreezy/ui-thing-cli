@@ -13,6 +13,7 @@ import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { installPackages } from "../utils/installPackages";
 import { installValidator } from "../utils/installValidator";
+import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 import { promptUserForComponents } from "../utils/promptForComponents";
 import { writeFile } from "../utils/writeFile";
@@ -212,9 +213,8 @@ const runAddCommand = async (components: string[], options: AddCommand) => {
 
   const instructions = _.compact(found.flatMap((c) => c.instructions));
   if (instructions.length > 0) {
-    console.log("");
-    console.log(kleur.bgCyan(" Instructions "));
-    instructions.forEach((i) => console.log(`${kleur.cyan("-")} ${i}`));
+    logger.info("Instructions:");
+    instructions.forEach((i) => logger.info(`- ${i}`));
   }
 };
 
