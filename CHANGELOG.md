@@ -1,5 +1,37 @@
 # Changelog
 
+## v0.3.0
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.9...v0.3.0)
+
+### 🚀 Enhancements
+
+- **Deno support:** Deno is now a valid package manager choice during `init`. The CLI uses `deno add npm:<pkg>` for dependencies, `--dev` instead of `-D` for dev dependencies, and `deno run -A npm:nuxt prepare` for the post-install step ([e94c67d](https://github.com/BayBreezy/ui-thing-cli/commit/e94c67d))
+- **`list` command:** New `ui-thing list` command displays all available components. Pass `--installed` to filter to only components whose files are already present in your project ([fdf5784](https://github.com/BayBreezy/ui-thing-cli/commit/fdf5784))
+- **`update` command:** New `ui-thing update [names...]` command re-fetches component files from the API and overwrites them in place. Omit names to pick from a list of installed components ([c1ee7ab](https://github.com/BayBreezy/ui-thing-cli/commit/c1ee7ab))
+- **`remove` command:** New `ui-thing remove [names...]` command deletes installed component files (including utils and composables). Omit names to pick from a list of installed components. Prompts for confirmation before deleting ([653d897](https://github.com/BayBreezy/ui-thing-cli/commit/653d897))
+- **Docs links after install:** After successfully installing a component via `add` or `prose`, the CLI now prints the documentation URL so you can jump straight to the component docs ([7f85822](https://github.com/BayBreezy/ui-thing-cli/commit/7f85822))
+
+### 🩹 Fixes
+
+- **`bun` and `pnpm` add command:** Both package managers were incorrectly using `install` instead of `add` when installing component dependencies. This is now fixed ([e94c67d](https://github.com/BayBreezy/ui-thing-cli/commit/e94c67d))
+- **Exit codes:** Error paths (missing config file, incomplete configuration) now correctly exit with code `1` instead of `0`, making the CLI usable in CI pipelines ([dfea222](https://github.com/BayBreezy/ui-thing-cli/commit/dfea222))
+- **`spawnSync` exit status:** The `prose` and `block` commands now check `result.status !== 0` in addition to `result.error`, so a failed component installer script no longer silently passes ([a9e92ff](https://github.com/BayBreezy/ui-thing-cli/commit/a9e92ff))
+- **API error handling:** All four fetch utilities (`fetchComponents`, `fetchProseComponents`, `fetchBlocks`, `fetchBlockCategories`) now catch network errors and print a clear message instead of crashing with an unhandled rejection ([78b1070](https://github.com/BayBreezy/ui-thing-cli/commit/78b1070))
+- **`.npmrc` safe merge (pnpm):** When using pnpm, the CLI previously overwrote `.npmrc` entirely. It now reads the existing file and only appends the lines that are not already present ([9a6af69](https://github.com/BayBreezy/ui-thing-cli/commit/9a6af69))
+
+### 💅 Refactors
+
+- **Centralized logger:** All ad-hoc `console.log(kleur...)` calls have been replaced with a new `logger` utility (`src/utils/logger.ts`) that wraps consola. This gives consistent formatting across every command and makes it easy to redirect output in the future ([748650b](https://github.com/BayBreezy/ui-thing-cli/commit/748650b))
+
+### 🏡 Chore
+
+- Update all dependencies to latest versions ([8799650](https://github.com/BayBreezy/ui-thing-cli/commit/8799650))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.2.9
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.8...v0.2.9)
