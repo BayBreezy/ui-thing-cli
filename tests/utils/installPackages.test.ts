@@ -79,15 +79,48 @@ describe("utils/installPackages", () => {
     expect(mockExeca).toHaveBeenCalledWith("npm", ["install", "-D", "typescript"]);
   });
 
-  it("should work with pnpm", async () => {
+  it("should use pnpm add instead of install", async () => {
     const { execa } = await import("execa");
     const mockExeca = vi.mocked(execa);
     mockExeca.mockResolvedValue({} as any);
 
     await installPackages("pnpm", ["vue"], ["typescript"]);
 
-    expect(mockExeca).toHaveBeenCalledWith("pnpm", ["install", "vue"]);
-    expect(mockExeca).toHaveBeenCalledWith("pnpm", ["install", "-D", "typescript"]);
+    expect(mockExeca).toHaveBeenCalledWith("pnpm", ["add", "vue"]);
+    expect(mockExeca).toHaveBeenCalledWith("pnpm", ["add", "-D", "typescript"]);
+  });
+
+  it("should use bun add instead of install", async () => {
+    const { execa } = await import("execa");
+    const mockExeca = vi.mocked(execa);
+    mockExeca.mockResolvedValue({} as any);
+
+    await installPackages("bun", ["vue"], ["typescript"]);
+
+    expect(mockExeca).toHaveBeenCalledWith("bun", ["add", "vue"]);
+    expect(mockExeca).toHaveBeenCalledWith("bun", ["add", "-D", "typescript"]);
+  });
+
+  it("should use deno add with npm: prefix", async () => {
+    const { execa } = await import("execa");
+    const mockExeca = vi.mocked(execa);
+    mockExeca.mockResolvedValue({} as any);
+
+    await installPackages("deno", ["vue"], ["typescript"]);
+
+    expect(mockExeca).toHaveBeenCalledWith("deno", ["add", "npm:vue"]);
+    expect(mockExeca).toHaveBeenCalledWith("deno", ["add", "--dev", "npm:typescript"]);
+    expect(mockExeca).toHaveBeenCalledWith("deno", ["run", "-A", "npm:nuxt", "prepare"]);
+  });
+
+  it("should not double-prefix packages already starting with npm:", async () => {
+    const { execa } = await import("execa");
+    const mockExeca = vi.mocked(execa);
+    mockExeca.mockResolvedValue({} as any);
+
+    await installPackages("deno", ["npm:vue"]);
+
+    expect(mockExeca).toHaveBeenCalledWith("deno", ["add", "npm:vue"]);
   });
 
   it("should run nuxt prepare after installation", async () => {

@@ -87,6 +87,7 @@ export const PACKAGE_MANAGER_CHOICES = [
   { title: "Yarn", value: "yarn" },
   { title: "Pnpm", value: "pnpm" },
   { title: "Bun", value: "bun" },
+  { title: "Deno", value: "deno" },
 ];
 
 /**
