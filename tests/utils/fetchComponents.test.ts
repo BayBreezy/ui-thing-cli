@@ -69,16 +69,22 @@ describe("utils/fetchComponents", () => {
     delete process.env.COMPONENTS_API;
   });
 
-  it("should handle API errors gracefully", async () => {
+  it("should call process.exit(1) on API error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
     mockAxios.onGet("https://uithing.com/api/components").reply(500);
 
-    await expect(fetchComponents()).rejects.toThrow();
+    await fetchComponents();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 
-  it("should handle network errors", async () => {
+  it("should call process.exit(1) on network error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
     mockAxios.onGet("https://uithing.com/api/components").networkError();
 
-    await expect(fetchComponents()).rejects.toThrow();
+    await fetchComponents();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 
   it("should return empty array when API returns no data", async () => {

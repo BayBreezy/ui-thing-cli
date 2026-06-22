@@ -54,9 +54,21 @@ describe("utils/fetchProseComponents", () => {
     delete process.env.PROSE_COMPONENTS_API;
   });
 
-  it("should handle API errors", async () => {
+  it("should call process.exit(1) on API error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
     mockAxios.onGet("https://uithing.com/api/prose").reply(500);
 
-    await expect(fetchProseComponents()).rejects.toThrow();
+    await fetchProseComponents();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it("should call process.exit(1) on network error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
+    mockAxios.onGet("https://uithing.com/api/prose").networkError();
+
+    await fetchProseComponents();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 });

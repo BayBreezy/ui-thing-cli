@@ -42,10 +42,22 @@ describe("utils/fetchBlockCategories", () => {
     delete process.env.BLOCK_CATEGORIES_API;
   });
 
-  it("should handle API errors", async () => {
+  it("should call process.exit(1) on API error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
     mockAxios.onGet("https://uithing.com/api/blocks/categories").reply(404);
 
-    await expect(fetchBlockCategories()).rejects.toThrow();
+    await fetchBlockCategories();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it("should call process.exit(1) on network error", async () => {
+    const exitSpy = vi.spyOn(process, "exit").mockImplementation((() => {}) as any);
+    mockAxios.onGet("https://uithing.com/api/blocks/categories").networkError();
+
+    await fetchBlockCategories();
+
+    expect(exitSpy).toHaveBeenCalledWith(1);
   });
 
   it("should return empty array when no categories exist", async () => {
