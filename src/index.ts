@@ -8,6 +8,7 @@ import { init } from "./commands/init";
 import { list } from "./commands/list";
 import { addPrettier } from "./commands/prettier";
 import { prose } from "./commands/prose";
+import { remove } from "./commands/remove";
 import { addShortcuts } from "./commands/shortcuts";
 import { theme } from "./commands/theme";
 import { update } from "./commands/update";
@@ -35,6 +36,7 @@ program
   .addCommand(theme)
   .addCommand(list)
   .addCommand(update)
+  .addCommand(remove)
   .addCommand(addShortcuts)
   .addCommand(addPrettier);
 
