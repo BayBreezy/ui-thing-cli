@@ -4,7 +4,6 @@ import fse from "fs-extra";
 import _ from "lodash";
 import { loadFile, writeFile } from "magicast";
 import { addNuxtModule } from "magicast/helpers";
-import prompts from "prompts";
 
 import { InitOptions, UIConfig } from "../types";
 import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, UI_CONFIG_FILENAME } from "./constants";
@@ -32,23 +31,17 @@ export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
 
     await fse.writeFile(UI_CONFIG_FILENAME, `export default ${JSON.stringify(uiConfig, null, 2)}`);
 
-    // Handle pnpm special case
+    // Handle pnpm special case: append required lines without destroying existing content
     if (uiConfig.packageManager === "pnpm") {
-      const npmrcExists = fse.existsSync(".npmrc");
-      let shouldWrite = true;
-
-      if (npmrcExists) {
-        const { confirmCreateNpmrc } = await prompts({
-          type: "confirm",
-          name: "confirmCreateNpmrc",
-          message: "A .npmrc file already exists. Overwrite it?",
-          initial: false,
-        });
-        shouldWrite = confirmCreateNpmrc;
+      const requiredLines = ["shamefully-hoist=true", "strict-peer-dependencies=false"];
+      let existing = "";
+      if (fse.existsSync(".npmrc")) {
+        existing = await fse.readFile(".npmrc", "utf-8");
       }
-
-      if (shouldWrite) {
-        await fse.writeFile(".npmrc", "shamefully-hoist=true\nstrict-peer-dependencies=false\n");
+      const linesToAdd = requiredLines.filter((line) => !existing.includes(line));
+      if (linesToAdd.length > 0) {
+        const separator = existing && !existing.endsWith("\n") ? "\n" : "";
+        await fse.writeFile(".npmrc", existing + separator + linesToAdd.join("\n") + "\n");
       }
     }
   } else {
