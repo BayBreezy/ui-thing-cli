@@ -68,7 +68,7 @@ export const initPrompts = async (nuxtVersion: number) => {
 
   if (!response || Object.keys(response).length < 9) {
     console.log(kleur.red(kleur.bold("Incomplete configuration submitted. Exiting...")));
-    return process.exit(0);
+    return process.exit(1);
   }
   return response;
 };

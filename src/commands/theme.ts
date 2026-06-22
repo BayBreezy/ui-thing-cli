@@ -34,7 +34,7 @@ export const theme = new Command()
     }
     if (_.isEmpty(uiConfig)) {
       console.log(kleur.red("Config file not set. Exiting..."));
-      process.exit(0);
+      process.exit(1);
     }
 
     let selectedTheme =

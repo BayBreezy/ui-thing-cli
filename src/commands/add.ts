@@ -84,8 +84,8 @@ const runAddCommand = async (components: string[], options: AddCommand) => {
     uiConfig = await getUIConfig({ force: true });
   }
   if (_.isEmpty(uiConfig)) {
-    consola.info("Config file not set. Exiting...");
-    process.exit(0);
+    consola.error("Config file not set. Exiting...");
+    process.exit(1);
   }
 
   // Step 2 — Fetch all available components
