@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.3.1
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.0...v0.3.1)
+
+### 🚀 Enhancements
+
+- **add:** Add --skip-config flag to install components without a config file ([70dcea2](https://github.com/BayBreezy/ui-thing-cli/commit/70dcea2))
+
+### 📖 Documentation
+
+- **readme:** Rewrite with full command reference for v0.3.0 ([ce3c6ba](https://github.com/BayBreezy/ui-thing-cli/commit/ce3c6ba))
+
+### 🤖 CI
+
+- Run test and build workflows across node 20, 22, and lts ([73e1c8d](https://github.com/BayBreezy/ui-thing-cli/commit/73e1c8d))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.3.0
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.2.9...v0.3.0)
