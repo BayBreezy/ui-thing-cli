@@ -191,6 +191,8 @@ const runProseCommand = async (components: string[], options: AddCommand) => {
     `Run the ${kleur.cyan("ui-thing@latest --help")} command to learn more.\n`,
     { box: { title: "Prose Components Added" } }
   );
+
+  found.filter((c) => c.docsUrl).forEach((c) => consola.info(`Docs: ${c.docsUrl}`));
 };
 
 export const prose = new Command()

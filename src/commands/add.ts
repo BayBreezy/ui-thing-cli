@@ -206,6 +206,10 @@ const runAddCommand = async (components: string[], options: AddCommand) => {
     { box: { title: "Components Added" } }
   );
 
+  found
+    .filter((c) => c.docsPath)
+    .forEach((c) => consola.info(`Docs: https://uithing.com${c.docsPath}`));
+
   const instructions = _.compact(found.flatMap((c) => c.instructions));
   if (instructions.length > 0) {
     console.log("");
