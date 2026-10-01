@@ -6,7 +6,7 @@ import figlet from "figlet";
  */
 interface FancyBoxOptions {
   box?: BoxOptions; // Overrides for boxen (border style, color, etc.)
-  figletFont?: figlet.Fonts; // Optional font name for ASCII art
+  figletFont?: NonNullable<Parameters<typeof figlet.textSync>[1]>["font"]; // Optional font name for ASCII art
 }
 
 /**

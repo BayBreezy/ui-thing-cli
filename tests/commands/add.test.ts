@@ -134,3 +134,53 @@ describe("commands/add --skip-config", () => {
     expect(vi.mocked(getUIConfig)).not.toHaveBeenCalled();
   });
 });
+
+describe("commands/add nuxt.config updates", () => {
+  const runWithComponent = async (value: string, config: Record<string, any>) => {
+    const { fetchComponents } = await import("../../src/utils/fetchComponents");
+    const { detectNuxtVersion } = await import("../../src/utils/detectNuxtVersion");
+    const { fileExists } = await import("../../src/utils/fileExists");
+    const { updateConfig } = await import("c12/update");
+    const prompts = await import("prompts");
+
+    vi.mocked(fetchComponents).mockResolvedValue([{ ...mockComponent, name: value, value }]);
+    vi.mocked(detectNuxtVersion).mockReturnValue(4);
+    vi.mocked(fileExists).mockResolvedValue(false);
+    vi.mocked(prompts.default).mockResolvedValue({});
+
+    await runAddCommand([value], { skipConfig: true, packageManager: "npm" });
+
+    for (const [opts] of vi.mocked(updateConfig).mock.calls) {
+      await (opts as any).onUpdate(config);
+    }
+    return config;
+  };
+
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it("adds the sonner auto-import when imports has no nested imports array", async () => {
+    const config = await runWithComponent("sonner", { imports: { scan: false } });
+
+    expect(config.imports.scan).toBe(false);
+    expect(config.imports.imports).toEqual([
+      { from: "vue-sonner", name: "toast", as: "useSonner" },
+    ]);
+  });
+
+  it("does not duplicate the sonner auto-import", async () => {
+    const config = await runWithComponent("sonner", {
+      imports: { imports: [{ from: "vue-sonner", name: "toast", as: "useSonner" }] },
+    });
+
+    expect(config.imports.imports).toHaveLength(1);
+  });
+
+  it("adds datatable scripts when app exists without head", async () => {
+    const config = await runWithComponent("datatable", { app: { baseURL: "/" } });
+
+    expect(config.app.baseURL).toBe("/");
+    expect(config.app.head.script).toHaveLength(2);
+  });
+});

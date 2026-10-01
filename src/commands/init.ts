@@ -30,8 +30,9 @@ const runInitCommand = async (options: InitOptions) => {
     async onUpdate(config: any) {
       // Create modules array if it does not exist
       if (!config.modules) config.modules = [];
-      // Create imports object if it does not exist
-      if (!config.imports) config.imports = { imports: [] };
+      // Create imports object and its nested imports array if they do not exist
+      config.imports ||= {};
+      config.imports.imports ||= [];
       for (const mod of INIT_MODULES) {
         if (!config.modules.includes(mod)) {
           config.modules.push(mod);

@@ -87,8 +87,8 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
   if (options.skipConfig) {
     const nuxtVersion = detectNuxtVersion();
     const base = nuxtVersion === 4 ? DEFAULT_CONFIG_NUXT4 : DEFAULT_CONFIG;
-    let pm = options.packageManager;
-    if (!pm) {
+    let pm: string = options.packageManager ?? "npm";
+    if (!options.packageManager) {
       const { packageManager } = await prompts({
         type: "select",
         name: "packageManager",
@@ -262,7 +262,8 @@ async function addSonner() {
     configFile: "nuxt.config",
     cwd: currentDirectory,
     onUpdate(config: any) {
-      config.imports ||= { imports: [] };
+      config.imports ||= {};
+      config.imports.imports ||= [];
       if (!config.imports.imports.find((i: any) => i.from === "vue-sonner" && i.name === "toast")) {
         config.imports.imports.push({ from: "vue-sonner", name: "toast", as: "useSonner" });
       }
@@ -275,7 +276,9 @@ async function addDataTable() {
     configFile: "nuxt.config",
     cwd: currentDirectory,
     onUpdate(cfg: any) {
-      cfg.app ||= { head: { script: [] } };
+      cfg.app ||= {};
+      cfg.app.head ||= {};
+      cfg.app.head.script ||= [];
       const scripts = [
         "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
         "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
