@@ -8,15 +8,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: ["20.x", "22.x", "lts/*"]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v6
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ matrix.node-version }}
+          bun-version-file: package.json
       - name: Install dependencies
-        run: npm install
+        run: bun install --frozen-lockfile
       - name: Build
-        run: npm run format && npm run build
+        run: bun run format && bun run build

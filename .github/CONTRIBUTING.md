@@ -16,7 +16,7 @@ Before creating bug reports, please check the existing issues to avoid duplicate
 - Describe the exact steps to reproduce the problem
 - Provide specific examples to demonstrate the steps
 - Describe the behavior you observed and what you expected
-- Include your environment details (OS, Node version, package version)
+- Include your environment details (OS, Node version, package manager, package version)
 
 ### Suggesting Enhancements
 
@@ -44,22 +44,24 @@ git clone https://github.com/YOUR_USERNAME/ui-thing-cli.git
 cd ui-thing-cli
 ```
 
-2. Install dependencies
+2. Install [Bun](https://bun.sh) at the version pinned in the `packageManager` field of [package.json](../package.json) (currently `bun@1.4.0`), then install dependencies
 
 ```bash
-npm install
+bun install
 ```
+
+> Please use that exact Bun version and commit only `bun.lock` — don't use npm, yarn, or pnpm for development.
 
 3. Build the project
 
 ```bash
-npm run build
+bun run build
 ```
 
 4. Run tests
 
 ```bash
-npm run test
+bun run test
 ```
 
 ## Project Structure
@@ -80,7 +82,7 @@ npm run test
 ## Testing
 
 - Add tests to the `tests/` directory
-- Run `npm run test` to execute all tests
+- Run `bun run test` to execute all tests
 - Ensure all tests pass before submitting a PR
 
 ## Need Help?
