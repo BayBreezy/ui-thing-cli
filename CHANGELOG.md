@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.3.2
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.1...v0.3.2)
+
+### 🚀 Enhancements
+
+- Add MIT License file ([85d6a3b](https://github.com/BayBreezy/ui-thing-cli/commit/85d6a3b))
+
+### 🩹 Fixes
+
+- **init:** Handle nuxt.config imports without nested imports array. Fixes #72 ([#72](https://github.com/BayBreezy/ui-thing-cli/issues/72))
+
+### 🏡 Chore
+
+- **release:** V0.3.1 ([8daeb24](https://github.com/BayBreezy/ui-thing-cli/commit/8daeb24))
+- Bump deps ([bbb4b58](https://github.com/BayBreezy/ui-thing-cli/commit/bbb4b58))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.3.1
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.0...v0.3.1)
