@@ -1,5 +1,24 @@
 # Changelog
 
+## v0.3.3
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.2...v0.3.3)
+
+### 🩹 Fixes
+
+- **add:** Stop injecting pdfmake scripts into nuxt.config for datatable ([e5d78cf](https://github.com/BayBreezy/ui-thing-cli/commit/e5d78cf))
+
+### 🏡 Chore
+
+- **release:** V0.3.2 ([41a1ecf](https://github.com/BayBreezy/ui-thing-cli/commit/41a1ecf))
+- Add .env.example file ([0b58bf6](https://github.com/BayBreezy/ui-thing-cli/commit/0b58bf6))
+- Migrate project to use Bun as the package manager ([de028e9](https://github.com/BayBreezy/ui-thing-cli/commit/de028e9))
+- Update dependencies in package.json ([4bdde83](https://github.com/BayBreezy/ui-thing-cli/commit/4bdde83))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.3.2
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.1...v0.3.2)
