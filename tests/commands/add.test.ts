@@ -176,11 +176,4 @@ describe("commands/add nuxt.config updates", () => {
 
     expect(config.imports.imports).toHaveLength(1);
   });
-
-  it("adds datatable scripts when app exists without head", async () => {
-    const config = await runWithComponent("datatable", { app: { baseURL: "/" } });
-
-    expect(config.app.baseURL).toBe("/");
-    expect(config.app.head.script).toHaveLength(2);
-  });
 });

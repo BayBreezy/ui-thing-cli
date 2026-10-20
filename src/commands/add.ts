@@ -174,7 +174,6 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
 
       // Component-specific logic hooks
       if (component.value === "vue-sonner" || component.value === "sonner") await addSonner();
-      if (component.value === "datatable") await addDataTable();
 
       // Write related files
       await writeCategoryFiles("utils", component.utils, uiConfig.utilsLocation, uiConfig.force);
@@ -267,27 +266,6 @@ async function addSonner() {
       if (!config.imports.imports.find((i: any) => i.from === "vue-sonner" && i.name === "toast")) {
         config.imports.imports.push({ from: "vue-sonner", name: "toast", as: "useSonner" });
       }
-    },
-  });
-}
-
-async function addDataTable() {
-  await updateConfig({
-    configFile: "nuxt.config",
-    cwd: currentDirectory,
-    onUpdate(cfg: any) {
-      cfg.app ||= {};
-      cfg.app.head ||= {};
-      cfg.app.head.script ||= [];
-      const scripts = [
-        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/pdfmake.min.js",
-        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.12/vfs_fonts.min.js",
-      ];
-      scripts.forEach((src) => {
-        if (!cfg.app.head.script.find((i: any) => i.src === src)) {
-          cfg.app.head.script.push({ src, defer: true });
-        }
-      });
     },
   });
 }
