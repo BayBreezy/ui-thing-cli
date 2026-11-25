@@ -125,3 +125,53 @@ describe("commands/update", () => {
     expect(vi.mocked(logger.info)).toHaveBeenCalledWith("No installed components found.");
   });
 });
+
+describe("commands/update --dry-run", () => {
+  it("reports what would change and writes nothing", async () => {
+    vi.clearAllMocks();
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const { makeProject, captureJson } = await import("../helpers/tmp");
+    const { fetchComponents } = await import("../../src/utils/fetchComponents");
+    const { loadConfigOrDefaults } = await import("../../src/utils/config");
+    const { writeFile } = await import("../../src/utils/writeFile");
+    const { DEFAULT_CONFIG_NUXT4 } = await import("../../src/utils/constants");
+
+    const project = makeProject({ "app/components/Ui/Button.vue": "old" });
+    const cwd = process.cwd();
+    process.chdir(project.dir);
+    try {
+      vi.mocked(loadConfigOrDefaults).mockResolvedValue({
+        config: DEFAULT_CONFIG_NUXT4,
+        fromFile: true,
+      });
+      vi.mocked(fetchComponents).mockResolvedValue([
+        {
+          name: "Button",
+          value: "button",
+          files: [{ fileName: "Button.vue", dirPath: "", fileContent: "new" }],
+          utils: [],
+          composables: [],
+          plugins: [],
+        },
+      ]);
+
+      const out = await captureJson(() =>
+        runUpdateCommand(["button"], { dryRun: true, json: true })
+      );
+
+      expect(out.summary).toEqual({ modified: 1, missing: 0, unchanged: 0, itemsWithChanges: 1 });
+      expect(out.items[0].files[0]).toMatchObject({
+        path: "app/components/Ui/Button.vue",
+        status: "modified",
+      });
+      expect(writeFile).not.toHaveBeenCalled();
+      expect(fs.readFileSync(path.join(project.dir, "app/components/Ui/Button.vue"), "utf-8")).toBe(
+        "old"
+      );
+    } finally {
+      process.chdir(cwd);
+      project.cleanup();
+    }
+  });
+});

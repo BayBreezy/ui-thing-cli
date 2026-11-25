@@ -1,18 +1,48 @@
 import path from "node:path";
 import { Command } from "commander";
+import kleur from "kleur";
 import prompts from "prompts";
 
 import { installRegistryRefs } from "../registry/install";
 import { readLock } from "../registry/lock";
 import { Component } from "../types";
-import { getUIConfig } from "../utils/config";
+import { computeChanges, summarize } from "../utils/changes";
+import { getUIConfig, loadConfigOrDefaults } from "../utils/config";
 import { fetchComponents } from "../utils/fetchComponents";
 import { fileExists } from "../utils/fileExists";
 import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
+import { printJson } from "../utils/printJson";
 import { writeFile } from "../utils/writeFile";
 
-export const runUpdateCommand = async (componentNames: string[]) => {
+type UpdateOptions = { dryRun?: boolean; json?: boolean };
+
+/**
+ * `update --dry-run`: what would change, without writing anything.
+ */
+const previewUpdate = async (names: string[], options: UpdateOptions) => {
+  const { config } = await loadConfigOrDefaults();
+  const { items, missing } = await computeChanges(names, config, await fetchComponents());
+  if (options.json) return printJson({ items, missing, summary: summarize(items) });
+
+  if (missing.length > 0) logger.warn(`Not installed or unknown: ${missing.join(", ")}`);
+  for (const item of items) {
+    for (const file of item.files.filter((f) => f.status !== "unchanged")) {
+      const label = file.status === "missing" ? "would create" : "would overwrite";
+      logger.log(`${label.padEnd(16)} ${file.path} ${kleur.dim(`(${item.name})`)}`);
+    }
+  }
+  const s = summarize(items);
+  logger.info(
+    s.itemsWithChanges === 0
+      ? "Everything matches upstream. Nothing to update."
+      : `${s.modified} file(s) would be overwritten and ${s.missing} created. Run \`ui-thing diff\` to see the changes.`
+  );
+};
+
+export const runUpdateCommand = async (componentNames: string[], options: UpdateOptions = {}) => {
+  if (options.dryRun || options.json) return previewUpdate(componentNames, options);
+
   const uiConfig = await getUIConfig();
   const allComponents = await fetchComponents();
   const currentDirectory = process.cwd();
@@ -102,4 +132,6 @@ export const update = new Command()
   .name("update")
   .description("Re-fetch and overwrite installed components with the latest version.")
   .argument("[componentNames...]", "Components to update.")
+  .option("--dry-run", "Show which files would change without writing anything")
+  .option("--json", "With --dry-run: print machine-readable JSON")
   .action(runUpdateCommand);
