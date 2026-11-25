@@ -5,6 +5,7 @@ import { consola } from "consola";
 import kleur from "kleur";
 import _ from "lodash";
 import prompts from "prompts";
+import type { Validator } from "../utils/installValidator";
 
 import { isRegistryRef } from "../registry/fetch";
 import { installRegistryRefs } from "../registry/install";
@@ -15,7 +16,7 @@ import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, PACKAGE_MANAGER_CHOICES } from ".
 import { detectNuxtVersion } from "../utils/detectNuxtVersion";
 import { fetchComponents } from "../utils/fetchComponents";
 import { installPackages } from "../utils/installPackages";
-import { installValidator } from "../utils/installValidator";
+import { installValidator, VALIDATORS } from "../utils/installValidator";
 import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 import { promptUserForComponents } from "../utils/promptForComponents";
@@ -54,6 +55,16 @@ async function writeCategoryFiles(
  * Main command logic for adding components.
  */
 export const runAddCommand = async (components: string[], options: AddCommand) => {
+  // Validate --validator early so a typo fails before anything is written.
+  if (options.validator && !VALIDATORS.includes(options.validator as Validator)) {
+    consola.error(
+      `Unknown validator "${options.validator}". Use one of: ${VALIDATORS.join(", ")}.`
+    );
+    process.exit(1);
+  }
+  const validator =
+    (options.validator as Validator | undefined) ?? (options.yes ? "yup" : undefined);
+
   // Step 1 — Load and verify UI config
   let uiConfig: UIConfig;
 
@@ -217,7 +228,7 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
 
   // Step 9 — Install validator if required
   if (found.some((c) => c.askValidator)) {
-    await installValidator(uiConfig.packageManager);
+    await installValidator(uiConfig.packageManager, validator);
   }
 
   // Step 10 — Success message & instructions
@@ -253,7 +264,11 @@ export const add = new Command()
     "Add components without a ui-thing config file. Uses auto-detected Nuxt defaults."
   )
   .option("--package-manager <pm>", "Package manager to use when --skip-config is set.")
-  .option("-y --yes", "Skip confirmation prompts.", false)
+  .option("-y --yes", "Skip confirmation prompts (uses yup for vee-validate components).", false)
+  .option(
+    "--validator <name>",
+    "Schema library to install for vee-validate components: yup, zod, joi or valibot."
+  )
   .argument(
     "[componentNames...]",
     "Components to add. Accepts ui-thing names, registry URLs (https://.../r/item.json) or @namespace/item."

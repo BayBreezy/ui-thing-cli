@@ -19,7 +19,8 @@ export const theme = new Command()
   .name("theme")
   .description("Add a new theme to your project.")
   .argument("[themeName]", "The name of the theme you would like to add")
-  .action(async (themeName?: string) => {
+  .option("-y --yes", "Overwrite the Tailwind CSS file without asking.", false)
+  .action(async (themeName?: string, options?: { yes?: boolean }) => {
     let uiConfig = await getUIConfig();
     const uiConfigIsCorrect = await compareUIConfig();
     if (!uiConfigIsCorrect) {
@@ -49,7 +50,7 @@ export const theme = new Command()
       selectedTheme = theme;
     }
 
-    if (fse.existsSync(uiConfig.tailwindCSSLocation)) {
+    if (!options?.yes && fse.existsSync(uiConfig.tailwindCSSLocation)) {
       const { force } = await prompts([
         {
           name: "force",
