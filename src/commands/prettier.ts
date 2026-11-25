@@ -31,7 +31,7 @@ export const addPrettier = new Command()
     await installPackages(pkgManager, undefined, INIT_DEV_DEPS_PRETTIER);
     printFancyBoxMessage(
       "All Done!",
-      `A .prettierrc file has been added to your project and the code formatted. Enjoy!`,
+      `A .prettierrc file has been added and its dev dependencies installed. Run "npx prettier --write ." to format your project.`,
       { box: { title: "Prettier Added" } }
     );
   });
