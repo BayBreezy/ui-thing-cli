@@ -7,7 +7,6 @@ import { block } from "./commands/block";
 import { init } from "./commands/init";
 import { list } from "./commands/list";
 import { addPrettier } from "./commands/prettier";
-import { prose } from "./commands/prose";
 import { registry } from "./commands/registry";
 import { remove } from "./commands/remove";
 import { addShortcuts } from "./commands/shortcuts";
@@ -33,7 +32,6 @@ program
   .addCommand(init)
   .addCommand(add)
   .addCommand(registry)
-  .addCommand(prose)
   .addCommand(block)
   .addCommand(theme)
   .addCommand(list)

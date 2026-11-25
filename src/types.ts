@@ -112,9 +112,14 @@ export type AddCommand = {
    * @default false
    */
   yes?: boolean;
+  /**
+   * The schema library to install for vee-validate components (yup, zod, joi or valibot).
+   * Defaults to yup when `--yes` is set, otherwise the CLI asks.
+   */
+  validator?: string;
 };
 
-export type TemplateFile = {
+type TemplateFile = {
   fileName: string;
   dirPath: string;
   fileContent: string;
@@ -135,35 +140,6 @@ export type Component = {
   askValidator?: boolean;
   overrides?: Record<string, any>;
   docsPath?: string;
-};
-
-export type ProseComponent = {
-  name: string;
-  value: string;
-  description?: string;
-  filePath: string;
-  fileName: string;
-  /**
-   * The other prose components that should be added alongside this one.
-   */
-  prose?: string[];
-  docsUrl?: string;
-  file: TemplateFile;
-  /**
-   * The components that this prose component depends on.
-   *
-   * Should be added from the add command
-   */
-  components?: string[];
-  composables?: TemplateFile[];
-  utils?: TemplateFile[];
-  plugins?: TemplateFile[];
-  /** The dependencies to add */
-  deps?: string[];
-  /** The development dependencies to add */
-  devDeps?: string[];
-  /** The nuxt modules to add */
-  modules?: string[];
 };
 
 export type BlockComponent = {
