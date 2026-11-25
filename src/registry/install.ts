@@ -154,7 +154,8 @@ export const installRegistryRefs = async (
       abs,
       file.content,
       force,
-      `The file ${kleur.bold(file.relPath)} already exists. Overwrite?`
+      `The file ${kleur.bold(file.relPath)} already exists. Overwrite?`,
+      !options.yes
     );
     if (!ok) continue;
     result.written.push(file.relPath);
@@ -162,7 +163,13 @@ export const installRegistryRefs = async (
   }
 
   if (createCn) {
-    await safeWriteFile(cnAbsPath, CN_HELPER, force, `${cnRelPath} already exists. Overwrite?`);
+    await safeWriteFile(
+      cnAbsPath,
+      CN_HELPER,
+      force,
+      `${cnRelPath} already exists. Overwrite?`,
+      !options.yes
+    );
   } else if (usesCn && !cnHasExport) {
     consola.warn(
       `${cnRelPath} exists but does not export "cn". Add: export const cn = (...i: ClassValue[]) => twMerge(clsx(i))`

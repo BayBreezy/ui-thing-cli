@@ -8,15 +8,25 @@ import { writeFile } from "./writeFile";
 
 /**
  * Writes a file, asking before overwriting an existing one unless `forceOverwrite` is set.
+ * With `interactive: false` (for `--yes` runs) it never prompts: existing files are skipped
+ * with a warning instead, so unattended runs cannot hang or silently destroy local edits.
  * Returns whether the file was written.
  */
 export async function safeWriteFile(
   targetPath: string,
   content: string,
   forceOverwrite: boolean,
-  promptMessage: string
+  promptMessage: string,
+  interactive = true
 ) {
   const exists = await fileExists(targetPath);
+
+  if (exists && !forceOverwrite && !interactive) {
+    consola.warn(
+      `Skipped existing file ${kleur.cyan(path.basename(targetPath))} (set "force: true" in ui-thing.config.ts to overwrite).`
+    );
+    return false;
+  }
 
   if (exists && !forceOverwrite) {
     const { value: overwrite } = await prompts({
