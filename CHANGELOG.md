@@ -1,5 +1,45 @@
 # Changelog
 
+## v0.4.0
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.3...v0.4.0)
+
+### 🚀 Enhancements
+
+- **add:** Install components from shadcn-style registries ([dadb865](https://github.com/BayBreezy/ui-thing-cli/commit/dadb865))
+- **init:** Make --yes fully non-interactive ([a0d5c2f](https://github.com/BayBreezy/ui-thing-cli/commit/a0d5c2f))
+- **add,theme:** Support unattended installs ([53ea6dd](https://github.com/BayBreezy/ui-thing-cli/commit/53ea6dd))
+
+### 🩹 Fixes
+
+- **prettier:** Stop claiming the code was formatted ([26447c7](https://github.com/BayBreezy/ui-thing-cli/commit/26447c7))
+- **init:** Pin typescript to 6.x ([de576bd](https://github.com/BayBreezy/ui-thing-cli/commit/de576bd))
+
+### 💅 Refactors
+
+- ⚠️  Remove prose command ([5f12b17](https://github.com/BayBreezy/ui-thing-cli/commit/5f12b17))
+- **registry:** Drop unused exports ([8a9134f](https://github.com/BayBreezy/ui-thing-cli/commit/8a9134f))
+
+### 📖 Documentation
+
+- **readme:** Document new flags and remove prose section ([0a5feb2](https://github.com/BayBreezy/ui-thing-cli/commit/0a5feb2))
+
+### 🏡 Chore
+
+- **package:** Only publish dist ([01edb07](https://github.com/BayBreezy/ui-thing-cli/commit/01edb07))
+
+### ✅ Tests
+
+- Hoist prompts mock to top level in addPrettierConfig test ([7257633](https://github.com/BayBreezy/ui-thing-cli/commit/7257633))
+
+#### ⚠️ Breaking Changes
+
+- ⚠️  Remove prose command ([5f12b17](https://github.com/BayBreezy/ui-thing-cli/commit/5f12b17))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.3.3
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.2...v0.3.3)
