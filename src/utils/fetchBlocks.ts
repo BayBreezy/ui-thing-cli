@@ -5,7 +5,7 @@ import ora from "ora";
 
 import { BlockComponent } from "../types";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 export const fetchBlocks = async (): Promise<BlockComponent[]> => {
   const spinner = ora("Fetching blocks...").start();

@@ -5,7 +5,7 @@ import ora from "ora";
 
 import { Component } from "../types";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 export const fetchComponents = async (): Promise<Component[]> => {
   const spinner = ora("Fetching components...").start();

@@ -3,7 +3,7 @@ import { consola } from "consola";
 import dotenv from "dotenv";
 import ora from "ora";
 
-dotenv.config();
+dotenv.config({ quiet: true });
 
 export const fetchBlockCategories = async (): Promise<string[]> => {
   const spinner = ora("Fetching block categories...").start();

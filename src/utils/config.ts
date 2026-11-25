@@ -91,3 +91,17 @@ export const addModuleToConfig = async (modules: string[] | string) => {
   modulesArray.forEach((m) => addNuxtModule(proxy, m));
   await writeFile(proxy, join(currentDir, "nuxt.config.ts"));
 };
+
+/**
+ * Reads `ui-thing.config.ts` when it exists. Otherwise returns the defaults for the detected
+ * Nuxt version and package manager, without prompting or writing anything. Use this for
+ * read-only and non-interactive commands (info, list, view, prettier, shortcuts, add --dry-run).
+ */
+export const loadConfigOrDefaults = async (): Promise<{ config: UIConfig; fromFile: boolean }> => {
+  if (fse.existsSync(UI_CONFIG_FILENAME)) {
+    const data = await loadConfig<UIConfig>({ configFile: UI_CONFIG_FILENAME.replace(".ts", "") });
+    if (!_.isEmpty(data.config)) return { config: data.config as UIConfig, fromFile: true };
+  }
+  const base = detectNuxtVersion() === 4 ? DEFAULT_CONFIG_NUXT4 : DEFAULT_CONFIG;
+  return { config: { ...base, packageManager: detectPackageManager() }, fromFile: false };
+};
