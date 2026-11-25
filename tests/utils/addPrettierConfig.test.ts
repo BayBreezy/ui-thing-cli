@@ -7,6 +7,16 @@ vi.mock("execa", () => ({
   $: vi.fn(),
 }));
 
+vi.mock("prompts", async () => {
+  const prompts = await vi.importActual<typeof import("prompts")>("prompts");
+  return {
+    ...prompts,
+    default: async () => {
+      return { overwrite: false };
+    },
+  };
+});
+
 const currentDir = process.cwd();
 
 describe("utils/addPrettierConfig", () => {
@@ -17,15 +27,6 @@ describe("utils/addPrettierConfig", () => {
 
   it("should ask the user if they want to overwrite the existing prettier config file if one exists", async () => {
     vi.spyOn(fse, "existsSync").mockImplementation(() => true);
-    vi.mock("prompts", async () => {
-      const prompts = await vi.importActual<typeof import("prompts")>("prompts");
-      return {
-        ...prompts,
-        default: async () => {
-          return { overwrite: false };
-        },
-      };
-    });
     const prompts = await import("prompts");
     vi.spyOn(prompts, "default");
 
