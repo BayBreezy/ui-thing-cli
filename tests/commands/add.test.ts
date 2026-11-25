@@ -177,3 +177,37 @@ describe("commands/add nuxt.config updates", () => {
     expect(config.imports.imports).toHaveLength(1);
   });
 });
+
+describe("commands/add install order", () => {
+  it("installs packages before registering Nuxt modules, then prepares once", async () => {
+    vi.clearAllMocks();
+    const { fetchComponents } = await import("../../src/utils/fetchComponents");
+    const { detectNuxtVersion } = await import("../../src/utils/detectNuxtVersion");
+    const { fileExists } = await import("../../src/utils/fileExists");
+    const { addModuleToConfig } = await import("../../src/utils/config");
+    const { installPackages, runNuxtPrepare } = await import("../../src/utils/installPackages");
+
+    vi.mocked(fetchComponents).mockResolvedValue([
+      {
+        ...mockComponent,
+        name: "Datepicker",
+        value: "datepicker",
+        devDeps: ["@yuta-inoue-ph/nuxt-vcalendar"],
+        nuxtModules: ["@yuta-inoue-ph/nuxt-vcalendar"],
+      },
+    ]);
+    vi.mocked(detectNuxtVersion).mockReturnValue(4);
+    vi.mocked(fileExists).mockResolvedValue(false);
+
+    await runAddCommand(["datepicker"], { skipConfig: true, packageManager: "bun", yes: true });
+
+    expect(installPackages).toHaveBeenCalledWith("bun", [], ["@yuta-inoue-ph/nuxt-vcalendar"], {
+      prepare: false,
+    });
+    expect(addModuleToConfig).toHaveBeenCalledWith(["@yuta-inoue-ph/nuxt-vcalendar"]);
+    expect(runNuxtPrepare).toHaveBeenCalledWith("bun");
+    const order = (fn: unknown) => vi.mocked(fn as () => void).mock.invocationCallOrder[0];
+    expect(order(installPackages)).toBeLessThan(order(addModuleToConfig));
+    expect(order(addModuleToConfig)).toBeLessThan(order(runNuxtPrepare));
+  });
+});

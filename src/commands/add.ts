@@ -10,12 +10,13 @@ import type { Validator } from "../utils/installValidator";
 import { isRegistryRef } from "../registry/fetch";
 import { installRegistryRefs } from "../registry/install";
 import { AddCommand, Component, UIConfig } from "../types";
+import { extractPackageImports, missingPackages } from "../utils/blockHelpers";
 import { compareUIConfig } from "../utils/compareUIConfig";
 import { addModuleToConfig, getUIConfig } from "../utils/config";
 import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, PACKAGE_MANAGER_CHOICES } from "../utils/constants";
 import { detectNuxtVersion } from "../utils/detectNuxtVersion";
 import { fetchComponents } from "../utils/fetchComponents";
-import { installPackages } from "../utils/installPackages";
+import { describeInstallError, installPackages, runNuxtPrepare } from "../utils/installPackages";
 import { installValidator, VALIDATORS } from "../utils/installValidator";
 import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
@@ -38,7 +39,8 @@ async function writeCategoryFiles(
   category: string,
   items: Array<{ fileName: string; fileContent: string; dirPath?: string }>,
   baseDir: string,
-  forceOverwrite: boolean
+  forceOverwrite: boolean,
+  interactive: boolean
 ) {
   for (const item of items) {
     const targetPath = path.join(currentDirectory, baseDir, item.fileName);
@@ -46,7 +48,8 @@ async function writeCategoryFiles(
       targetPath,
       item.fileContent,
       forceOverwrite,
-      `The ${category} file ${kleur.bold(item.fileName)} already exists. Overwrite?`
+      `The ${category} file ${kleur.bold(item.fileName)} already exists. Overwrite?`,
+      interactive
     );
   }
 }
@@ -154,13 +157,15 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
   }
 
   // Step 6 — Write files for each component
+  // `--yes` must never stop at a prompt: use default folders and skip existing files.
+  const interactive = !options.yes;
   for (const component of found) {
     for (const file of component.files) {
       let dirPath = uiConfig.componentsLocation;
       let filePath = path.join(currentDirectory, dirPath, file.fileName);
 
       // Ask for custom location if not using default
-      if (!uiConfig.useDefaultFilename) {
+      if (!uiConfig.useDefaultFilename && interactive) {
         const { value: newDir } = await prompts({
           type: "text",
           name: "value",
@@ -177,7 +182,8 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
         filePath,
         file.fileContent,
         uiConfig.force,
-        `The file ${kleur.bold(file.fileName)} already exists. Overwrite?`
+        `The file ${kleur.bold(file.fileName)} already exists. Overwrite?`,
+        interactive
       );
       if (!fileWritten) continue;
 
@@ -185,44 +191,97 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
       if (component.value === "vue-sonner" || component.value === "sonner") await addSonner();
 
       // Write related files
-      await writeCategoryFiles("utils", component.utils, uiConfig.utilsLocation, uiConfig.force);
+      await writeCategoryFiles(
+        "utils",
+        component.utils,
+        uiConfig.utilsLocation,
+        uiConfig.force,
+        interactive
+      );
       await writeCategoryFiles(
         "composables",
         component.composables,
         uiConfig.composablesLocation,
-        uiConfig.force
+        uiConfig.force,
+        interactive
       );
       await writeCategoryFiles(
         "plugins",
         component.plugins,
         uiConfig.pluginsLocation ?? "",
-        uiConfig.force
+        uiConfig.force,
+        interactive
       );
     }
   }
 
-  // Step 7 — Add Nuxt modules
+  // Step 7 — Install dependencies BEFORE registering Nuxt modules. Many projects run
+  // `nuxt prepare` on postinstall, which fails if nuxt.config already lists a module
+  // whose package is not installed yet.
   const nuxtModules = _.uniq(found.flatMap((c) => c.nuxtModules || []));
-  if (nuxtModules.length > 0 || registryRefs.length === 0) {
-    await addModuleToConfig(nuxtModules);
-  }
-
-  // Step 8 — Install dependencies if necessary
   const deps = _.uniq([...found.flatMap((c) => c.deps || []), ...registryDeps]);
   const devDeps = _.uniq([...found.flatMap((c) => c.devDeps || []), ...registryDevDeps]);
+  let installed = false;
   if (deps.length > 0 || devDeps.length > 0) {
-    if (options.all || options.yes || registryConfirmed) {
-      await installPackages(uiConfig.packageManager, deps, devDeps);
-    } else {
-      const { confirmInstall } = await prompts({
+    let confirmInstall = options.all || options.yes || registryConfirmed;
+    if (!confirmInstall) {
+      ({ confirmInstall } = await prompts({
         type: "confirm",
         name: "confirmInstall",
         message: `Install packages: ${kleur.cyan([...deps, ...devDeps].join(", "))}?`,
         initial: true,
-      });
-      if (confirmInstall) {
-        await installPackages(uiConfig.packageManager, deps, devDeps);
+      }));
+    }
+    if (confirmInstall) {
+      try {
+        await installPackages(uiConfig.packageManager, deps, devDeps, {
+          prepare: nuxtModules.length === 0,
+        });
+        installed = true;
+      } catch (error) {
+        consola.error(
+          `Installing packages failed:\n${describeInstallError(error)}\nInstall them yourself: ${[...deps, ...devDeps].join(" ")}`
+        );
+        process.exitCode = 1;
       }
+    }
+  }
+
+  // Step 7b — Safety net: packages the written files import but the component metadata does
+  // not declare (for example lodash-es in TanStackTable). Only runs when packages were installed
+  // or nothing needed installing, so a declined install is not overridden.
+  if (installed || (deps.length === 0 && devDeps.length === 0)) {
+    const sources = found.flatMap((c) =>
+      [...c.files, ...c.utils, ...c.composables, ...c.plugins].map((f) => f.fileContent)
+    );
+    const undeclared = missingPackages(_.uniq(sources.flatMap(extractPackageImports)));
+    if (undeclared.length > 0) {
+      consola.info(
+        `Also installing packages the components import: ${kleur.cyan(undeclared.join(", "))}`
+      );
+      try {
+        await installPackages(uiConfig.packageManager, undeclared, [], {
+          prepare: nuxtModules.length === 0,
+        });
+        installed = true;
+      } catch (error) {
+        consola.error(
+          `Installing packages failed:\n${describeInstallError(error)}\nInstall them yourself: ${undeclared.join(" ")}`
+        );
+        process.exitCode = 1;
+      }
+    }
+  }
+
+  // Step 8 — Register Nuxt modules, then prepare once so they are picked up
+  if (nuxtModules.length > 0 || registryRefs.length === 0) {
+    await addModuleToConfig(nuxtModules);
+  }
+  if (installed && nuxtModules.length > 0) {
+    try {
+      await runNuxtPrepare(uiConfig.packageManager);
+    } catch (error) {
+      consola.warn(`nuxt prepare failed: ${describeInstallError(error)}`);
     }
   }
 
