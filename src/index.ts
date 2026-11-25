@@ -4,14 +4,18 @@ import { Command } from "commander";
 import { version } from "../package.json";
 import { add } from "./commands/add";
 import { block } from "./commands/block";
+import { diff } from "./commands/diff";
+import { info } from "./commands/info";
 import { init } from "./commands/init";
 import { list } from "./commands/list";
+import { mcp } from "./commands/mcp";
 import { addPrettier } from "./commands/prettier";
 import { registry } from "./commands/registry";
 import { remove } from "./commands/remove";
 import { addShortcuts } from "./commands/shortcuts";
 import { theme } from "./commands/theme";
 import { update } from "./commands/update";
+import { view } from "./commands/view";
 import { printFancyBoxMessage } from "./utils/printFancyBoxMessage";
 
 process.on("SIGINT", () => process.exit(0));
@@ -33,14 +37,18 @@ program
   .description("CLI for adding ui-thing components to your Nuxt application")
   .version(version)
   .addCommand(init)
+  .addCommand(info)
   .addCommand(add)
   .addCommand(registry)
   .addCommand(block)
   .addCommand(theme)
   .addCommand(list)
+  .addCommand(view)
+  .addCommand(diff)
   .addCommand(update)
   .addCommand(remove)
   .addCommand(addShortcuts)
-  .addCommand(addPrettier);
+  .addCommand(addPrettier)
+  .addCommand(mcp);
 
 program.parse(process.argv);
