@@ -57,8 +57,12 @@ export const INIT_DEPS = [
 
 /**
  * The initial development dependencies
+ *
+ * `typescript` is pinned to 6.x on purpose: TypeScript 7 ships without the compiler API that
+ * Vue's SFC compiler uses to resolve imported prop types, so every UI Thing component fails to
+ * build ("No fs option provided to compileScript"). Raise this once Vue supports TS 7.
  */
-export const INIT_DEV_DEPS = ["typescript", "tw-animate-css"];
+export const INIT_DEV_DEPS = ["typescript@^6", "tw-animate-css"];
 /**
  * The initial development dependencies for prettier stuff
  */

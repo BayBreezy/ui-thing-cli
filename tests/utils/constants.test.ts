@@ -71,8 +71,9 @@ describe("utils/constants", () => {
       expect(Array.isArray(INIT_DEV_DEPS)).toBe(true);
     });
 
-    it("should include typescript", () => {
-      expect(INIT_DEV_DEPS).toContain("typescript");
+    it("should include typescript, pinned to 6.x (TS 7 breaks Vue's SFC compiler)", () => {
+      expect(INIT_DEV_DEPS).toContain("typescript@^6");
+      expect(INIT_DEV_DEPS).not.toContain("typescript");
     });
   });
 
