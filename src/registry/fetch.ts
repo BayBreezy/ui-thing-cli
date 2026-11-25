@@ -54,10 +54,7 @@ type ResolvedRequest = {
 /**
  * Turns `@ns/name` into a request using the namespace template.
  */
-export const resolveNamespaceRequest = (
-  ref: string,
-  registries?: RegistriesConfig
-): ResolvedRequest => {
+const resolveNamespaceRequest = (ref: string, registries?: RegistriesConfig): ResolvedRequest => {
   const slash = ref.indexOf("/");
   const namespace = ref.slice(0, slash);
   const name = ref.slice(slash + 1);

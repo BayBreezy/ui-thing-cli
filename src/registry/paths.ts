@@ -17,7 +17,7 @@ const toPosix = (p: string) => p.replace(/\\/g, "/");
 const join = (...parts: string[]) => path.posix.join(...parts.filter(Boolean));
 
 /** Rejects absolute paths and anything that tries to climb out with `..`. */
-export const assertSafeRelative = (p: string) => {
+const assertSafeRelative = (p: string) => {
   const posix = toPosix(p);
   if (posix.startsWith("/") || /^[a-zA-Z]:/.test(posix) || path.isAbsolute(p)) {
     throw new Error(`Refusing to write to absolute path: ${p}`);

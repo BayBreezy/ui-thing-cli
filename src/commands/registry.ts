@@ -40,7 +40,7 @@ const printItems = (
   }
 };
 
-export const runRegistryListCommand = async (source?: string) => {
+const runRegistryListCommand = async (source?: string) => {
   const registries = await loadRegistries();
 
   if (!source) {
@@ -62,7 +62,7 @@ export const runRegistryListCommand = async (source?: string) => {
   }
 };
 
-export const runRegistrySearchCommand = async (query: string, source?: string) => {
+const runRegistrySearchCommand = async (query: string, source?: string) => {
   const registries = await loadRegistries();
   const sources = source ? [source] : Object.keys(registries);
   const needle = query.toLowerCase();
@@ -86,7 +86,7 @@ export const runRegistrySearchCommand = async (query: string, source?: string) =
   else logger.success(`${total} match(es). Install with: ui-thing add @namespace/name`);
 };
 
-export const runRegistryAddNamespaceCommand = async (namespace: string, url: string) => {
+const runRegistryAddNamespaceCommand = async (namespace: string, url: string) => {
   if (!/^@[a-zA-Z0-9][\w.-]*$/.test(namespace)) {
     logger.error('Namespace must start with "@", e.g. @acme');
     process.exit(1);

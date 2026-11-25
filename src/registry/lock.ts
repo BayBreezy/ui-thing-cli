@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export const LOCK_FILENAME = "ui-thing.lock.json";
+const LOCK_FILENAME = "ui-thing.lock.json";
 
 export type LockEntry = {
   /** URL or file the item was installed from. */
@@ -26,7 +26,7 @@ export const readLock = (cwd = process.cwd()): Lock => {
   return { items: {} };
 };
 
-export const writeLock = (lock: Lock, cwd = process.cwd()) => {
+const writeLock = (lock: Lock, cwd = process.cwd()) => {
   if (Object.keys(lock.items).length === 0) {
     fs.rmSync(lockPath(cwd), { force: true });
     return;

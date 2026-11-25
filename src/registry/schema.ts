@@ -19,7 +19,7 @@ export const KNOWN_FILE_TYPES = [
 
 const stringRecord = z.record(z.string(), z.string());
 
-export const registryFileSchema = z.object({
+const registryFileSchema = z.object({
   path: z.string().min(1),
   type: z.string(),
   content: z.string().optional(),
