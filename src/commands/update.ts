@@ -2,6 +2,8 @@ import path from "node:path";
 import { Command } from "commander";
 import prompts from "prompts";
 
+import { installRegistryRefs } from "../registry/install";
+import { readLock } from "../registry/lock";
 import { Component } from "../types";
 import { getUIConfig } from "../utils/config";
 import { fetchComponents } from "../utils/fetchComponents";
@@ -15,6 +17,7 @@ export const runUpdateCommand = async (componentNames: string[]) => {
   const allComponents = await fetchComponents();
   const currentDirectory = process.cwd();
 
+  const lock = readLock(currentDirectory);
   let toUpdate = componentNames;
 
   if (toUpdate.length === 0) {
@@ -32,7 +35,12 @@ export const runUpdateCommand = async (componentNames: string[]) => {
       )
     ).filter(Boolean) as Component[];
 
-    if (installed.length === 0) {
+    const registryChoices = Object.keys(lock.items).map((name) => ({
+      title: `${name} (registry)`,
+      value: name,
+    }));
+
+    if (installed.length === 0 && registryChoices.length === 0) {
       logger.info("No installed components found.");
       return;
     }
@@ -41,7 +49,7 @@ export const runUpdateCommand = async (componentNames: string[]) => {
       type: "autocompleteMultiselect",
       name: "selected",
       message: "Select components to update",
-      choices: installed.map((c) => ({ title: c.name, value: c.value })),
+      choices: [...installed.map((c) => ({ title: c.name, value: c.value })), ...registryChoices],
     });
 
     if (!selected || selected.length === 0) {
@@ -49,6 +57,22 @@ export const runUpdateCommand = async (componentNames: string[]) => {
       process.exit(0);
     }
     toUpdate = selected;
+  }
+
+  // Items installed from a registry are re-fetched from the source recorded in the lockfile.
+  const registryNames = toUpdate.filter((name) => lock.items[name]);
+  if (registryNames.length > 0) {
+    try {
+      await installRegistryRefs(
+        registryNames.map((name) => lock.items[name].source),
+        uiConfig,
+        { yes: true, overwrite: true }
+      );
+      registryNames.forEach((name) => logger.success(`Updated: ${name}`));
+    } catch (error) {
+      logger.error(error instanceof Error ? error.message : String(error));
+    }
+    toUpdate = toUpdate.filter((name) => !lock.items[name]);
   }
 
   const notFound = toUpdate.filter(

@@ -1,6 +1,7 @@
 import path from "node:path";
 import { Command } from "commander";
 
+import { readLock } from "../registry/lock";
 import { Component } from "../types";
 import { getUIConfig } from "../utils/config";
 import { fetchComponents } from "../utils/fetchComponents";
@@ -31,13 +32,16 @@ export const runListCommand = async (options: ListOptions) => {
     display = components.filter((_, i) => results[i]);
   }
 
-  if (display.length === 0) {
+  const registryItems = options.installed ? Object.entries(readLock(currentDirectory).items) : [];
+
+  if (display.length === 0 && registryItems.length === 0) {
     logger.info(options.installed ? "No components installed." : "No components available.");
     return;
   }
 
   display.forEach((c) => logger.log(`${c.name} (${c.value})`));
-  logger.success(`${display.length} component(s) found.`);
+  registryItems.forEach(([name, entry]) => logger.log(`${name} (registry: ${entry.source})`));
+  logger.success(`${display.length + registryItems.length} component(s) found.`);
 };
 
 export const list = new Command()

@@ -128,6 +128,43 @@ npx ui-thing@latest add popover --skip-config --package-manager bun
 
 ---
 
+### Installing from registries
+
+`add` also installs components from any shadcn-style registry (the `registry-item.json` format used by shadcn-ui and shadcn-vue). Files are placed using your `ui-thing.config.ts` paths, npm dependencies are installed, and `css`/`cssVars`/`envVars` are merged into your project.
+
+```bash
+# a registry item URL
+ui-thing add https://nxui.geoql.in/r/fluid-glass.json
+
+# a namespaced item (@vue-bits and @nxui are built in)
+ui-thing add @vue-bits/HoloMosaic
+
+# skip the confirmation prompts
+ui-thing add @nxui/fluid-glass --yes
+```
+
+Registry code is remote code, so `add` lists every file and package before writing anything. Paths that escape the project (`..`, absolute paths) are refused. If an item imports `cn` from `~/lib/utils` and your project has none, a standard `cn` (clsx + tailwind-merge) is created at `<srcDir>/lib/utils.ts`.
+
+Installed registry items are recorded in `ui-thing.lock.json`, which `list --installed`, `update` and `remove` use.
+
+Browse and configure registries:
+
+```bash
+ui-thing registry list                 # configured registries
+ui-thing registry list @nxui           # every item in a registry
+ui-thing registry search glass         # search all configured registries
+ui-thing registry search holo @vue-bits
+ui-thing registry add-namespace @acme https://acme.dev/r/{name}.json
+```
+
+Namespaces live under `registries` in `ui-thing.config.ts`. A value is a URL template containing `{name}`, or an object with `url`, `headers` and `params`; `${ENV_VAR}` references are expanded:
+
+```ts
+registries: {
+  "@acme": { url: "https://acme.dev/r/{name}.json", headers: { Authorization: "Bearer ${ACME_TOKEN}" } },
+}
+```
+
 ### `list`
 
 ```bash

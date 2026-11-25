@@ -50,6 +50,17 @@ export type UIConfig = {
    * The default package manager to use for installing dependencies.
    */
   packageManager: string;
+  /**
+   * Third-party component registries, keyed by `@namespace`.
+   * The value is a URL template containing `{name}`, or an object with `url`, `headers` and `params`.
+   * `${ENV_VAR}` references are expanded.
+   *
+   * @example { "@vue-bits": "https://vue-bits.dev/r/{name}.json" }
+   */
+  registries?: Record<
+    string,
+    string | { url: string; headers?: Record<string, string>; params?: Record<string, string> }
+  >;
 };
 
 /**
@@ -95,6 +106,12 @@ export type AddCommand = {
    * If not set and --skip-config is active, the user will be prompted.
    */
   packageManager?: string;
+  /**
+   * Skip confirmation prompts (registry install summary and package install).
+   *
+   * @default false
+   */
+  yes?: boolean;
 };
 
 export type TemplateFile = {

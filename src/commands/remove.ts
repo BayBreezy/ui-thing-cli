@@ -3,6 +3,7 @@ import path from "node:path";
 import { Command } from "commander";
 import prompts from "prompts";
 
+import { readLock, removeFromLock } from "../registry/lock";
 import { Component } from "../types";
 import { getUIConfig } from "../utils/config";
 import { fetchComponents } from "../utils/fetchComponents";
@@ -15,6 +16,7 @@ export const runRemoveCommand = async (componentNames: string[]) => {
   const allComponents = await fetchComponents();
   const currentDirectory = process.cwd();
 
+  const lock = readLock(currentDirectory);
   let toRemove = componentNames;
 
   if (toRemove.length === 0) {
@@ -32,7 +34,12 @@ export const runRemoveCommand = async (componentNames: string[]) => {
       )
     ).filter(Boolean) as Component[];
 
-    if (installed.length === 0) {
+    const registryChoices = Object.keys(lock.items).map((name) => ({
+      title: `${name} (registry)`,
+      value: name,
+    }));
+
+    if (installed.length === 0 && registryChoices.length === 0) {
       logger.info("No installed components found.");
       return;
     }
@@ -41,7 +48,7 @@ export const runRemoveCommand = async (componentNames: string[]) => {
       type: "autocompleteMultiselect",
       name: "selected",
       message: "Select components to remove",
-      choices: installed.map((c) => ({ title: c.name, value: c.value })),
+      choices: [...installed.map((c) => ({ title: c.name, value: c.value })), ...registryChoices],
     });
 
     if (!selected || selected.length === 0) {
@@ -51,11 +58,15 @@ export const runRemoveCommand = async (componentNames: string[]) => {
     toRemove = selected;
   }
 
+  // Registry items: delete exactly the files recorded in the lockfile.
+  const registryNames = toRemove.filter((name) => lock.items[name]);
+  toRemove = toRemove.filter((name) => !lock.items[name]);
+
   const found = toRemove
     .map((name) => allComponents.find((c) => c.value.toLowerCase() === name.toLowerCase()))
     .filter(Boolean) as Component[];
 
-  if (found.length === 0) {
+  if (found.length === 0 && registryNames.length === 0) {
     logger.error("None of the specified components were found in the registry.");
     process.exit(1);
   }
@@ -63,7 +74,7 @@ export const runRemoveCommand = async (componentNames: string[]) => {
   const result = await prompts({
     type: "confirm",
     name: "confirmed",
-    message: `Remove ${found.map((c) => c.name).join(", ")}?`,
+    message: `Remove ${[...found.map((c) => c.name), ...registryNames].join(", ")}?`,
     initial: false,
   });
 
@@ -95,6 +106,27 @@ export const runRemoveCommand = async (componentNames: string[]) => {
       logger.success(`Removed: ${path.basename(filePath)}`);
     }
   }
+
+  for (const name of registryNames) {
+    for (const rel of lock.items[name].files) {
+      const filePath = path.resolve(currentDirectory, rel);
+      // Never delete outside the project, even if the lockfile was edited.
+      if (path.relative(currentDirectory, filePath).startsWith("..")) continue;
+      if (!(await fileExists(filePath))) {
+        logger.warn(`Skipped (not found): ${rel}`);
+        continue;
+      }
+      await fs.unlink(filePath);
+      logger.success(`Removed: ${rel}`);
+      // Tidy up folders left empty by the removal (e.g. nested registry folders).
+      let dir = path.dirname(filePath);
+      while (dir !== currentDirectory && (await fs.readdir(dir)).length === 0) {
+        await fs.rmdir(dir);
+        dir = path.dirname(dir);
+      }
+    }
+  }
+  removeFromLock(registryNames, currentDirectory);
 
   printFancyBoxMessage("Removed!", undefined, { box: { title: "Components Removed" } });
 };
