@@ -145,3 +145,32 @@ describe("utils/installPackages", () => {
     expect(mockExeca).toHaveBeenCalledWith(["npx -y nuxt prepare"]);
   });
 });
+
+describe("utils/installPackages pnpm ignored builds", () => {
+  it("treats ERR_PNPM_IGNORED_BUILDS as installed, warns and keeps going", async () => {
+    const { execa } = await import("execa");
+    const { consola } = await import("consola");
+    const warn = vi.spyOn(consola, "warn").mockImplementation(() => {});
+    vi.mocked(execa).mockReset();
+    vi.mocked(execa).mockImplementation((async (cmd: unknown, args?: unknown) => {
+      if (Array.isArray(args) && args[0] === "add") {
+        throw Object.assign(new Error("Command failed"), {
+          stderr: "Error: ERR_PNPM_IGNORED_BUILDS\n  ╰─▶ Ignored build scripts: esbuild@0.25.0\n",
+        });
+      }
+      return { stdout: "" };
+    }) as any);
+
+    await expect(installPackages("pnpm", ["esbuild"])).resolves.toBeUndefined();
+    expect(warn.mock.calls[0][0]).toContain("esbuild@0.25.0");
+    expect(warn.mock.calls[0][0]).toContain("pnpm approve-builds");
+  });
+
+  it("still throws real failures, and only special-cases pnpm", async () => {
+    const { isIgnoredBuildsOnly } = await import("../../src/utils/installPackages");
+    const ignored = { stderr: "ERR_PNPM_IGNORED_BUILDS" };
+    expect(isIgnoredBuildsOnly("pnpm", ignored)).toBe(true);
+    expect(isIgnoredBuildsOnly("npm", ignored)).toBe(false);
+    expect(isIgnoredBuildsOnly("pnpm", { stderr: "ERR_PNPM_FETCH_404" })).toBe(false);
+  });
+});

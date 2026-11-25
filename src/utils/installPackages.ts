@@ -1,3 +1,4 @@
+import { consola } from "consola";
 import { execa } from "execa";
 import _ from "lodash";
 import ora from "ora";
@@ -53,6 +54,38 @@ export const describeInstallError = (error: unknown) => {
   return reason || err.shortMessage || err.message || String(error);
 };
 
+/**
+ * pnpm 10+ blocks dependency build scripts by default and pnpm 11+ exits with
+ * ERR_PNPM_IGNORED_BUILDS even though the packages were installed and saved. That is a
+ * project policy decision, not a failed install, so warn and carry on.
+ */
+export const isIgnoredBuildsOnly = (packageManager: string, error: unknown) => {
+  if (packageManager !== "pnpm") return false;
+  const err = error as { stderr?: string; stdout?: string; message?: string };
+  return /ERR_PNPM_IGNORED_BUILDS/.test(
+    `${err.stderr ?? ""}${err.stdout ?? ""}${err.message ?? ""}`
+  );
+};
+
+const ignoredScripts = (error: unknown) => {
+  const err = error as { stderr?: string; stdout?: string };
+  return `${err.stderr ?? ""}\n${err.stdout ?? ""}`
+    .match(/Ignored build scripts:\s*([^\n]+)/)?.[1]
+    ?.trim();
+};
+
+const runInstall = async (packageManager: string, args: string[]) => {
+  try {
+    await execa(packageManager, args);
+  } catch (error) {
+    if (!isIgnoredBuildsOnly(packageManager, error)) throw error;
+    const scripts = ignoredScripts(error);
+    consola.warn(
+      `pnpm installed the packages but skipped build scripts${scripts ? ` (${scripts})` : ""}. Run "pnpm approve-builds" if they need them.`
+    );
+  }
+};
+
 export const installPackages = async (
   packageManager: string,
   deps?: string[] | string,
@@ -70,17 +103,22 @@ export const installPackages = async (
   const devFlag = PM_DEV_FLAG[packageManager] ?? "-D";
 
   const depsSpinner = ora("Installing dependencies...").start();
-  if (!_.isUndefined(deps) && !_.isEmpty(deps)) {
-    await execa(packageManager, [addCmd, ...formatPkgs(packageManager, deps)]);
-  }
-  depsSpinner.text = "Installing dev dependencies...";
-  if (!_.isUndefined(devDeps) && !_.isEmpty(devDeps)) {
-    await execa(packageManager, [addCmd, devFlag, ...formatPkgs(packageManager, devDeps)]);
-  }
+  try {
+    if (!_.isUndefined(deps) && !_.isEmpty(deps)) {
+      await runInstall(packageManager, [addCmd, ...formatPkgs(packageManager, deps)]);
+    }
+    depsSpinner.text = "Installing dev dependencies...";
+    if (!_.isUndefined(devDeps) && !_.isEmpty(devDeps)) {
+      await runInstall(packageManager, [addCmd, devFlag, ...formatPkgs(packageManager, devDeps)]);
+    }
 
-  if (options.prepare !== false) {
-    depsSpinner.text = "Running nuxt prepare...";
-    await runNuxtPrepare(packageManager);
+    if (options.prepare !== false) {
+      depsSpinner.text = "Running nuxt prepare...";
+      await runNuxtPrepare(packageManager);
+    }
+  } catch (error) {
+    depsSpinner.fail("Installing dependencies failed.");
+    throw error;
   }
 
   depsSpinner.succeed("Installed dependencies!");

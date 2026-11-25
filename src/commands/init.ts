@@ -1,6 +1,7 @@
 import path from "node:path";
 import { updateConfig } from "c12/update";
 import { Command } from "commander";
+import { consola } from "consola";
 import fse from "fs-extra";
 import kleur from "kleur";
 import ora from "ora";
@@ -13,7 +14,7 @@ import { addTailwindVitePlugin } from "../utils/addTailwindVitePlugin";
 import { addVSCodeFiles } from "../utils/addVSCodeFiles";
 import { getUIConfig } from "../utils/config";
 import { INIT_DEPS, INIT_DEV_DEPS, INIT_DEV_DEPS_PRETTIER, INIT_MODULES } from "../utils/constants";
-import { installPackages } from "../utils/installPackages";
+import { describeInstallError, installPackages } from "../utils/installPackages";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
 
 /**
@@ -103,12 +104,25 @@ const runInitCommand = async (options: InitOptions) => {
   addVSCodeFiles();
   spinner.succeed("Merged VS Code settings!");
   // Install deps
-  await installPackages(uiConfig.packageManager, INIT_DEPS, INIT_DEV_DEPS);
+  try {
+    await installPackages(uiConfig.packageManager, INIT_DEPS, INIT_DEV_DEPS);
+  } catch (error) {
+    consola.error(
+      `Installing the core dependencies failed:\n${describeInstallError(error)}\nInstall them yourself: ${[...INIT_DEPS, ...INIT_DEV_DEPS].join(" ")}`
+    );
+    process.exitCode = 1;
+    return;
+  }
   // Add prettier config if user agrees
   // `--yes` means "no questions": prettier is optional, so skip it (run `ui-thing prettier` later).
   const addPrettier = options.yes ? false : await askPrettierConfig();
   if (addPrettier) {
-    await installPackages(uiConfig.packageManager, [], INIT_DEV_DEPS_PRETTIER);
+    try {
+      await installPackages(uiConfig.packageManager, [], INIT_DEV_DEPS_PRETTIER);
+    } catch (error) {
+      consola.error(`Installing Prettier failed:\n${describeInstallError(error)}`);
+      process.exitCode = 1;
+    }
     await addPrettierConfig();
   }
   printFancyBoxMessage(
