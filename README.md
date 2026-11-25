@@ -51,12 +51,12 @@ npx ui-thing@latest add
 The CLI works with all major package managers. You will be asked to choose one during `init`.
 
 | Manager | Supported |
-|---------|-----------|
-| npm     | ✅ |
-| yarn    | ✅ |
-| pnpm    | ✅ |
-| bun     | ✅ |
-| deno    | ✅ |
+| ------- | --------- |
+| npm     | ✅        |
+| yarn    | ✅        |
+| pnpm    | ✅        |
+| bun     | ✅        |
+| deno    | ✅        |
 
 ---
 
@@ -77,9 +77,11 @@ Bootstraps your Nuxt project for UI Thing. This command:
 
 **Options**
 
-| Flag | Description |
-|------|-------------|
-| `-y, --yes` | Skip all prompts and use defaults |
+| Flag        | Description                                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ |
+| `-y, --yes` | Skip all prompts and use defaults. Detects your package manager from your lockfile and skips the Prettier question |
+
+`init` also installs TypeScript 6 (`typescript@^6`). TypeScript 7 has no compiler API, so Vue cannot compile components with it yet.
 
 ---
 
@@ -106,11 +108,13 @@ After a component is added, the CLI prints a link to its documentation page.
 
 **Options**
 
-| Flag | Description |
-|------|-------------|
-| `-a, --all` | Add every available component in one shot |
-| `--skip-config` | Add components without a `ui-thing.config.ts` file. Auto-detects the Nuxt version and uses its default paths |
-| `--package-manager <pm>` | Set the package manager when using `--skip-config` (skips the PM prompt) |
+| Flag                     | Description                                                                                                  |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `-a, --all`              | Add every available component in one shot                                                                    |
+| `--skip-config`          | Add components without a `ui-thing.config.ts` file. Auto-detects the Nuxt version and uses its default paths |
+| `--package-manager <pm>` | Set the package manager when using `--skip-config` (skips the PM prompt)                                     |
+| `-y, --yes`              | Skip confirmation prompts (uses yup for vee-validate components)                                             |
+| `--validator <name>`     | Schema library to install for vee-validate components: `yup`, `zod`, `joi` or `valibot`                      |
 
 **`--skip-config` example**
 
@@ -183,8 +187,8 @@ npx ui-thing@latest list --installed
 
 **Options**
 
-| Flag | Description |
-|------|-------------|
+| Flag          | Description                                                          |
+| ------------- | -------------------------------------------------------------------- |
 | `--installed` | Filter to components whose files are already present in your project |
 
 ---
@@ -227,16 +231,6 @@ npx ui-thing@latest remove
 
 ---
 
-### `prose`
-
-```bash
-npx ui-thing@latest prose
-```
-
-Adds prose components (typography styles for rendered markdown content). Select from the available prose components interactively.
-
----
-
 ### `block`
 
 ```bash
@@ -254,6 +248,11 @@ npx ui-thing@latest theme
 ```
 
 Swaps your project's color theme. Overwrites the Tailwind CSS theme file with the chosen theme.
+
+```bash
+npx ui-thing@latest theme rose          # pass the name to skip the picker
+npx ui-thing@latest theme rose --yes    # also skip the overwrite confirmation
+```
 
 ---
 
@@ -295,14 +294,14 @@ export default {
 };
 ```
 
-| Key | Description |
-|-----|-------------|
-| `theme` | Color theme (zinc, slate, rose, blue, etc.) |
-| `tailwindCSSLocation` | Path to your Tailwind CSS file |
-| `componentsLocation` | Where component `.vue` files are written |
-| `composablesLocation` | Where composable files are written |
-| `pluginsLocation` | Where plugin files are written |
-| `utilsLocation` | Where utility files are written |
-| `force` | Overwrite existing files without prompting |
-| `useDefaultFilename` | Skip per-file path prompts when adding components |
-| `packageManager` | Package manager used for installing dependencies |
+| Key                   | Description                                       |
+| --------------------- | ------------------------------------------------- |
+| `theme`               | Color theme (zinc, slate, rose, blue, etc.)       |
+| `tailwindCSSLocation` | Path to your Tailwind CSS file                    |
+| `componentsLocation`  | Where component `.vue` files are written          |
+| `composablesLocation` | Where composable files are written                |
+| `pluginsLocation`     | Where plugin files are written                    |
+| `utilsLocation`       | Where utility files are written                   |
+| `force`               | Overwrite existing files without prompting        |
+| `useDefaultFilename`  | Skip per-file path prompts when adding components |
+| `packageManager`      | Package manager used for installing dependencies  |
