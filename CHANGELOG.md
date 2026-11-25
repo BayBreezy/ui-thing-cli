@@ -1,5 +1,41 @@
 # Changelog
 
+## v0.4.1
+
+[compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.4.0...v0.4.1)
+
+### 🚀 Enhancements
+
+- Never prompt about existing files in --yes runs ([58b61d6](https://github.com/BayBreezy/ui-thing-cli/commit/58b61d6))
+- **block:** Add blocks by name without prompts ([4518903](https://github.com/BayBreezy/ui-thing-cli/commit/4518903))
+- **info:** Show project setup, installed components and warnings ([1c6bb29](https://github.com/BayBreezy/ui-thing-cli/commit/1c6bb29))
+- **list,registry:** Add --json output ([03583bc](https://github.com/BayBreezy/ui-thing-cli/commit/03583bc))
+- **view:** Show a component, block or registry item without installing it ([a24ec86](https://github.com/BayBreezy/ui-thing-cli/commit/a24ec86))
+- **diff:** Compare installed components with upstream; add update --dry-run ([09be4b3](https://github.com/BayBreezy/ui-thing-cli/commit/09be4b3))
+- **add:** Add --dry-run and resolve the full dependency tree ([9d1578e](https://github.com/BayBreezy/ui-thing-cli/commit/9d1578e))
+- **prettier,shortcuts:** Run without prompts ([b9d9ead](https://github.com/BayBreezy/ui-thing-cli/commit/b9d9ead))
+- **mcp:** Add mcp init to connect editors to the UI Thing MCP server ([3a7ac05](https://github.com/BayBreezy/ui-thing-cli/commit/3a7ac05))
+
+### 🩹 Fixes
+
+- **add:** Install packages before registering Nuxt modules ([335fea7](https://github.com/BayBreezy/ui-thing-cli/commit/335fea7))
+- **install:** Handle pnpm skipped build scripts and report install failures ([69ca1f8](https://github.com/BayBreezy/ui-thing-cli/commit/69ca1f8))
+
+### 💅 Refactors
+
+- Add shared helpers for read-only and JSON commands ([92cc36e](https://github.com/BayBreezy/ui-thing-cli/commit/92cc36e))
+
+### 📖 Documentation
+
+- **readme:** Document init flags, unattended use, registry behavior and prose removal ([d94ddf4](https://github.com/BayBreezy/ui-thing-cli/commit/d94ddf4))
+- **readme:** Document non-interactive block command ([f852c22](https://github.com/BayBreezy/ui-thing-cli/commit/f852c22))
+- **readme:** Document info, view, diff, dry runs, json output and mcp init ([1461402](https://github.com/BayBreezy/ui-thing-cli/commit/1461402))
+- **readme:** Show registry search --json ([903081a](https://github.com/BayBreezy/ui-thing-cli/commit/903081a))
+
+### ❤️ Contributors
+
+- Behon Baker ([@BayBreezy](https://github.com/BayBreezy))
+
 ## v0.4.0
 
 [compare changes](https://github.com/BayBreezy/ui-thing-cli/compare/v0.3.3...v0.4.0)
