@@ -199,6 +199,7 @@ ui-thing registry list                 # configured registries
 ui-thing registry list @nxui           # every item in a registry
 ui-thing registry search glass         # search all configured registries
 ui-thing registry search holo @vue-bits
+ui-thing registry search glass --json  # JSON with install refs, for scripts and agents
 ui-thing registry add-namespace @acme https://acme.dev/r/{name}.json
 ```
 
