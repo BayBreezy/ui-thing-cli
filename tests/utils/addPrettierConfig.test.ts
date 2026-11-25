@@ -63,3 +63,22 @@ describe("utils/addPrettierConfig", () => {
     expect(testingFn.addPrettierConfig).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("utils/addPrettierConfig onExisting", () => {
+  it("merges without asking when onExisting is given", async () => {
+    vi.restoreAllMocks();
+    vi.spyOn(fse, "existsSync").mockImplementation(() => true);
+    vi.spyOn(fse, "readFile").mockResolvedValue('{"semi":false,"custom":1}' as any);
+    const write = vi.spyOn(fse, "writeFile").mockResolvedValue();
+    const prompts = await import("prompts");
+    const spy = vi.spyOn(prompts, "default");
+
+    const result = await testingFn.addPrettierConfig(currentDir, false, "merge");
+
+    expect(result).toBe(true);
+    expect(spy).not.toHaveBeenCalled();
+    const written = JSON.parse(String(write.mock.calls[0][1]));
+    expect(written.custom).toBe(1);
+    expect(written.printWidth).toBe(100);
+  });
+});

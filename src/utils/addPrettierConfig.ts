@@ -14,8 +14,14 @@ import { PRETTIER_CONFIG } from "../templates/prettier";
  *
  * @param cwd - The working directory of the project.
  * @param format - Whether to run `prettier --write .` after adding/merging.
+ * @param onExisting - What to do with an existing `.prettierrc` without asking
+ *   (`--yes` uses "merge"). When omitted, the user is asked.
  */
-export const addPrettierConfig = async (cwd = process.cwd(), format: boolean = true) => {
+export const addPrettierConfig = async (
+  cwd = process.cwd(),
+  format: boolean = true,
+  onExisting?: "merge" | "overwrite" | "cancel"
+) => {
   const prettierLocation = join(cwd, ".prettierrc");
   let finalConfig = PRETTIER_CONFIG;
 
@@ -30,17 +36,19 @@ export const addPrettierConfig = async (cwd = process.cwd(), format: boolean = t
       console.warn("⚠️ Existing .prettierrc is not valid JSON — will prompt for overwrite.");
     }
 
-    const res = await prompts({
-      name: "merge",
-      type: "select",
-      message: "A prettier config file already exists. What would you like to do?",
-      choices: [
-        { title: "Merge configs", value: "merge" },
-        { title: "Overwrite with new config", value: "overwrite" },
-        { title: "Cancel", value: "cancel" },
-      ],
-      initial: 0,
-    });
+    const res = onExisting
+      ? { merge: onExisting }
+      : await prompts({
+          name: "merge",
+          type: "select",
+          message: "A prettier config file already exists. What would you like to do?",
+          choices: [
+            { title: "Merge configs", value: "merge" },
+            { title: "Overwrite with new config", value: "overwrite" },
+            { title: "Cancel", value: "cancel" },
+          ],
+          initial: 0,
+        });
 
     if (res.merge === "merge") {
       // Merge existing config with PRETTIER_CONFIG
