@@ -56,9 +56,12 @@ npx ui-thing@latest init --yes
 npx ui-thing@latest add button card vee-input --yes
 npx ui-thing@latest theme rose --yes
 npx ui-thing@latest block BlockHero1 --yes
+npx ui-thing@latest prettier --yes
+npx ui-thing@latest shortcuts
+npx ui-thing@latest mcp init --client claude --yes
 ```
 
-`block <names> --yes` adds blocks unattended; `prettier` and `shortcuts` are interactive. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
+Read-only commands never prompt and have `--json` output for scripts and agents: `info`, `list`, `view`, `diff`, `block --list`, `registry list/search`, `add --dry-run` and `update --dry-run`. JSON goes to stdout and nothing else does, so you can pipe it straight into a parser. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
 
 ---
 
@@ -103,6 +106,17 @@ Bootstraps your Nuxt project for UI Thing. This command:
 
 ---
 
+### `info`
+
+```bash
+npx ui-thing@latest info          # human readable
+npx ui-thing@latest info --json   # machine readable
+```
+
+Shows the project's setup without changing anything: ui-thing and Nuxt versions, whether UI Thing is initialized, the configured and detected package manager, TypeScript and Tailwind versions, the config paths, installed components and registry items, the Nuxt modules in `nuxt.config`, the available registries, and warnings for known problems (for example TypeScript 7, a missing Tailwind CSS file or a missing color-mode module).
+
+---
+
 ### `add`
 
 ```bash
@@ -133,6 +147,15 @@ After a component is added, the CLI prints a link to its documentation page.
 | `--package-manager <pm>` | Set the package manager when using `--skip-config` (skips the PM prompt)                                     |
 | `-y, --yes`              | Skip confirmation prompts (uses yup for vee-validate components)                                             |
 | `--validator <name>`     | Schema library to install for vee-validate components: `yup`, `zod`, `joi` or `valibot`                      |
+| `--dry-run`              | Show the files, packages and Nuxt modules that would be added, without writing anything                      |
+| `--json`                 | With `--dry-run`: print the plan as JSON                                                                     |
+
+```bash
+npx ui-thing@latest add button dialog vee-input --dry-run          # what would happen
+npx ui-thing@latest add button dialog vee-input --dry-run --json   # the same, as JSON
+```
+
+`add` resolves the whole dependency tree (components used by components used by components), installs packages before registering Nuxt modules, and also installs any package a component imports that its metadata forgot to list.
 
 **`--skip-config` example**
 
@@ -205,9 +228,35 @@ npx ui-thing@latest list --installed
 
 **Options**
 
-| Flag              | Description                                                          |
-| ----------------- | -------------------------------------------------------------------- |
-| `-i, --installed` | Filter to components whose files are already present in your project |
+| Flag              | Description                                                           |
+| ----------------- | --------------------------------------------------------------------- |
+| `-i, --installed` | Filter to components whose files are already present in your project  |
+| `--json`          | Print `value`, `name`, `source` and `docs` for each component as JSON |
+
+---
+
+### `view`
+
+```bash
+npx ui-thing@latest view button                  # a component
+npx ui-thing@latest view BlockHero1              # a block
+npx ui-thing@latest view @vue-bits/HoloMosaic    # a registry item
+npx ui-thing@latest view button dialog --json
+```
+
+Prints the source of every file, where `add` would put it, and the packages, Nuxt modules and components it needs, without installing anything.
+
+---
+
+### `diff`
+
+```bash
+npx ui-thing@latest diff            # everything installed
+npx ui-thing@latest diff button     # one component
+npx ui-thing@latest diff --json     # status and patch per file
+```
+
+Compares your installed components and registry items with the latest upstream version and prints a unified diff of every file that differs (`-` is your copy, `+` is upstream). Use it before `update`, which overwrites without merging.
 
 ---
 
@@ -217,7 +266,7 @@ npx ui-thing@latest list --installed
 npx ui-thing@latest update [componentNames...]
 ```
 
-Re-fetches component files from the API and overwrites them with the latest version, without asking. Commit your local edits first. Items installed from a registry are re-fetched from the source recorded in `ui-thing.lock.json`.
+Re-fetches component files from the API and overwrites them with the latest version, without asking. Commit your local edits first, or check what would change with `--dry-run` (add `--json` for machine output) or `ui-thing diff`. Items installed from a registry are re-fetched from the source recorded in `ui-thing.lock.json`.
 
 ```bash
 # update specific components
@@ -301,7 +350,7 @@ npx ui-thing@latest theme rose --yes    # also skip the overwrite confirmation
 npx ui-thing@latest prettier
 ```
 
-Adds a Prettier configuration pre-configured for Tailwind CSS class sorting and installs `prettier`, `prettier-plugin-tailwindcss` and `@ianvs/prettier-plugin-sort-imports`. Safe to run on an existing project — it will offer to merge with your current `.prettierrc` if one exists. It does not reformat your files; run `npx prettier --write .` when you want to.
+Adds a Prettier configuration pre-configured for Tailwind CSS class sorting and installs `prettier`, `prettier-plugin-tailwindcss` and `@ianvs/prettier-plugin-sort-imports`. Safe to run on an existing project — it will offer to merge with your current `.prettierrc` if one exists. It does not reformat your files; run `npx prettier --write .` when you want to. It never asks for a package manager (it uses your config or lockfile, or `--package-manager`). With `--yes` it merges into an existing `.prettierrc` without asking.
 
 ---
 
@@ -311,7 +360,22 @@ Adds a Prettier configuration pre-configured for Tailwind CSS class sorting and 
 npx ui-thing@latest shortcuts
 ```
 
-Adds a `shortcuts.ts` file to your composables folder with `defineShortcuts` (register keyboard shortcuts) and `useKbd`, and installs the VueUse Nuxt module.
+Adds a `shortcuts.ts` file to your composables folder with `defineShortcuts` (register keyboard shortcuts) and `useKbd`. It installs `@vueuse/nuxt` only if it is missing and registers the module. It never prompts.
+
+---
+
+### `mcp init`
+
+```bash
+npx ui-thing@latest mcp init                              # pick your editor
+npx ui-thing@latest mcp init --client claude --yes        # writes .mcp.json
+npx ui-thing@latest mcp init --client cursor --yes        # writes .cursor/mcp.json
+npx ui-thing@latest mcp init --client vscode --yes        # writes .vscode/mcp.json
+npx ui-thing@latest mcp init --client codex               # prints the command to run
+npx ui-thing@latest mcp init --client claude --url http://localhost:3000/mcp
+```
+
+Connects your AI editor to the [UI Thing MCP server](https://uithing.com/getting-started/mcp). Project-level configs are merged, so other servers are kept. Codex, Windsurf and Claude Desktop keep MCP servers in a global file, so the CLI prints the exact command or snippet instead of editing files in your home folder.
 
 ---
 
