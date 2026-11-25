@@ -20,10 +20,13 @@ process.on("SIGTSTP", () => process.exit(0));
 
 const program = new Command();
 
-console.clear();
-
-printFancyBoxMessage("UI Thing", undefined, { box: { title: "Welcome" } });
-console.log();
+// Keep stdout clean for machines: no screen clear or banner when output is piped or JSON is requested.
+const machineOutput = !process.stdout.isTTY || process.argv.includes("--json");
+if (!machineOutput) {
+  console.clear();
+  printFancyBoxMessage("UI Thing", undefined, { box: { title: "Welcome" } });
+  console.log();
+}
 
 program
   .name("ui-thing")

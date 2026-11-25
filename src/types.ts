@@ -151,6 +151,8 @@ export type BlockComponent = {
   file: string;
   /** The category of the block */
   category: string;
+  /** A short description of the block and its features */
+  description?: string;
   /** The path to the block */
   path: string;
   /** The components used by the block */
