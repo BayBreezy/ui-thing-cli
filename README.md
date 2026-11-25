@@ -55,9 +55,10 @@ cd my-app && bun install
 npx ui-thing@latest init --yes
 npx ui-thing@latest add button card vee-input --yes
 npx ui-thing@latest theme rose --yes
+npx ui-thing@latest block BlockHero1 --yes
 ```
 
-`block`, `prettier` and `shortcuts` are interactive. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
+`block <names> --yes` adds blocks unattended; `prettier` and `shortcuts` are interactive. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
 
 ---
 
@@ -251,14 +252,31 @@ npx ui-thing@latest remove
 ### `block`
 
 ```bash
-npx ui-thing@latest block
+npx ui-thing@latest block [blockNames...]
 ```
 
-Adds pre-built UI blocks (page sections, layouts, etc.) to your project. It asks for a category, the blocks you want and where to put them (default `app/components/Blocks`), then adds the components the blocks use.
+Adds pre-built UI blocks (page sections such as hero, pricing, dashboards, auth and settings). Run it with no names to pick from a list, or pass names to add them directly. The CLI also adds the UI Thing components the blocks use and installs the npm packages they import, then prints the tag to use (for example `<BlocksHeroBlockHero1 />`).
 
 ```bash
-npx ui-thing@latest block --category Hero
+# browse
+npx ui-thing@latest block --list                      # categories and counts
+npx ui-thing@latest block --list --category pricing   # blocks in one category
+npx ui-thing@latest block --json --category hero      # JSON for scripts and AI agents
+
+# add by name (BlockHero1, "Hero 1" and hero-1 all work)
+npx ui-thing@latest block BlockHero1 BlockPricing2
+npx ui-thing@latest block BlockHero1 --dir app/components/Marketing --yes
 ```
+
+**Options**
+
+| Flag                        | Description                                                                      |
+| --------------------------- | -------------------------------------------------------------------------------- |
+| `-l, --list`                | List categories, or the blocks in `--category`, and exit                         |
+| `--json`                    | Print the block catalog (or one `--category`) as JSON and exit                   |
+| `-c, --category <category>` | Filter blocks by category                                                        |
+| `-d, --dir <path>`          | Folder to write the blocks to (default `app/components/Blocks`)                  |
+| `-y, --yes`                 | No prompts: default folder, skip existing files, install components and packages |
 
 ---
 
