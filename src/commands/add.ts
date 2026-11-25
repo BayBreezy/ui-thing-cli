@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { updateConfig } from "c12/update";
 import { Command } from "commander";
@@ -8,18 +9,21 @@ import prompts from "prompts";
 import type { Validator } from "../utils/installValidator";
 
 import { isRegistryRef } from "../registry/fetch";
-import { installRegistryRefs } from "../registry/install";
+import { installRegistryRefs, planRegistryRefs } from "../registry/install";
 import { AddCommand, Component, UIConfig } from "../types";
 import { extractPackageImports, missingPackages } from "../utils/blockHelpers";
 import { compareUIConfig } from "../utils/compareUIConfig";
-import { addModuleToConfig, getUIConfig } from "../utils/config";
+import { componentTargets } from "../utils/componentFiles";
+import { addModuleToConfig, getUIConfig, loadConfigOrDefaults } from "../utils/config";
 import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, PACKAGE_MANAGER_CHOICES } from "../utils/constants";
 import { detectNuxtVersion } from "../utils/detectNuxtVersion";
+import { detectPackageManager } from "../utils/detectPackageManager";
 import { fetchComponents } from "../utils/fetchComponents";
 import { describeInstallError, installPackages, runNuxtPrepare } from "../utils/installPackages";
 import { installValidator, VALIDATORS } from "../utils/installValidator";
 import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
+import { printJson } from "../utils/printJson";
 import { promptUserForComponents } from "../utils/promptForComponents";
 import { safeWriteFile } from "../utils/safeWriteFile";
 
@@ -55,6 +59,99 @@ async function writeCategoryFiles(
 }
 
 /**
+ * What `add` would do, for `--dry-run`. Nothing is written.
+ */
+const buildAddPlan = (
+  found: Component[],
+  notFound: string[],
+  uiConfig: UIConfig,
+  registryPlan: Awaited<ReturnType<typeof planRegistryRefs>> | undefined,
+  validator: string | undefined
+) => {
+  const exists = (rel: string) => fs.existsSync(path.join(currentDirectory, rel));
+  const catalogFiles = found.flatMap((c) =>
+    componentTargets(c, uiConfig).map((f) => ({
+      path: f.path,
+      from: c.value,
+      exists: exists(f.path),
+    }))
+  );
+  const registryFiles = [
+    ...(registryPlan?.planned ?? []).map((f) => ({
+      path: f.relPath.replace(/\\/g, "/"),
+      from: f.item.item.name,
+      exists: exists(f.relPath),
+    })),
+    ...(registryPlan?.createCn
+      ? [{ path: registryPlan.cnRelPath.replace(/\\/g, "/"), from: "cn helper", exists: false }]
+      : []),
+  ];
+  const dependencies = _.uniq([
+    ...found.flatMap((c) => c.deps ?? []),
+    ...(registryPlan?.deps ?? []),
+  ]);
+  const devDependencies = _.uniq([
+    ...found.flatMap((c) => c.devDeps ?? []),
+    ...(registryPlan?.devDeps ?? []),
+  ]);
+  const undeclared = missingPackages(
+    _.uniq(
+      found.flatMap((c) =>
+        componentTargets(c, uiConfig).flatMap((f) => extractPackageImports(f.content))
+      )
+    )
+  ).filter((p) => !dependencies.includes(p) && !devDependencies.includes(p));
+  const needsValidator = found.some((c) => c.askValidator);
+
+  return {
+    components: found.map((c) => c.value),
+    notFound,
+    registryItems: (registryPlan?.items ?? []).map(({ item, source }) => ({
+      name: item.name,
+      source,
+    })),
+    files: [...catalogFiles, ...registryFiles],
+    dependencies,
+    devDependencies,
+    undeclaredImports: undeclared,
+    nuxtModules: _.uniq(found.flatMap((c) => c.nuxtModules ?? [])),
+    validator: needsValidator ? (validator ?? "ask") : null,
+    changesCss: registryPlan?.changesCss ?? false,
+    envVars: registryPlan?.envVars ?? [],
+    packageManager: uiConfig.packageManager,
+  };
+};
+
+const printAddPlan = (plan: ReturnType<typeof buildAddPlan>, json?: boolean) => {
+  if (json) return printJson(plan);
+  const section = (title: string, lines: string[]) => {
+    if (lines.length === 0) return;
+    logger.log(kleur.bold(title));
+    lines.forEach((line) => logger.log(`  ${line}`));
+  };
+  section("Components", plan.components);
+  section(
+    "Registry items",
+    plan.registryItems.map((i) => `${i.name} ${kleur.dim(i.source)}`)
+  );
+  section(
+    "Files",
+    plan.files.map((f) => `${f.path}${f.exists ? kleur.yellow(" (exists)") : ""}`)
+  );
+  section("Packages", [...plan.dependencies, ...plan.undeclaredImports]);
+  section("Dev packages", plan.devDependencies);
+  section("Nuxt modules", plan.nuxtModules);
+  if (plan.validator)
+    section("Validator", [
+      plan.validator === "ask" ? "asks (or pass --validator)" : plan.validator,
+    ]);
+  if (plan.changesCss) section("CSS", ["updates the Tailwind CSS file"]);
+  section(".env", plan.envVars);
+  if (plan.notFound.length) logger.warn(`Not found: ${plan.notFound.join(", ")}`);
+  logger.info(`Dry run: nothing was written. Package manager: ${plan.packageManager}.`);
+};
+
+/**
  * Main command logic for adding components.
  */
 export const runAddCommand = async (components: string[], options: AddCommand) => {
@@ -74,8 +171,8 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
   if (options.skipConfig) {
     const nuxtVersion = detectNuxtVersion();
     const base = nuxtVersion === 4 ? DEFAULT_CONFIG_NUXT4 : DEFAULT_CONFIG;
-    let pm: string = options.packageManager ?? "npm";
-    if (!options.packageManager) {
+    let pm: string = options.packageManager ?? detectPackageManager();
+    if (!options.packageManager && !options.yes && !options.dryRun) {
       const { packageManager } = await prompts({
         type: "select",
         name: "packageManager",
@@ -85,6 +182,8 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
       pm = packageManager ?? "npm";
     }
     uiConfig = { ...base, packageManager: pm };
+  } else if (options.dryRun) {
+    uiConfig = (await loadConfigOrDefaults()).config;
   } else {
     uiConfig = await getUIConfig();
     if (!(await compareUIConfig())) {
@@ -103,8 +202,22 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
   let registryDevDeps: string[] = [];
   let registryDocs: string[] = [];
   let registryConfirmed = false;
+  let registryPlan: Awaited<ReturnType<typeof planRegistryRefs>> | undefined;
 
-  if (registryRefs.length > 0) {
+  if (options.dryRun && components.length === 0) {
+    consola.error("Pass the components to check, for example: ui-thing add button card --dry-run");
+    process.exit(1);
+  }
+
+  if (registryRefs.length > 0 && options.dryRun) {
+    try {
+      registryPlan = await planRegistryRefs(registryRefs, uiConfig);
+      slugArgs.push(...registryPlan.bareDeps);
+    } catch (error) {
+      consola.error(error instanceof Error ? error.message : String(error));
+      process.exit(1);
+    }
+  } else if (registryRefs.length > 0) {
     try {
       const result = await installRegistryRefs(registryRefs, uiConfig, { yes: options.yes });
       if (!result.confirmed) process.exit(0);
@@ -147,13 +260,20 @@ export const runAddCommand = async (components: string[], options: AddCommand) =
     .map((name) => findComponent(name))
     .filter(Boolean) as Component[];
 
-  for (const comp of [...found]) {
+  // Walk the whole dependency tree (found grows while we iterate).
+  for (let i = 0; i < found.length; i++) {
+    const comp = found[i];
     for (const dep of comp.components ?? []) {
       if (found.find((c) => c.value === dep)) continue;
       const depComponent = findComponent(dep);
       if (depComponent) found.push(depComponent);
       else consola.warn(`Dependency not found: ${kleur.yellow(dep)}`);
     }
+  }
+
+  if (options.dryRun) {
+    printAddPlan(buildAddPlan(found, notFound, uiConfig, registryPlan, validator), options.json);
+    return;
   }
 
   // Step 6 — Write files for each component
@@ -324,6 +444,8 @@ export const add = new Command()
   )
   .option("--package-manager <pm>", "Package manager to use when --skip-config is set.")
   .option("-y --yes", "Skip confirmation prompts (uses yup for vee-validate components).", false)
+  .option("--dry-run", "Show the files, packages and Nuxt modules that would be added, then exit")
+  .option("--json", "With --dry-run: print the plan as JSON")
   .option(
     "--validator <name>",
     "Schema library to install for vee-validate components: yup, zod, joi or valibot."

@@ -117,6 +117,14 @@ export type AddCommand = {
    * Defaults to yup when `--yes` is set, otherwise the CLI asks.
    */
   validator?: string;
+  /**
+   * Show what would be added (files, packages, Nuxt modules) without writing anything.
+   */
+  dryRun?: boolean;
+  /**
+   * With `dryRun`: print the plan as JSON.
+   */
+  json?: boolean;
 };
 
 type TemplateFile = {

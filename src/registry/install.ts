@@ -78,12 +78,11 @@ const planFiles = (items: ResolvedItem[], uiConfig: UIConfig) => {
  * files, css/cssVars, env vars and, if needed, a `cn` helper. npm dependencies are
  * returned rather than installed so the caller can batch them with everything else.
  */
-export const installRegistryRefs = async (
-  refs: string[],
-  uiConfig: UIConfig,
-  options: InstallRegistryOptions = {}
-): Promise<InstallRegistryResult> => {
-  const cwd = options.cwd ?? process.cwd();
+/**
+ * Resolves registry refs and works out exactly what installing them would do, without
+ * writing anything. Used by `installRegistryRefs` and by `add --dry-run`.
+ */
+export const planRegistryRefs = async (refs: string[], uiConfig: UIConfig, cwd = process.cwd()) => {
   const { items, bareDeps } = await resolveRegistryTree(refs, uiConfig.registries);
   const { planned, skipped } = planFiles(items, uiConfig);
 
@@ -105,6 +104,43 @@ export const installRegistryRefs = async (
       if (!hasPackage(cwd, pkg) && !deps.includes(pkg)) deps.push(pkg);
     }
   }
+
+  return {
+    items,
+    bareDeps,
+    planned,
+    skipped,
+    deps,
+    devDeps,
+    usesCn,
+    createCn,
+    cnRelPath,
+    cnAbsPath,
+    cnHasExport,
+    changesCss: items.some((r) => r.item.css || r.item.cssVars),
+    envVars: _.uniq(items.flatMap((r) => Object.keys(r.item.envVars ?? {}))),
+  };
+};
+
+export const installRegistryRefs = async (
+  refs: string[],
+  uiConfig: UIConfig,
+  options: InstallRegistryOptions = {}
+): Promise<InstallRegistryResult> => {
+  const cwd = options.cwd ?? process.cwd();
+  const {
+    items,
+    bareDeps,
+    planned,
+    skipped,
+    deps,
+    devDeps,
+    usesCn,
+    createCn,
+    cnRelPath,
+    cnAbsPath,
+    cnHasExport,
+  } = await planRegistryRefs(refs, uiConfig, cwd);
 
   const result: InstallRegistryResult = {
     confirmed: true,

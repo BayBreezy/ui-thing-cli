@@ -13,7 +13,10 @@ vi.mock("../../src/utils/fileExists");
 vi.mock("../../src/utils/logger");
 vi.mock("../../src/utils/printFancyBoxMessage");
 vi.mock("../../src/utils/promptForComponents");
-vi.mock("../../src/utils/installValidator");
+vi.mock("../../src/utils/installValidator", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../../src/utils/installValidator")>()),
+  installValidator: vi.fn(),
+}));
 vi.mock("prompts");
 vi.mock("c12/update");
 
@@ -209,5 +212,54 @@ describe("commands/add install order", () => {
     const order = (fn: unknown) => vi.mocked(fn as () => void).mock.invocationCallOrder[0];
     expect(order(installPackages)).toBeLessThan(order(addModuleToConfig));
     expect(order(addModuleToConfig)).toBeLessThan(order(runNuxtPrepare));
+  });
+});
+
+describe("commands/add --dry-run", () => {
+  it("prints the full plan, including nested dependencies, and writes nothing", async () => {
+    vi.clearAllMocks();
+    const { fetchComponents } = await import("../../src/utils/fetchComponents");
+    const { loadConfigOrDefaults, getUIConfig } = await import("../../src/utils/config");
+    const { writeFile } = await import("../../src/utils/writeFile");
+    const { installPackages } = await import("../../src/utils/installPackages");
+    const { DEFAULT_CONFIG_NUXT4 } = await import("../../src/utils/constants");
+    const { captureJson } = await import("../helpers/tmp");
+
+    const make = (value: string, extra: Partial<Component> = {}): Component => ({
+      ...mockComponent,
+      name: value,
+      value,
+      files: [{ fileName: `${value}.vue`, dirPath: "", fileContent: "<div />" }],
+      ...extra,
+    });
+    vi.mocked(fetchComponents).mockResolvedValue([
+      make("a", { components: ["b"], deps: ["pkg-a"] }),
+      make("b", { components: ["c"], nuxtModules: ["mod-b"] }),
+      make("c", { devDeps: ["dev-c"], askValidator: true }),
+    ]);
+    vi.mocked(loadConfigOrDefaults).mockResolvedValue({
+      config: { ...DEFAULT_CONFIG_NUXT4, packageManager: "pnpm" },
+      fromFile: true,
+    });
+
+    const plan = await captureJson(() =>
+      runAddCommand(["a", "nope"], { dryRun: true, json: true, validator: "zod" })
+    );
+
+    expect(plan.components).toEqual(["a", "b", "c"]);
+    expect(plan.notFound).toEqual(["nope"]);
+    expect(plan.files.map((f: any) => f.path)).toEqual([
+      "app/components/Ui/a.vue",
+      "app/components/Ui/b.vue",
+      "app/components/Ui/c.vue",
+    ]);
+    expect(plan.dependencies).toEqual(["pkg-a"]);
+    expect(plan.devDependencies).toEqual(["dev-c"]);
+    expect(plan.nuxtModules).toEqual(["mod-b"]);
+    expect(plan.validator).toBe("zod");
+    expect(plan.packageManager).toBe("pnpm");
+    expect(getUIConfig).not.toHaveBeenCalled();
+    expect(writeFile).not.toHaveBeenCalled();
+    expect(installPackages).not.toHaveBeenCalled();
   });
 });
