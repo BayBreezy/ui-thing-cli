@@ -105,7 +105,8 @@ const runInitCommand = async (options: InitOptions) => {
   // Install deps
   await installPackages(uiConfig.packageManager, INIT_DEPS, INIT_DEV_DEPS);
   // Add prettier config if user agrees
-  const addPrettier = await askPrettierConfig();
+  // `--yes` means "no questions": prettier is optional, so skip it (run `ui-thing prettier` later).
+  const addPrettier = options.yes ? false : await askPrettierConfig();
   if (addPrettier) {
     await installPackages(uiConfig.packageManager, [], INIT_DEV_DEPS_PRETTIER);
     await addPrettierConfig();
@@ -133,6 +134,10 @@ export const init = new Command()
   ✅ Create a ${kleur.bold("ui-thing.config")} file with the default configuration`
   )
   .option("-f --force", "Overwrite config file if it exists.", false)
-  .option("-y --yes", "Skip prompts and use default values.", false)
+  .option(
+    "-y --yes",
+    "Skip prompts and use default values. Detects your package manager and skips the Prettier question.",
+    false
+  )
   .option("-n --nuxtVersion <number>", "Specify the Nuxt version you are using.")
   .action(runInitCommand);

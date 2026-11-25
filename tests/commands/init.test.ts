@@ -61,3 +61,22 @@ describe("commands/init nuxt.config update", () => {
     expect(config.imports.imports).toEqual([TV, VARIANT_PROPS]);
   });
 });
+
+describe("commands/init --yes", () => {
+  it("does not ask the Prettier question, so it can run unattended", async () => {
+    vi.clearAllMocks();
+    const { getUIConfig } = await import("../../src/utils/config");
+    const { askPrettierConfig } = await import("../../src/utils/addPrettierConfig");
+
+    vi.mocked(getUIConfig).mockResolvedValue({
+      theme: "zinc",
+      tailwindCSSLocation: "app/assets/css/tailwind.css",
+      utilsLocation: "app/utils",
+      packageManager: "bun",
+    } as any);
+
+    await init.parseAsync(["--yes"], { from: "user" });
+
+    expect(askPrettierConfig).not.toHaveBeenCalled();
+  });
+});

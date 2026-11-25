@@ -8,6 +8,7 @@ import { addNuxtModule } from "magicast/helpers";
 import { InitOptions, UIConfig } from "../types";
 import { DEFAULT_CONFIG, DEFAULT_CONFIG_NUXT4, UI_CONFIG_FILENAME } from "./constants";
 import { detectNuxtVersion } from "./detectNuxtVersion";
+import { detectPackageManager } from "./detectPackageManager";
 import { initPrompts } from "./uiConfigPrompt";
 
 const currentDir = process.cwd();
@@ -24,9 +25,10 @@ export const getUIConfig = async (options?: InitOptions): Promise<UIConfig> => {
   // Force creation or first-time setup
   if (!configExists || options?.force) {
     uiConfig = options?.yes
-      ? nuxtVersion === 4
-        ? DEFAULT_CONFIG_NUXT4
-        : DEFAULT_CONFIG
+      ? {
+          ...(nuxtVersion === 4 ? DEFAULT_CONFIG_NUXT4 : DEFAULT_CONFIG),
+          packageManager: detectPackageManager(),
+        }
       : await initPrompts(nuxtVersion);
 
     await fse.writeFile(UI_CONFIG_FILENAME, `export default ${JSON.stringify(uiConfig, null, 2)}`);
