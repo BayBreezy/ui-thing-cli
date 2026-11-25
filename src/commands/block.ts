@@ -14,6 +14,7 @@ import { fetchBlocks } from "../utils/fetchBlocks";
 import { describeInstallError, installPackages } from "../utils/installPackages";
 import { logger } from "../utils/logger";
 import { printFancyBoxMessage } from "../utils/printFancyBoxMessage";
+import { printJson } from "../utils/printJson";
 import { safeWriteFile } from "../utils/safeWriteFile";
 import { runAddCommand } from "./add";
 
@@ -28,7 +29,7 @@ type BlockOptions = {
 /**
  * Default blocks directory based on the Nuxt layout in the config.
  */
-function getDefaultBlocksDir(uiConfig: UIConfig): string {
+export function getDefaultBlocksDir(uiConfig: UIConfig): string {
   const isNuxt4 = uiConfig.componentsLocation?.startsWith("app/");
   return isNuxt4 ? "app/components/Blocks" : "components/Blocks";
 }
@@ -80,7 +81,7 @@ const listBlocks = async (options: BlockOptions) => {
       description: b.description ?? "",
       components: b.components ?? [],
     }));
-    console.log(JSON.stringify(items, null, 2));
+    printJson(items);
     return;
   }
 

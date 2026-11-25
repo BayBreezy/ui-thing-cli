@@ -104,12 +104,12 @@ describe("commands/block", () => {
 
   it("prints the catalog as JSON, filtered by category, without loading the config", async () => {
     const { getUIConfig } = await import("../../src/utils/config");
-    const log = vi.spyOn(console, "log").mockImplementation(() => {});
+    const log = vi.spyOn(process.stdout, "write").mockImplementation(() => true);
 
     await runBlockCommand([], { json: true, category: "hero" });
 
     expect(getUIConfig).not.toHaveBeenCalled();
-    expect(JSON.parse(log.mock.calls[0][0])).toEqual([
+    expect(JSON.parse(String(log.mock.calls[0][0]))).toEqual([
       {
         id: "BlockHero1",
         name: "Hero 1",

@@ -6,23 +6,36 @@ import kleur from "kleur";
 
 import { DEFAULT_REGISTRIES, fetchRegistryIndex } from "../registry/fetch";
 import { RegistriesConfig } from "../registry/schema";
-import { UIConfig } from "../types";
-import { getUIConfig } from "../utils/config";
+import { loadConfigOrDefaults } from "../utils/config";
 import { UI_CONFIG_FILENAME } from "../utils/constants";
 import { logger } from "../utils/logger";
+import { printJson } from "../utils/printJson";
 
 const MAX_ROWS = 50;
 
 /** Reads `registries` from the config without forcing the init prompts when it is missing. */
 const loadRegistries = async (): Promise<RegistriesConfig> => {
-  if (!fse.existsSync(UI_CONFIG_FILENAME)) return { ...DEFAULT_REGISTRIES };
   try {
-    const config: UIConfig = await getUIConfig();
+    const { config } = await loadConfigOrDefaults();
     return { ...DEFAULT_REGISTRIES, ...(config.registries ?? {}) };
   } catch {
     return { ...DEFAULT_REGISTRIES };
   }
 };
+
+type JsonOption = { json?: boolean };
+
+const toJsonItems = (
+  namespace: string,
+  items: { name: string; type?: string; title?: string; description?: string }[]
+) =>
+  items.map((item) => ({
+    ref: namespace ? `${namespace}/${item.name}` : item.name,
+    name: item.name,
+    type: item.type ?? null,
+    title: item.title ?? null,
+    description: item.description ?? null,
+  }));
 
 const printItems = (
   namespace: string,
@@ -40,8 +53,20 @@ const printItems = (
   }
 };
 
-const runRegistryListCommand = async (source?: string) => {
+const runRegistryListCommand = async (source: string | undefined, options: JsonOption = {}) => {
   const registries = await loadRegistries();
+
+  if (!source && options.json) {
+    printJson(
+      Object.fromEntries(
+        Object.entries(registries).map(([ns, value]) => [
+          ns,
+          typeof value === "string" ? value : value.url,
+        ])
+      )
+    );
+    return;
+  }
 
   if (!source) {
     logger.info("Configured registries:");
@@ -54,6 +79,10 @@ const runRegistryListCommand = async (source?: string) => {
 
   try {
     const { index, url } = await fetchRegistryIndex(source, registries);
+    if (options.json) {
+      printJson(toJsonItems(source.startsWith("@") ? source : "", index.items));
+      return;
+    }
     logger.info(`${index.items.length} item(s) in ${url}`);
     printItems(source.startsWith("@") ? source : "", index.items);
   } catch (error) {
@@ -62,11 +91,16 @@ const runRegistryListCommand = async (source?: string) => {
   }
 };
 
-const runRegistrySearchCommand = async (query: string, source?: string) => {
+const runRegistrySearchCommand = async (
+  query: string,
+  source: string | undefined,
+  options: JsonOption = {}
+) => {
   const registries = await loadRegistries();
   const sources = source ? [source] : Object.keys(registries);
   const needle = query.toLowerCase();
   let total = 0;
+  const jsonResults: ReturnType<typeof toJsonItems> = [];
 
   for (const src of sources) {
     try {
@@ -76,12 +110,17 @@ const runRegistrySearchCommand = async (query: string, source?: string) => {
       );
       if (matches.length === 0) continue;
       total += matches.length;
-      printItems(src.startsWith("@") ? src : "", matches);
+      if (options.json) jsonResults.push(...toJsonItems(src.startsWith("@") ? src : "", matches));
+      else printItems(src.startsWith("@") ? src : "", matches);
     } catch (error) {
       logger.warn(`${src}: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
+  if (options.json) {
+    printJson(jsonResults);
+    return;
+  }
   if (total === 0) logger.info(`No items matching "${query}".`);
   else logger.success(`${total} match(es). Install with: ui-thing add @namespace/name`);
 };
@@ -102,8 +141,12 @@ const runRegistryAddNamespaceCommand = async (namespace: string, url: string) =>
     process.exit(1);
   }
 
-  // Make sure the config file exists (runs init prompts only if it does not).
-  await getUIConfig();
+  if (!fse.existsSync(UI_CONFIG_FILENAME)) {
+    logger.error(
+      "ui-thing.config.ts not found. Run `ui-thing init` (or `ui-thing init --yes`) first."
+    );
+    process.exit(1);
+  }
   await updateConfig({
     configFile: "ui-thing.config",
     cwd: process.cwd(),
@@ -124,6 +167,7 @@ registry
   .command("list")
   .description("List configured registries, or the items in one (@namespace or URL).")
   .argument("[source]", "A @namespace or a registry URL.")
+  .option("--json", "Print machine-readable JSON")
   .action(runRegistryListCommand);
 
 registry
@@ -134,6 +178,7 @@ registry
     "[source]",
     "A @namespace or a registry URL. Searches all configured registries if omitted."
   )
+  .option("--json", "Print machine-readable JSON")
   .action(runRegistrySearchCommand);
 
 registry
