@@ -41,14 +41,29 @@ This sets up TailwindCSS, installs core dependencies, writes the theme CSS, and 
 **3. Start adding components**
 
 ```bash
-npx ui-thing@latest add
+npx ui-thing@latest add button card dialog   # by name
+npx ui-thing@latest add                      # or pick from a list
 ```
+
+### Scripts, CI and AI agents
+
+Every step can run without prompts:
+
+```bash
+npx nuxi@latest init my-app --template minimal --packageManager bun --no-install
+cd my-app && bun install
+npx ui-thing@latest init --yes
+npx ui-thing@latest add button card vee-input --yes
+npx ui-thing@latest theme rose --yes
+```
+
+`block`, `prettier` and `shortcuts` are interactive. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
 
 ---
 
 ## Package Manager Support
 
-The CLI works with all major package managers. You will be asked to choose one during `init`.
+The CLI works with all major package managers. `init` asks which one you use, or detects it from your lockfile when you pass `--yes`.
 
 | Manager | Supported |
 | ------- | --------- |
@@ -77,9 +92,11 @@ Bootstraps your Nuxt project for UI Thing. This command:
 
 **Options**
 
-| Flag        | Description                                                                                                        |
-| ----------- | ------------------------------------------------------------------------------------------------------------------ |
-| `-y, --yes` | Skip all prompts and use defaults. Detects your package manager from your lockfile and skips the Prettier question |
+| Flag                         | Description                                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `-y, --yes`                  | Skip all prompts and use defaults. Detects your package manager from your lockfile and skips the Prettier question |
+| `-f, --force`                | Overwrite `ui-thing.config.ts` if it already exists                                                                |
+| `-n, --nuxtVersion <number>` | Set the Nuxt version instead of detecting it from `package.json`                                                   |
 
 `init` also installs TypeScript 6 (`typescript@^6`). TypeScript 7 has no compiler API, so Vue cannot compile components with it yet.
 
@@ -175,7 +192,7 @@ registries: {
 npx ui-thing@latest list
 ```
 
-Lists all components available in the UI Thing library.
+Lists all components available in the UI Thing library. With `--installed`, it also lists items you added from registries.
 
 ```bash
 # show all available components
@@ -187,9 +204,9 @@ npx ui-thing@latest list --installed
 
 **Options**
 
-| Flag          | Description                                                          |
-| ------------- | -------------------------------------------------------------------- |
-| `--installed` | Filter to components whose files are already present in your project |
+| Flag              | Description                                                          |
+| ----------------- | -------------------------------------------------------------------- |
+| `-i, --installed` | Filter to components whose files are already present in your project |
 
 ---
 
@@ -199,7 +216,7 @@ npx ui-thing@latest list --installed
 npx ui-thing@latest update [componentNames...]
 ```
 
-Re-fetches component files from the API and overwrites them with the latest version. Useful after a UI Thing release.
+Re-fetches component files from the API and overwrites them with the latest version, without asking. Commit your local edits first. Items installed from a registry are re-fetched from the source recorded in `ui-thing.lock.json`.
 
 ```bash
 # update specific components
@@ -217,7 +234,7 @@ npx ui-thing@latest update
 npx ui-thing@latest remove [componentNames...]
 ```
 
-Deletes installed component files from your project (component files, utils, and composables). Prompts for confirmation before deleting anything.
+Deletes installed component files from your project (component files, utils, and composables). Prompts for confirmation before deleting anything. For registry items, only the files recorded in `ui-thing.lock.json` are deleted.
 
 ```bash
 # remove specific components
@@ -237,7 +254,11 @@ npx ui-thing@latest remove
 npx ui-thing@latest block
 ```
 
-Adds pre-built UI blocks (page sections, layouts, etc.) to your project. You can filter by category.
+Adds pre-built UI blocks (page sections, layouts, etc.) to your project. It asks for a category, the blocks you want and where to put them (default `app/components/Blocks`), then adds the components the blocks use.
+
+```bash
+npx ui-thing@latest block --category Hero
+```
 
 ---
 
@@ -262,7 +283,7 @@ npx ui-thing@latest theme rose --yes    # also skip the overwrite confirmation
 npx ui-thing@latest prettier
 ```
 
-Adds a Prettier configuration pre-configured for Tailwind CSS class sorting. Safe to run on an existing project — it will offer to merge with your current `.prettierrc` if one exists.
+Adds a Prettier configuration pre-configured for Tailwind CSS class sorting and installs `prettier`, `prettier-plugin-tailwindcss` and `@ianvs/prettier-plugin-sort-imports`. Safe to run on an existing project — it will offer to merge with your current `.prettierrc` if one exists. It does not reformat your files; run `npx prettier --write .` when you want to.
 
 ---
 
@@ -272,7 +293,7 @@ Adds a Prettier configuration pre-configured for Tailwind CSS class sorting. Saf
 npx ui-thing@latest shortcuts
 ```
 
-Adds a `useShortcuts` composable to your project for registering keyboard shortcuts.
+Adds a `shortcuts.ts` file to your composables folder with `defineShortcuts` (register keyboard shortcuts) and `useKbd`, and installs the VueUse Nuxt module.
 
 ---
 
@@ -291,17 +312,28 @@ export default {
   force: true,
   useDefaultFilename: true,
   packageManager: "bun",
+  // optional: third-party registries for `ui-thing add @namespace/item`
+  registries: {
+    "@acme": "https://acme.dev/r/{name}.json",
+  },
 };
 ```
 
-| Key                   | Description                                       |
-| --------------------- | ------------------------------------------------- |
-| `theme`               | Color theme (zinc, slate, rose, blue, etc.)       |
-| `tailwindCSSLocation` | Path to your Tailwind CSS file                    |
-| `componentsLocation`  | Where component `.vue` files are written          |
-| `composablesLocation` | Where composable files are written                |
-| `pluginsLocation`     | Where plugin files are written                    |
-| `utilsLocation`       | Where utility files are written                   |
-| `force`               | Overwrite existing files without prompting        |
-| `useDefaultFilename`  | Skip per-file path prompts when adding components |
-| `packageManager`      | Package manager used for installing dependencies  |
+| Key                   | Description                                                                                    |
+| --------------------- | ---------------------------------------------------------------------------------------------- |
+| `theme`               | Color theme (zinc, slate, rose, blue, etc.)                                                    |
+| `tailwindCSSLocation` | Path to your Tailwind CSS file                                                                 |
+| `componentsLocation`  | Where component `.vue` files are written                                                       |
+| `composablesLocation` | Where composable files are written                                                             |
+| `pluginsLocation`     | Where plugin files are written                                                                 |
+| `utilsLocation`       | Where utility files are written                                                                |
+| `force`               | Overwrite existing files without prompting                                                     |
+| `useDefaultFilename`  | Skip per-file path prompts when adding components                                              |
+| `packageManager`      | Package manager used for installing dependencies                                               |
+| `registries`          | Optional. Extra shadcn-style registries by `@namespace` (`@vue-bits` and `@nxui` are built in) |
+
+---
+
+## Prose components
+
+The `prose` command was removed in v0.4.0. Prose components for Nuxt Content docs (callouts, steps, tabs and more) ship with the [docd](https://github.com/BayBreezy/docd) Nuxt layer: `npx create-docd my-docs`.
