@@ -63,6 +63,10 @@ npx ui-thing@latest mcp init --client claude --yes
 
 Read-only commands never prompt and have `--json` output for scripts and agents: `info`, `list`, `view`, `diff`, `block --list`, `registry list/search`, `add --dry-run` and `update --dry-run`. JSON goes to stdout and nothing else does, so you can pipe it straight into a parser. AI agents can use the [UI Thing agent skill](https://github.com/BayBreezy/ui-thing/tree/v2/skills/uithing) (`npx skills add https://github.com/BayBreezy/ui-thing --skill uithing`) and the [MCP server](https://uithing.com/getting-started/mcp).
 
+### VS Code extension
+
+Prefer buttons to commands? The [UI Thing extension](https://github.com/BayBreezy/ui-thing-vscode-extension) for VS Code, Cursor and Windsurf runs this CLI from a sidebar: browse and add components and blocks, compare your copies with the latest version in the diff editor, and update or remove them. Download the `.vsix` from the [latest release](https://github.com/BayBreezy/ui-thing-vscode-extension/releases/latest) and install it with **Extensions → ··· → Install from VSIX…**. See the [extension docs](https://uithing.com/getting-started/vscode-extension).
+
 ---
 
 ## Package Manager Support
